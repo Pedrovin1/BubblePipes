@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=6 format=3 uid="uid://c4esbof6p0tn5"]
 
 [ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="1_6165j"]
 [ext_resource type="Script" path="res://Scripts/BasePipe.cs" id="1_jr7wk"]
+[ext_resource type="Texture2D" uid="uid://dsf4d1p8utww7" path="res://Assets/Sprites/LiquidSprites.png" id="2_fc44r"]
 [ext_resource type="Resource" uid="uid://cuyganbwsohkk" path="res://Assets/Resources/Pipe3res.tres" id="2_flmm5"]
+[ext_resource type="Resource" uid="uid://cgr0j2udsdllu" path="res://Assets/Resources/Pipe2_I_res.tres" id="4_kxkx5"]
 
 [node name="MainGameWindow" type="Node2D"]
 
@@ -14,7 +16,30 @@ offset_bottom = 88.0
 columns = 4
 
 [node name="SourceSlot" type="Button" parent="Tabuleiro"]
+custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/SourceSlot"]
+custom_minimum_size = Vector2(18, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="Panel" type="Panel" parent="Tabuleiro/SourceSlot/CenterContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+
+[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/SourceSlot/CenterContainer/Panel"]
+texture = ExtResource("1_6165j")
+centered = false
+
+[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/SourceSlot/CenterContainer/Panel"]
+position = Vector2(9, 9)
+texture = ExtResource("2_fc44r")
+centered = false
+offset = Vector2(-8, -8)
+hframes = 5
 
 [node name="SourceSlot2" type="Button" parent="Tabuleiro"]
 layout_mode = 2
@@ -57,7 +82,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot2"]
 custom_minimum_size = Vector2(18, 18)

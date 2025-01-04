@@ -45,7 +45,7 @@ public partial class BasePipe : Button
         this.Pressed += this.onClicked;
 
         // -- Desenha o Pipe -- //
-        this.pipeSprite = (Sprite2D)FindChild("ContentFrame"); ///CenterContainer/Panel/
+        this.pipeSprite = (Sprite2D)FindChild("ContentFrame"); 
         this.pipeSprite.Texture = pipeResource.spriteFile;
         //this.pipeSprite.Hframes = pipeResource.spriteFileHframes
         this.pipeSprite.Frame = pipeResource.pipeSpriteFrame;
@@ -56,11 +56,29 @@ public partial class BasePipe : Button
         this.UpdateDrawingState();
     }
 
-    public void onClicked()
+    public void onClicked() //TODO: resetar liquids pra vazio
     {
         if(!canRotate){ return; }
 
         this.stateNumber = (byte) ((stateNumber + 1) % pipeResource.statesAmount);
+        this.UpdateOutletOpeningStates();
+        this.UpdateOutletConnections();
+        this.ResetOutletLiquids();
+
+        this.UpdateDrawingState();
+    }
+
+
+    public void ChangePipeContent(PipeResource newPipe, byte state = 0, bool canRotate = true)
+    {
+        this.pipeResource = newPipe;
+        this.stateNumber = (byte) (state % newPipe.statesAmount);
+        this.canRotate = canRotate;
+
+        this.pipeSprite.Texture = newPipe.spriteFile;
+        //this.pipeSprite.Hframes = pipeResource.spriteFileHframes
+        this.pipeSprite.Frame = newPipe.pipeSpriteFrame;
+
         this.UpdateOutletOpeningStates();
         this.UpdateOutletConnections();
         this.UpdateDrawingState();
@@ -94,6 +112,14 @@ public partial class BasePipe : Button
         {
             Directions outletPosition = (Directions)i;
             this.outletStates[outletPosition].Connections = pipeResource.outletConnections[this.stateNumber][outletPosition].ToArray();
+        }
+    }
+
+    private void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
+    {
+        foreach(var key in this.outletStates.Keys)
+        {
+            this.outletStates[key].CurrentLiquid = defaultLiquid;
         }
     }
 }

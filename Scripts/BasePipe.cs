@@ -56,7 +56,7 @@ public partial class BasePipe : Button
         this.UpdateDrawingState();
     }
 
-    public void onClicked() //TODO: resetar liquids pra vazio
+    public void onClicked()
     {
         if(!canRotate){ return; }
 

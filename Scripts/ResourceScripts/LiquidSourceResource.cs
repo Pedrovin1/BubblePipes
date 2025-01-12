@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 
-public partial class PipeResource : Resource
+public partial class LiquidSourceResource : Resource
 {
     [Export]
     public Texture2D spriteFile;
@@ -17,6 +17,5 @@ public partial class PipeResource : Resource
     public Dictionary<byte, Dictionary<Directions, bool>> openingStates;
 
     [Export]
-    public Dictionary<byte, Dictionary<Directions, Array<Directions>>> outletConnections;
+    public Dictionary<byte, Dictionary<Directions, LiquidType>> outletSourceLiquidTypes;
 }
-

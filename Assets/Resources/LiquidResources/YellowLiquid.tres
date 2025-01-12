@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dwihn6s5mljy3"]
+
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/LiquidSourceResource.cs" id="1_286uy"]
+[ext_resource type="Texture2D" uid="uid://dsf4d1p8utww7" path="res://Assets/Sprites/LiquidSprites.png" id="2_rjdbk"]
+
+[resource]
+script = ExtResource("1_286uy")
+spriteFile = ExtResource("2_rjdbk")
+pipeSpriteFrame = 4
+statesAmount = 1
+openingStates = {
+0: {
+0: false,
+1: false,
+2: true,
+3: false
+}
+}
+outletSourceLiquidTypes = {
+0: {
+0: 0,
+1: 0,
+2: 5,
+3: 0
+}
+}

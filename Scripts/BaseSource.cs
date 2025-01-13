@@ -11,7 +11,7 @@ public partial class BaseSource : Button
     bool canRotate = false;
 
     [Export]
-    Godot.Collections.Dictionary<Directions, LiquidType> outletLiquids;
+    public Godot.Collections.Dictionary<Directions, LiquidType> outletLiquids;
 
     [Export]
     public Godot.Collections.Dictionary<Directions, bool> outletOpeningStates;

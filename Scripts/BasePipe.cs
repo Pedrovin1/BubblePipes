@@ -92,6 +92,7 @@ public partial class BasePipe : Button
         float radiansRotation = (float) (this.stateNumber % Directions_Quantity / 2d * Math.PI);
         this.pipeSprite.Rotate(radiansRotation);
 
+        //pintar com cor do liquid
     }
 
     private void UpdateOutletOpeningStates()

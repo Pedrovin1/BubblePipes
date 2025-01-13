@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=10 format=3 uid="uid://c4esbof6p0tn5"]
 
+[ext_resource type="Script" path="res://Scenes/MainGameWindow/Tabuleiro.cs" id="1_3cr4x"]
 [ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="1_6165j"]
 [ext_resource type="Script" path="res://Scripts/BasePipe.cs" id="1_jr7wk"]
 [ext_resource type="Script" path="res://Scripts/BaseSource.cs" id="1_xqss7"]
@@ -11,12 +12,15 @@
 
 [node name="MainGameWindow" type="Node2D"]
 
+[node name="Managers" type="Node" parent="."]
+
 [node name="Tabuleiro" type="GridContainer" parent="."]
 offset_left = 87.0
 offset_top = 48.0
 offset_right = 127.0
 offset_bottom = 88.0
 columns = 4
+script = ExtResource("1_3cr4x")
 
 [node name="SourceSlot" type="Button" parent="Tabuleiro"]
 custom_minimum_size = Vector2(18, 18)

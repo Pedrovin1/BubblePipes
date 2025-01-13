@@ -32,36 +32,87 @@ public partial class Tabuleiro : GridContainer
             var source = this.GetChild<BaseSource>(sourceIndex);
             foreach((Directions outletPos, bool opened) in source.outletOpeningStates)
             {
-                if(opened == true){ FillPipes(source, outletPos, visitados); }
+                if(opened == true && 
+                   isMoveInsideBounds(source.GetIndex(), outletPos, out Node neighborNode) &&
+                   neighborNode is BasePipe pipe && //condição temporária até prox refactor
+                   pipe.outletStates[OppositeSide(outletPos)].Opened)
+                { 
+                    Stack<(Node, Directions)> proxVisita = new();
+                    proxVisita.Push((neighborNode, OppositeSide(outletPos)));
+
+                    FillPipes(source.outletLiquids[outletPos], visitados, proxVisita); 
+                }
             }
+        }
+
+        //foreach node, if not visited, liquid = vazio    , then update sprite
+    }
+
+    private void FillPipes(LiquidType liquid, Dictionary<Node, bool> visitados, Stack<(Node, Directions)> proxVisita)
+    {
+        while(proxVisita.Count > 0)
+        {
+            (Node currentNode, Directions outletPos) = proxVisita.Pop();
+
+            if(visitados.TryGetValue(currentNode, out _) || 
+                currentNode is not BasePipe pipe         || //condição temporária até refactor
+                !pipe.outletStates[outletPos].Opened     ||
+                pipe.outletStates[outletPos].CurrentLiquid != LiquidType.Vazio)
+            { 
+                continue; 
+            }
+
+            pipe.outletStates[outletPos].CurrentLiquid = liquid;
+
+            foreach(Directions connections in pipe.outletStates[outletPos].Connections)
+            {
+                pipe.outletStates[connections].CurrentLiquid = liquid;
+                if(isMoveInsideBounds(pipe.GetIndex(), connections, out Node neighborNode))
+                {
+                    proxVisita.Push((neighborNode, OppositeSide(connections)));
+                }
+            }
+
+            visitados.Add(currentNode, true);
         }
     }
 
-    private void FillPipes(BaseSource source, Directions sourceStartOutlet, Dictionary<Node, bool> visitados)
-    {
-        Queue<(Node, Directions)> proxVisita = new();
-        if(!isInsideBounds(source.GetIndex(), sourceStartOutlet)){ return; }
-    }
-
-    private bool isInsideBounds(int currentIndex, Directions movement)
+    private bool isMoveInsideBounds(int currentIndex, Directions movement, out Node neighborNode)
     {
         int movementIndexOffset = 0;
+        neighborNode = null;
+        bool result = false;
+
         switch(movement)
         {
             case Directions.Cima: movementIndexOffset = -this.Columns;
-                return currentIndex + movementIndexOffset >= 0;
+                result = currentIndex + movementIndexOffset >= 0;
+                break;
             
-            case Directions.Direita: movementIndexOffset = 1; 
-                return (currentIndex + movementIndexOffset) % this.Columns != 0 &&
+            case Directions.Direita: movementIndexOffset = 1;
+                result = (currentIndex + movementIndexOffset) % this.Columns != 0 &&
                         currentIndex + movementIndexOffset < this.GetChildCount(); //unecessary but safer
+                break;
             
             case Directions.Baixo: movementIndexOffset = this.Columns;
-                return currentIndex + movementIndexOffset < this.GetChildCount(); 
+                result = currentIndex + movementIndexOffset < this.GetChildCount(); 
+                break;
         
-            case Directions.Esquerda: 
-                return currentIndex % this.Columns != 0;
+            case Directions.Esquerda: movementIndexOffset = -1;
+                result = currentIndex % this.Columns != 0;
+                break;
+
         }
 
-        return false;
+        if(result)
+        { 
+            neighborNode = this.GetChild(currentIndex + movementIndexOffset); 
+        }
+        return result;
+    }
+
+    public Directions OppositeSide(Directions direction)
+    {
+        return (Directions) ( ((int)direction + 2) % 4 ); 
     }
 }

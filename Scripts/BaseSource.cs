@@ -11,10 +11,10 @@ public partial class BaseSource : Button
     bool canRotate = false;
 
     [Export]
-    public Godot.Collections.Dictionary<Directions, LiquidType> outletLiquids;
+    public Godot.Collections.Dictionary<Directions, bool> outletOpeningStates;
 
     [Export]
-    public Godot.Collections.Dictionary<Directions, bool> outletOpeningStates;
+    public Godot.Collections.Dictionary<Directions, LiquidType> outletLiquids;
 
     public override void _Ready()
     {
@@ -22,5 +22,8 @@ public partial class BaseSource : Button
         sprite.Texture = SourceResource.spriteFile;
         //sprite.Hframes = ;
         sprite.Frame = SourceResource.pipeSpriteFrame;
+
+        this.outletOpeningStates = this.SourceResource.openingStates[0];
+        this.outletLiquids = this.SourceResource.outletSourceLiquidTypes[0];
     }
 }

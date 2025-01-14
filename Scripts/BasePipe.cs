@@ -84,7 +84,7 @@ public partial class BasePipe : Button
         this.UpdateDrawingState();
     }
 
-    private void UpdateDrawingState()
+    public void UpdateDrawingState()
     {
         const int Directions_Quantity = 4;
         this.pipeSprite.GlobalRotation = 0;
@@ -92,7 +92,19 @@ public partial class BasePipe : Button
         float radiansRotation = (float) (this.stateNumber % Directions_Quantity / 2d * Math.PI);
         this.pipeSprite.Rotate(radiansRotation);
 
-        //pintar com cor do liquid
+        //pintar com cor do liquid TEMPORARIO
+        foreach(var value in this.outletStates.Values)
+        {
+            if(value.Opened)
+            {
+                switch(value.CurrentLiquid)
+                {
+                    case LiquidType.Azul: this.pipeSprite.SelfModulate = Color.Color8(0,255,255); return;
+                    case LiquidType.Amarelo: this.pipeSprite.SelfModulate = Color.Color8(255,255,0); return;
+                    case LiquidType.Vazio: this.pipeSprite.SelfModulate = Color.Color8(255,255,255); break;
+                }
+            }
+        }
     }
 
     private void UpdateOutletOpeningStates()
@@ -116,7 +128,7 @@ public partial class BasePipe : Button
         }
     }
 
-    private void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
+    public void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
     {
         foreach(var key in this.outletStates.Keys)
         {

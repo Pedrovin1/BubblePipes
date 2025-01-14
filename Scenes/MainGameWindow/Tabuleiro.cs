@@ -19,8 +19,17 @@ public partial class Tabuleiro : GridContainer
             {
                 indexes.Add(node.GetIndex());
             }
+
+            ((Button)node).Pressed += this.onChildInteracted;
         }
         LiquidSourceIndexes = indexes.ToArray();
+
+        this.UpdateBoardState();
+    }
+
+    public void onChildInteracted()
+    {
+        this.UpdateBoardState();
     }
 
     private void UpdateBoardState()
@@ -45,7 +54,17 @@ public partial class Tabuleiro : GridContainer
             }
         }
 
-        //foreach node, if not visited, liquid = vazio    , then update sprite
+        foreach(Node node in this.GetChildren())
+        {
+            if(node is not BasePipe pipe){ continue; } //casting pra pipe temporario
+
+            if(!visitados.TryGetValue(node, out _)) 
+            {
+                pipe.ResetOutletLiquids(LiquidType.Vazio);
+            }
+
+            pipe.UpdateDrawingState();
+        }
     }
 
     private void FillPipes(LiquidType liquid, Dictionary<Node, bool> visitados, Stack<(Node, Directions)> proxVisita)
@@ -57,7 +76,7 @@ public partial class Tabuleiro : GridContainer
             if(visitados.TryGetValue(currentNode, out _) || 
                 currentNode is not BasePipe pipe         || //condição temporária até refactor
                 !pipe.outletStates[outletPos].Opened     ||
-                pipe.outletStates[outletPos].CurrentLiquid != LiquidType.Vazio)
+                pipe.outletStates[outletPos].CurrentLiquid != LiquidType.Vazio && pipe.outletStates[outletPos].CurrentLiquid != liquid)
             { 
                 continue; 
             }

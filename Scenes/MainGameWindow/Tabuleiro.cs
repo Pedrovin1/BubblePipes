@@ -6,28 +6,26 @@ public partial class Tabuleiro : GridContainer
 {
 
     //[Export] Resource LevelMap
-    private int[] LiquidSourceIndexes = null;
+    private List<int> LiquidSourceIndexes = new();
 
     public override void _Ready()
     {
         //CarregarLevel a partir da Resource
 
-        List<int> indexes = new();
         foreach(Node node in this.GetChildren())
         {
             if(node is BaseSource)
             {
-                indexes.Add(node.GetIndex());
+                LiquidSourceIndexes.Add(node.GetIndex());
             }
 
-            ((Button)node).Pressed += this.onChildInteracted;
+            ((Button)node).Pressed += this.onChildInteraction;
         }
-        LiquidSourceIndexes = indexes.ToArray();
 
         this.UpdateBoardState();
     }
 
-    public void onChildInteracted()
+    public void onChildInteraction()
     {
         this.UpdateBoardState();
     }

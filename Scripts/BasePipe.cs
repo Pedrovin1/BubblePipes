@@ -19,18 +19,18 @@ public class SlotOutlet
     }
 }
 
-public partial class BasePipe : Button
+public partial class BasePipe : Button, ISlotInteractable
 {
 
     [Export]
-    PipeResource pipeResource;
+    private PipeResource pipeResource;
 
     [Export]
-    byte stateNumber = 0;
+    private byte stateNumber = 0;
 
     public bool canRotate = true;
 
-    Sprite2D pipeSprite;
+    private Sprite2D pipeSprite;
 
     public Dictionary<Directions, SlotOutlet> outletStates = new()
     {
@@ -134,5 +134,29 @@ public partial class BasePipe : Button
         {
             this.outletStates[key].CurrentLiquid = defaultLiquid;
         }
+    }
+
+    public bool IsOpened(Directions outletPos)
+    {
+        return this.outletStates[outletPos].Opened;
+    }
+
+    public LiquidType GetLiquid(Directions outletPos)
+    {
+        return this.outletStates[outletPos].CurrentLiquid;
+    }
+    public void SetLiquid(Directions outletPos, LiquidType liquid)
+    {
+        this.outletStates[outletPos].CurrentLiquid = liquid;
+
+        foreach(Directions connection in this.outletStates[outletPos].Connections)
+        {
+            this.outletStates[connection].CurrentLiquid = liquid;
+        }
+    }
+
+    public Directions[] GetConnections(Directions outletPos)
+    {
+        return this.outletStates[outletPos].Connections;
     }
 }

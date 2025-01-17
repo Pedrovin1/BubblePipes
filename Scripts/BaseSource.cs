@@ -52,4 +52,9 @@ public partial class BaseSource : Button, ISlotInteractable
         this.outletOpeningStates = this.SourceResource.openingStates[0];
         this.outletLiquids = this.SourceResource.outletSourceLiquidTypes[0];
     }
+
+    public void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
+    {
+        return;
+    }
 }

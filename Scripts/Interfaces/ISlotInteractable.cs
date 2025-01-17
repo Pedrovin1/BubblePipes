@@ -8,4 +8,6 @@ public interface ISlotInteractable
     public Directions[] GetConnections(Directions outletPos);
 
     public void UpdateDrawingState();
+    
+    public void ResetOutletLiquids(LiquidType defaultLiquid);
 }

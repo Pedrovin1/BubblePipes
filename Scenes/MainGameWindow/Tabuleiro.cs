@@ -5,8 +5,15 @@ using System.Collections.Generic;
 public partial class Tabuleiro : GridContainer
 {
 
-    //[Export] Resource LevelMap
+    //[Export] 
+    //Resource LevelMap
+
+    [Signal]
+    public delegate void LevelCompletedEventHandler();
+
     private List<int> LiquidSourceIndexes = new();
+    private int objectiveSlotsAmount = 0;
+    private int objectiveSlotsCorrectlyFilled = 0;
 
     public override void _Ready()
     {
@@ -14,9 +21,13 @@ public partial class Tabuleiro : GridContainer
 
         foreach(Node node in this.GetChildren())
         {
-            if(node is BaseSource)
+            switch(node)
             {
-                LiquidSourceIndexes.Add(node.GetIndex());
+                case BaseSource: LiquidSourceIndexes.Add(node.GetIndex()); break;
+                case LiquidObjective slotObjective: 
+                    this.objectiveSlotsAmount++;
+                    slotObjective.ObjectiveSlotStateChanged += this.onObjectiveSlotStateChanged;
+                    break;
             }
 
             ((Button)node).Pressed += this.onChildInteraction;
@@ -28,6 +39,17 @@ public partial class Tabuleiro : GridContainer
     public void onChildInteraction()
     {
         this.UpdateBoardState();
+
+        if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
+        {
+            this.EmitSignal(Tabuleiro.SignalName.LevelCompleted);
+        }
+    }
+
+    private void onObjectiveSlotStateChanged(LiquidObjective _, bool correctlyFilled)
+    {
+        if(correctlyFilled){ this.objectiveSlotsCorrectlyFilled++; }
+        else{                this.objectiveSlotsCorrectlyFilled--; }
     }
 
     private void UpdateBoardState()

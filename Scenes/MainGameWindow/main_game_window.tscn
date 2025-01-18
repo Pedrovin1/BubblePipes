@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=10 format=3 uid="uid://c4esbof6p0tn5"]
 
 [ext_resource type="Script" path="res://Scenes/MainGameWindow/Tabuleiro.cs" id="1_3cr4x"]
 [ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="1_6165j"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://Scripts/BaseSource.cs" id="1_xqss7"]
 [ext_resource type="Resource" uid="uid://ch5expi8q1hyx" path="res://Assets/Resources/LiquidResources/BlueLiquid.tres" id="2_7l06u"]
 [ext_resource type="Texture2D" uid="uid://dsf4d1p8utww7" path="res://Assets/Sprites/LiquidSprites.png" id="2_fc44r"]
-[ext_resource type="Resource" uid="uid://cuyganbwsohkk" path="res://Assets/Resources/Pipe3res.tres" id="2_flmm5"]
 [ext_resource type="Resource" uid="uid://cgr0j2udsdllu" path="res://Assets/Resources/Pipe2_I_res.tres" id="4_kxkx5"]
 [ext_resource type="Resource" uid="uid://dwihn6s5mljy3" path="res://Assets/Resources/LiquidResources/YellowLiquid.tres" id="5_xj2jj"]
 [ext_resource type="Script" path="res://Scripts/LiquidObjective.cs" id="10_nnvmy"]
@@ -139,7 +138,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot"]
 custom_minimum_size = Vector2(18, 18)
@@ -195,7 +194,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot3"]
 custom_minimum_size = Vector2(18, 18)
@@ -223,7 +222,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot4"]
 custom_minimum_size = Vector2(18, 18)
@@ -251,7 +250,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot5"]
 custom_minimum_size = Vector2(18, 18)
@@ -279,7 +278,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot6"]
 custom_minimum_size = Vector2(18, 18)
@@ -307,7 +306,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot7"]
 custom_minimum_size = Vector2(18, 18)
@@ -335,7 +334,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot8"]
 custom_minimum_size = Vector2(18, 18)
@@ -363,7 +362,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot9"]
 custom_minimum_size = Vector2(18, 18)
@@ -391,7 +390,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot10"]
 custom_minimum_size = Vector2(18, 18)
@@ -419,7 +418,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot11"]
 custom_minimum_size = Vector2(18, 18)
@@ -447,7 +446,7 @@ hframes = 5
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot12"]
 custom_minimum_size = Vector2(18, 18)

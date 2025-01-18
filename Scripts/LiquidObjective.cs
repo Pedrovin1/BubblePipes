@@ -7,10 +7,11 @@ using System.Linq;
 public partial class LiquidObjective : Button, ISlotInteractable
 {
     [Signal]
-    public delegate void ObjectiveSlotLiquidChangedEventHandler(int slotIndex, bool correctlyFilled);
+    public delegate void ObjectiveSlotStateChangedEventHandler(LiquidObjective slotNode, bool correctlyFilled);
 
     [Export]
     public LiquidType requiredLiquid = LiquidType.Azul;
+    private bool correctlyFilled = false;
 
     private Sprite2D contentSprite;
 
@@ -52,7 +53,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
     {
         foreach(var key in this.outletStates.Keys)
         {
-            this.outletStates[key].CurrentLiquid = defaultLiquid;
+            this.SetLiquid(key,defaultLiquid);
         }
     }
 
@@ -74,7 +75,14 @@ public partial class LiquidObjective : Button, ISlotInteractable
             this.outletStates[connection].CurrentLiquid = liquid;
         }
 
-        this.EmitSignal(LiquidObjective.SignalName.ObjectiveSlotLiquidChanged, this.GetIndex(), liquid == this.requiredLiquid);
+        bool oldState = this.correctlyFilled;
+        this.correctlyFilled = liquid == this.requiredLiquid;
+
+        if(this.correctlyFilled != oldState)
+        {
+            this.EmitSignal(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this, liquid == this.requiredLiquid);
+        }
+        
     }
 
     public Directions[] GetConnections(Directions outletPos)

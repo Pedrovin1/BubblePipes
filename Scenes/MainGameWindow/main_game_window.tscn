@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=11 format=3 uid="uid://c4esbof6p0tn5"]
 
 [ext_resource type="Script" path="res://Scenes/MainGameWindow/Tabuleiro.cs" id="1_3cr4x"]
 [ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="1_6165j"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://cuyganbwsohkk" path="res://Assets/Resources/Pipe3res.tres" id="2_flmm5"]
 [ext_resource type="Resource" uid="uid://cgr0j2udsdllu" path="res://Assets/Resources/Pipe2_I_res.tres" id="4_kxkx5"]
 [ext_resource type="Resource" uid="uid://dwihn6s5mljy3" path="res://Assets/Resources/LiquidResources/YellowLiquid.tres" id="5_xj2jj"]
+[ext_resource type="Script" path="res://Scripts/LiquidObjective.cs" id="10_nnvmy"]
 
 [node name="MainGameWindow" type="Node2D"]
 
@@ -470,113 +471,111 @@ centered = false
 offset = Vector2(-8, -8)
 hframes = 5
 
-[node name="PipeSlot13" type="Button" parent="Tabuleiro"]
+[node name="ObjectiveSlot" type="Button" parent="Tabuleiro"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+script = ExtResource("10_nnvmy")
 
-[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot13"]
+[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/ObjectiveSlot"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 0
 offset_right = 18.0
 offset_bottom = 18.0
 
-[node name="Panel" type="Panel" parent="Tabuleiro/PipeSlot13/CenterContainer"]
+[node name="Panel" type="Panel" parent="Tabuleiro/ObjectiveSlot/CenterContainer"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/PipeSlot13/CenterContainer/Panel"]
+[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/ObjectiveSlot/CenterContainer/Panel"]
 texture = ExtResource("1_6165j")
 centered = false
 
-[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/PipeSlot13/CenterContainer/Panel"]
+[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/ObjectiveSlot/CenterContainer/Panel"]
 position = Vector2(9, 9)
 centered = false
 offset = Vector2(-8, -8)
 hframes = 5
 
-[node name="PipeSlot14" type="Button" parent="Tabuleiro"]
+[node name="ObjectiveSlot1" type="Button" parent="Tabuleiro"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+script = ExtResource("10_nnvmy")
+requiredLiquid = 5
 
-[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot14"]
+[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/ObjectiveSlot1"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 0
 offset_right = 18.0
 offset_bottom = 18.0
 
-[node name="Panel" type="Panel" parent="Tabuleiro/PipeSlot14/CenterContainer"]
+[node name="Panel" type="Panel" parent="Tabuleiro/ObjectiveSlot1/CenterContainer"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/PipeSlot14/CenterContainer/Panel"]
+[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/ObjectiveSlot1/CenterContainer/Panel"]
 texture = ExtResource("1_6165j")
 centered = false
 
-[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/PipeSlot14/CenterContainer/Panel"]
+[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/ObjectiveSlot1/CenterContainer/Panel"]
 position = Vector2(9, 9)
 centered = false
 offset = Vector2(-8, -8)
 hframes = 5
 
-[node name="PipeSlot15" type="Button" parent="Tabuleiro"]
+[node name="ObjectiveSlot2" type="Button" parent="Tabuleiro"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+script = ExtResource("10_nnvmy")
 
-[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot15"]
+[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/ObjectiveSlot2"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 0
 offset_right = 18.0
 offset_bottom = 18.0
 
-[node name="Panel" type="Panel" parent="Tabuleiro/PipeSlot15/CenterContainer"]
+[node name="Panel" type="Panel" parent="Tabuleiro/ObjectiveSlot2/CenterContainer"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/PipeSlot15/CenterContainer/Panel"]
+[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/ObjectiveSlot2/CenterContainer/Panel"]
 texture = ExtResource("1_6165j")
 centered = false
 
-[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/PipeSlot15/CenterContainer/Panel"]
+[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/ObjectiveSlot2/CenterContainer/Panel"]
 position = Vector2(9, 9)
 centered = false
 offset = Vector2(-8, -8)
 hframes = 5
 
-[node name="PipeSlot16" type="Button" parent="Tabuleiro"]
+[node name="ObjectiveSlot3" type="Button" parent="Tabuleiro"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("2_flmm5")
+script = ExtResource("10_nnvmy")
+requiredLiquid = 5
 
-[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/PipeSlot16"]
+[node name="CenterContainer" type="CenterContainer" parent="Tabuleiro/ObjectiveSlot3"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 0
 offset_right = 18.0
 offset_bottom = 18.0
 
-[node name="Panel" type="Panel" parent="Tabuleiro/PipeSlot16/CenterContainer"]
+[node name="Panel" type="Panel" parent="Tabuleiro/ObjectiveSlot3/CenterContainer"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/PipeSlot16/CenterContainer/Panel"]
+[node name="BorderFrame" type="Sprite2D" parent="Tabuleiro/ObjectiveSlot3/CenterContainer/Panel"]
 texture = ExtResource("1_6165j")
 centered = false
 
-[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/PipeSlot16/CenterContainer/Panel"]
+[node name="ContentFrame" type="Sprite2D" parent="Tabuleiro/ObjectiveSlot3/CenterContainer/Panel"]
 position = Vector2(9, 9)
 centered = false
 offset = Vector2(-8, -8)

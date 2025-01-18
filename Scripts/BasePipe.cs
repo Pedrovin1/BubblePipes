@@ -8,7 +8,7 @@ public class SlotOutlet
 {
     public bool Opened {get; set;} = false;
     public LiquidType CurrentLiquid {get; set;} = LiquidType.Vazio;
-    public Directions[] Connections {get; set;} = null;
+    public Directions[] Connections {get; set;} = Array.Empty<Directions>();
 
     public SlotOutlet(){}
     public SlotOutlet(bool opened, LiquidType liquid, Directions[] connections)

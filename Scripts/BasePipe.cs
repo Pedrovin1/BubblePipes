@@ -6,6 +6,7 @@ using System.Linq;
 
 public class SlotOutlet
 {
+
     public bool Opened {get; set;} = false;
     public LiquidType CurrentLiquid {get; set;} = LiquidType.Vazio;
     public Directions[] Connections {get; set;} = Array.Empty<Directions>();
@@ -47,7 +48,7 @@ public partial class BasePipe : Button, ISlotInteractable
         // -- Desenha o Pipe -- //
         this.pipeSprite = (Sprite2D)FindChild("ContentFrame"); 
         this.pipeSprite.Texture = pipeResource.spriteFile;
-        //this.pipeSprite.Hframes = pipeResource.spriteFileHframes
+        this.pipeSprite.Hframes = pipeResource.Hframes;
         this.pipeSprite.Frame = pipeResource.pipeSpriteFrame;
 
         // -- Carrega os detalhes do Pipe -- //
@@ -66,6 +67,8 @@ public partial class BasePipe : Button, ISlotInteractable
         this.ResetOutletLiquids();
 
         this.UpdateDrawingState();
+
+        GD.Print(this.outletStates[Directions.Cima].Opened);
     }
 
 
@@ -76,7 +79,7 @@ public partial class BasePipe : Button, ISlotInteractable
         this.canRotate = canRotate;
 
         this.pipeSprite.Texture = newPipe.spriteFile;
-        //this.pipeSprite.Hframes = pipeResource.spriteFileHframes
+        this.pipeSprite.Hframes = pipeResource.Hframes;
         this.pipeSprite.Frame = newPipe.pipeSpriteFrame;
 
         this.UpdateOutletOpeningStates();
@@ -110,21 +113,47 @@ public partial class BasePipe : Button, ISlotInteractable
     private void UpdateOutletOpeningStates()
     {
         const int Directions_Quantity = 4;
+        const int infoBitStartPos = 5;
+
+        byte baseBinaryOpeningState = this.pipeResource.binaryOpeningStates;
+        byte currentBinaryOpeningState = (byte)(baseBinaryOpeningState >> this.stateNumber);
 
         for(int i = 0; i < Directions_Quantity; i++)
         {
-            Directions outletPosition = (Directions)i;
-            this.outletStates[outletPosition].Opened = pipeResource.openingStates[this.stateNumber][outletPosition];
+            Directions outletPos = (Directions)i;
+            this.outletStates[outletPos].Opened = GetBitFromByte(currentBinaryOpeningState, infoBitStartPos + i, true);
         }
     }
+
+
+    //Utils Function
+    public bool GetBitFromByte(byte Byte, int bitPosition, bool startFromLeft = false)
+    {
+        int offset = startFromLeft ? 8 - bitPosition : bitPosition - 1;
+        bool bit = (Byte & (0b_1 << (offset))) != 0;
+
+        return bit;
+    } 
+
+
     private void UpdateOutletConnections()
     {
         const int Directions_Quantity = 4;
+        List<Directions> updatedConnections = new();
 
         for(int i = 0; i < Directions_Quantity; i++)
         {
-            Directions outletPosition = (Directions)i;
-            this.outletStates[outletPosition].Connections = pipeResource.outletConnections[this.stateNumber][outletPosition].ToArray();
+            updatedConnections = new();
+
+            Directions currentOutletPos = (Directions)i;
+            Directions newOutletPosition = (Directions)((i + this.stateNumber) % Directions_Quantity);
+
+            foreach(var connection in this.pipeResource.baseOutletConnections[currentOutletPos])
+            {
+                 updatedConnections.Add((Directions) (((int)connection + this.stateNumber) % Directions_Quantity) );
+            }
+
+            this.outletStates[newOutletPosition].Connections = updatedConnections.ToArray();
         }
     }
 

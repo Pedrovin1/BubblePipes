@@ -1,22 +1,29 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Diagnostics.Contracts;
 
 public partial class PipeResource : Resource
 {
     [Export]
+    public byte binaryOpeningStates = 0b_0000_0000;
+
+    [Export]
+    public Dictionary<Directions, Array<Directions>> baseOutletConnections;
+
+    [Export]
+    public byte statesAmount = 4;
+
+    
+    [Export]
     public Texture2D spriteFile;
+
+    [Export]
+    public int Hframes;
 
     [Export]
     public byte pipeSpriteFrame;
 
-    [Export]
-    public byte statesAmount = 0;
-
-    [Export]
-    public Dictionary<byte, Dictionary<Directions, bool>> openingStates;
-
-    [Export]
-    public Dictionary<byte, Dictionary<Directions, Array<Directions>>> outletConnections;
+    
 }
 

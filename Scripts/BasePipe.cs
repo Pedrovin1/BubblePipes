@@ -67,8 +67,6 @@ public partial class BasePipe : Button, ISlotInteractable
         this.ResetOutletLiquids();
 
         this.UpdateDrawingState();
-
-        GD.Print(this.outletStates[Directions.Cima].Opened);
     }
 
 
@@ -87,7 +85,7 @@ public partial class BasePipe : Button, ISlotInteractable
         this.UpdateDrawingState();
     }
 
-    public void UpdateDrawingState()
+    public virtual void UpdateDrawingState()
     {
         const int Directions_Quantity = 4;
         this.pipeSprite.GlobalRotation = 0;
@@ -121,20 +119,9 @@ public partial class BasePipe : Button, ISlotInteractable
         for(int i = 0; i < Directions_Quantity; i++)
         {
             Directions outletPos = (Directions)i;
-            this.outletStates[outletPos].Opened = GetBitFromByte(currentBinaryOpeningState, infoBitStartPos + i, true);
+            this.outletStates[outletPos].Opened = GameUtils.GetBitFromByte(currentBinaryOpeningState, infoBitStartPos + i, true);
         }
     }
-
-
-    //Utils Function
-    public bool GetBitFromByte(byte Byte, int bitPosition, bool startFromLeft = false)
-    {
-        int offset = startFromLeft ? 8 - bitPosition : bitPosition - 1;
-        bool bit = (Byte & (0b_1 << (offset))) != 0;
-
-        return bit;
-    } 
-
 
     private void UpdateOutletConnections()
     {
@@ -174,7 +161,7 @@ public partial class BasePipe : Button, ISlotInteractable
     {
         return this.outletStates[outletPos].CurrentLiquid;
     }
-    public void SetLiquid(Directions outletPos, LiquidType liquid)
+    public virtual void SetLiquid(Directions outletPos, LiquidType liquid)
     {
         this.outletStates[outletPos].CurrentLiquid = liquid;
 

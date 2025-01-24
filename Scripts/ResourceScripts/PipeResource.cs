@@ -14,6 +14,12 @@ public partial class PipeResource : Resource
     [Export]
     public byte statesAmount = 4;
 
+
+    [Export]
+    public Texture2D liquidSegmentsSpriteFile;
+    [Export]
+    public Array<Vector2I> baseLiquidSegmentLayout; //(numero do frame, outletPosition que ele se encontra)
+
     
     [Export]
     public Texture2D spriteFile;

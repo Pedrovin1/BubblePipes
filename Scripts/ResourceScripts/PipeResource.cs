@@ -18,14 +18,16 @@ public partial class PipeResource : Resource
     [Export]
     public Texture2D liquidSegmentsSpriteFile;
     [Export]
-    public Array<Vector2I> baseLiquidSegmentLayout; //(numero do frame, outletPosition que ele se encontra)
+    public int LiquidSegmentsHframes;
+    [Export]
+    public Array<Vector2I> baseLiquidSegmentLayout; //(numero do frame, outletPosition que ele pertence)
 
     
     [Export]
-    public Texture2D spriteFile;
+    public Texture2D pipeSpriteFile;
 
     [Export]
-    public int Hframes;
+    public int pipeSpriteHframes;
 
     [Export]
     public byte pipeSpriteFrame;

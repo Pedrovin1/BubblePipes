@@ -32,6 +32,7 @@ public partial class BasePipe : Button, ISlotInteractable
     public bool canRotate = true;
 
     private Sprite2D pipeSprite;
+    private Node2D rootLiquidSprites;
 
     public Dictionary<Directions, SlotOutlet> outletStates = new()
     {
@@ -47,9 +48,24 @@ public partial class BasePipe : Button, ISlotInteractable
 
         // -- Desenha o Pipe -- //
         this.pipeSprite = (Sprite2D)FindChild("ContentFrame"); 
-        this.pipeSprite.Texture = pipeResource.spriteFile;
-        this.pipeSprite.Hframes = pipeResource.Hframes;
+        this.pipeSprite.Texture = pipeResource.pipeSpriteFile;
+        this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
         this.pipeSprite.Frame = pipeResource.pipeSpriteFrame;
+
+        this.rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
+
+        foreach(Vector2I liquidSpriteInfo in this.pipeResource.baseLiquidSegmentLayout)
+        {
+            Sprite2D liquidNode = new Sprite2D
+            {
+                Texture = this.pipeResource.liquidSegmentsSpriteFile,
+                Hframes = this.pipeResource.LiquidSegmentsHframes,
+                Frame = liquidSpriteInfo[0],
+            };
+
+            rootLiquidSprites.AddChild(liquidNode);
+            liquidNode.Owner = this;
+        }
 
         // -- Carrega os detalhes do Pipe -- //
         this.UpdateOutletOpeningStates();
@@ -76,8 +92,8 @@ public partial class BasePipe : Button, ISlotInteractable
         this.stateNumber = (byte) (state % newPipe.statesAmount);
         this.canRotate = canRotate;
 
-        this.pipeSprite.Texture = newPipe.spriteFile;
-        this.pipeSprite.Hframes = pipeResource.Hframes;
+        this.pipeSprite.Texture = newPipe.pipeSpriteFile;
+        this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
         this.pipeSprite.Frame = newPipe.pipeSpriteFrame;
 
         this.UpdateOutletOpeningStates();
@@ -88,21 +104,26 @@ public partial class BasePipe : Button, ISlotInteractable
     public virtual void UpdateDrawingState()
     {
         const int Directions_Quantity = 4;
+
         this.pipeSprite.GlobalRotation = 0;
+        this.rootLiquidSprites.Rotation = 0;
 
         float radiansRotation = (float) (this.stateNumber % Directions_Quantity / 2d * Math.PI);
         this.pipeSprite.Rotate(radiansRotation);
+        this.rootLiquidSprites.Rotate(radiansRotation);
 
-        //pintar com cor do liquid TEMPORARIO
-        foreach(var value in this.outletStates.Values)
+        foreach((var position, var outlet) in this.outletStates)
         {
-            if(value.Opened)
+            if(outlet.Opened)
             {
-                switch(value.CurrentLiquid)
+                Color liquidColor = GameUtils.LiquidColorsRGB[outlet.CurrentLiquid];
+                for(int i = 0; i < pipeResource.baseLiquidSegmentLayout.Count; i++)
                 {
-                    case LiquidType.Azul: this.pipeSprite.SelfModulate = Color.Color8(0,255,255); return;
-                    case LiquidType.Amarelo: this.pipeSprite.SelfModulate = Color.Color8(255,255,0); return;
-                    case LiquidType.Vazio: this.pipeSprite.SelfModulate = Color.Color8(255,255,255); break;
+                    if((pipeResource.baseLiquidSegmentLayout[i].Y + this.stateNumber) % Directions_Quantity == (int)position)
+                    {
+                        rootLiquidSprites.GetChild<Sprite2D>(i).SelfModulate = liquidColor;
+                        break;
+                    }
                 }
             }
         }

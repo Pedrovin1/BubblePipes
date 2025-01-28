@@ -1,8 +1,18 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public static class GameUtils
 {
+    public readonly static Dictionary<LiquidType, Color> LiquidColorsRGB = new Dictionary<LiquidType, Color>
+    {
+        {LiquidType.Vazio, Color.Color8(11, 11, 11)     },
+        {LiquidType.Azul, Color.Color8(121, 224, 207)   },
+        {LiquidType.Roxo, Color.Color8(0, 0, 0)         },
+        {LiquidType.Rosa, Color.Color8(0, 0, 0)         },
+        {LiquidType.Branco, Color.Color8(255, 255, 255) },
+        {LiquidType.Amarelo, Color.Color8(255, 208, 144)}
+    };
 
     public static Directions OppositeSide(Directions direction)
     {

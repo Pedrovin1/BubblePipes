@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr8eo0pha47qj"]
+
+[ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="1_ukoks"]
+
+[node name="PipeSlot" type="Button"]
+custom_minimum_size = Vector2(18, 18)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 0
+offset_right = 18.0
+offset_bottom = 18.0
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BorderFrame" type="Sprite2D" parent="CenterContainer/Panel"]
+texture = ExtResource("1_ukoks")
+centered = false
+
+[node name="ContentFrame" type="Sprite2D" parent="CenterContainer/Panel"]
+z_index = 1
+position = Vector2(9, 9)
+centered = false
+offset = Vector2(-8, -8)
+hframes = 5
+
+[node name="RootLiquids" type="Node2D" parent="CenterContainer/Panel"]
+position = Vector2(9, 9)

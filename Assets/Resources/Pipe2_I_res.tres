@@ -15,7 +15,7 @@ baseOutletConnections = {
 }
 statesAmount = 4
 liquidSegmentsSpriteFile = ExtResource("1_5rj2a")
-LiquidSegmentsHframes = 7
+LiquidSegmentsHframes = 9
 baseLiquidSegmentLayout = Array[Vector2i]([Vector2i(1, 0)])
 pipeSpriteFile = ExtResource("2_op7bt")
 pipeSpriteHframes = 5

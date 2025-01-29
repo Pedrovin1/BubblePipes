@@ -8,8 +8,8 @@ public static class GameUtils
     {
         {LiquidType.Vazio, Color.Color8(11, 11, 11)     },
         {LiquidType.Azul, Color.Color8(121, 224, 207)   },
-        {LiquidType.Roxo, Color.Color8(0, 0, 0)         },
-        {LiquidType.Rosa, Color.Color8(0, 0, 0)         },
+        {LiquidType.Roxo, Color.Color8(113, 108, 176)   },
+        {LiquidType.Rosa, Color.Color8(224, 122, 179)   },
         {LiquidType.Branco, Color.Color8(255, 255, 255) },
         {LiquidType.Amarelo, Color.Color8(255, 208, 144)}
     };

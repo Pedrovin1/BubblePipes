@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://co4v6t7l5stw"]
+
+[ext_resource type="Texture2D" uid="uid://c0qr0pepxl2jw" path="res://Assets/Sprites/LiquidFillings.png" id="1_ws78m"]
+[ext_resource type="Texture2D" uid="uid://b84op1rklpw22" path="res://Assets/Sprites/ColorChangerPipe.png" id="2_hntsh"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/PipeResource.cs" id="3_03hym"]
+
+[resource]
+script = ExtResource("3_03hym")
+binaryOpeningStates = 170
+baseOutletConnections = {
+0: [2],
+1: [],
+2: [0],
+3: []
+}
+statesAmount = 4
+liquidSegmentsSpriteFile = ExtResource("1_ws78m")
+LiquidSegmentsHframes = 9
+baseLiquidSegmentLayout = Array[Vector2i]([Vector2i(7, 0), Vector2i(8, 2)])
+pipeSpriteFile = ExtResource("2_hntsh")
+pipeSpriteHframes = 1
+pipeSpriteFrame = 0

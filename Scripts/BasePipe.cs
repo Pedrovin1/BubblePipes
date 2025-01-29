@@ -27,7 +27,7 @@ public partial class BasePipe : Button, ISlotInteractable
     private PipeResource pipeResource;
 
     [Export]
-    private byte stateNumber = 0;
+    protected byte stateNumber = 0;
 
     public bool canRotate = true;
 
@@ -96,12 +96,14 @@ public partial class BasePipe : Button, ISlotInteractable
         this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
         this.pipeSprite.Frame = newPipe.pipeSpriteFrame;
 
+        //TODO: atualizar os pipe filling sprites2D
+
         this.UpdateOutletOpeningStates();
         this.UpdateOutletConnections();
         this.UpdateDrawingState();
     }
 
-    public virtual void UpdateDrawingState()
+    public void UpdateDrawingState()
     {
         const int Directions_Quantity = 4;
 

@@ -65,10 +65,10 @@ public partial class Tabuleiro : GridContainer
                    isMoveInsideBounds(source.GetIndex(), outletPos, out ISlotInteractable neighborNode) &&
                    neighborNode.IsOpened(GameUtils.OppositeSide(outletPos)))
                 { 
-                    Stack<(ISlotInteractable, Directions)> proxVisita = new();
-                    proxVisita.Push((neighborNode, GameUtils.OppositeSide(outletPos)));
+                    Stack<(ISlotInteractable, Directions, LiquidType)> proxVisita = new();
+                    proxVisita.Push((neighborNode, GameUtils.OppositeSide(outletPos), source.outletLiquids[outletPos]));
 
-                    FillPipes(source.outletLiquids[outletPos], visitados, proxVisita); 
+                    FillPipes(visitados, proxVisita); 
                 }
             }
         }
@@ -95,11 +95,11 @@ public partial class Tabuleiro : GridContainer
         }
     }
 
-    private void FillPipes(LiquidType liquid, Dictionary<ISlotInteractable, List<Directions>> visitados, Stack<(ISlotInteractable, Directions)> proxVisita)
+    private void FillPipes(Dictionary<ISlotInteractable, List<Directions>> visitados, Stack<(ISlotInteractable, Directions, LiquidType)> proxVisita)
     {
         while(proxVisita.Count > 0)
         {
-            (ISlotInteractable currentNode, Directions outletPos) = proxVisita.Pop();
+            (ISlotInteractable currentNode, Directions outletPos, LiquidType currentLiquid) = proxVisita.Pop();
 
             if(!visitados.TryGetValue(currentNode, out _))
             {
@@ -108,12 +108,11 @@ public partial class Tabuleiro : GridContainer
 
             if(visitados[currentNode].Contains(outletPos) || 
                 !currentNode.IsOpened(outletPos))    
-                // || currentNode.GetLiquid(outletPos) != LiquidType.Vazio && currentNode.GetLiquid(outletPos) != liquid
             { 
                 continue; 
             }
 
-            currentNode.SetLiquid(outletPos, liquid);
+            currentNode.SetLiquid(outletPos, currentLiquid);
 
             foreach(Directions connections in currentNode.GetConnections(outletPos))
             {
@@ -121,7 +120,7 @@ public partial class Tabuleiro : GridContainer
                 //currentNode.SetLiquid(connections, liquid);
                 if(isMoveInsideBounds(((Node)currentNode).GetIndex(), connections, out ISlotInteractable neighborNode))
                 {
-                    proxVisita.Push((neighborNode, GameUtils.OppositeSide(connections)));
+                    proxVisita.Push((neighborNode, GameUtils.OppositeSide(connections), currentNode.GetLiquid(connections)));
                 }
             }
 

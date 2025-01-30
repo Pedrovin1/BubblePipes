@@ -24,15 +24,15 @@ public partial class BasePipe : Button, ISlotInteractable
 {
 
     [Export]
-    private PipeResource pipeResource;
+    protected PipeResource pipeResource;
 
     [Export]
     protected byte stateNumber = 0;
 
     public bool canRotate = true;
 
-    private Sprite2D pipeSprite;
-    private Node2D rootLiquidSprites;
+    protected Sprite2D pipeSprite;
+    protected Node2D rootLiquidSprites;
 
     public Dictionary<Directions, SlotOutlet> outletStates = new()
     {
@@ -131,7 +131,7 @@ public partial class BasePipe : Button, ISlotInteractable
         }
     }
 
-    private void UpdateOutletOpeningStates()
+    protected void UpdateOutletOpeningStates()
     {
         const int Directions_Quantity = 4;
         const int infoBitStartPos = 5;
@@ -146,7 +146,7 @@ public partial class BasePipe : Button, ISlotInteractable
         }
     }
 
-    private void UpdateOutletConnections()
+    protected void UpdateOutletConnections()
     {
         const int Directions_Quantity = 4;
         List<Directions> updatedConnections = new();
@@ -167,7 +167,7 @@ public partial class BasePipe : Button, ISlotInteractable
         }
     }
 
-    public void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
+    public virtual void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
     {
         foreach(var key in this.outletStates.Keys)
         {

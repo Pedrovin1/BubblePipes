@@ -59,14 +59,14 @@ public partial class Tabuleiro : GridContainer
         foreach(int sourceIndex in this.LiquidSourceIndexes)
         {
             var source = this.GetChild<BaseSource>(sourceIndex);
-            foreach((Directions outletPos, bool opened) in source.outletOpeningStates)
+            foreach((Directions outletPos, SlotOutlet slotOulet) in source.outletStates)
             {
-                if(opened == true && 
+                if(slotOulet.Opened == true && 
                    isMoveInsideBounds(source.GetIndex(), outletPos, out ISlotInteractable neighborNode) &&
                    neighborNode.IsOpened(GameUtils.OppositeSide(outletPos)))
                 { 
                     Stack<(ISlotInteractable, Directions, LiquidType)> proxVisita = new();
-                    proxVisita.Push((neighborNode, GameUtils.OppositeSide(outletPos), source.outletLiquids[outletPos]));
+                    proxVisita.Push((neighborNode, GameUtils.OppositeSide(outletPos), source.GetLiquid(outletPos)));
 
                     FillPipes(visitados, proxVisita); 
                 }

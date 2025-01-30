@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://doo3ouxuslbn1"]
+
+[ext_resource type="Texture2D" uid="uid://c0qr0pepxl2jw" path="res://Assets/Sprites/LiquidFillings.png" id="1_h4cf6"]
+[ext_resource type="Texture2D" uid="uid://dsf4d1p8utww7" path="res://Assets/Sprites/LiquidSprites.png" id="2_ftp24"]
+[ext_resource type="Script" path="res://Scripts/ResourceScripts/PipeResource.cs" id="3_k1pyx"]
+
+[resource]
+script = ExtResource("3_k1pyx")
+binaryOpeningStates = 119
+baseOutletConnections = {
+0: [],
+1: [],
+2: [],
+3: []
+}
+statesAmount = 4
+liquidSegmentsSpriteFile = ExtResource("1_h4cf6")
+LiquidSegmentsHframes = 0
+baseLiquidSegmentLayout = Array[Vector2i]([])
+pipeSpriteFile = ExtResource("2_ftp24")
+pipeSpriteHframes = 5
+pipeSpriteFrame = 0

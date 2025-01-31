@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfl4a2qdvx5xe"]
+
+[ext_resource type="Texture2D" uid="uid://lsf1mk8kl0ja" path="res://Assets/Sprites/levelBox.png" id="1_1dhqr"]
+[ext_resource type="Script" path="res://Scenes/LevelBox/LevelBox.cs" id="1_yovnh"]
+[ext_resource type="FontFile" uid="uid://b6jmii86leljj" path="res://Assets/Fonts/pixelnumbersfont.ttf" id="2_8bwsn"]
+
+[sub_resource type="FontVariation" id="FontVariation_fdffe"]
+base_font = ExtResource("2_8bwsn")
+spacing_glyph = -1
+
+[node name="LevelBox" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_yovnh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+texture = ExtResource("1_1dhqr")
+hframes = 2
+frame = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 12.0
+offset_bottom = 10.0
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.048994, 0.043659, 0.0672998, 1)
+theme_override_fonts/font = SubResource("FontVariation_fdffe")
+theme_override_font_sizes/font_size = 40
+text = "1"

@@ -1,0 +1,132 @@
+[gd_scene load_steps=7 format=3 uid="uid://beths44p3fkc0"]
+
+[ext_resource type="Texture2D" uid="uid://clwlyheb2m5y1" path="res://Assets/Sprites/seta.png" id="1_0kt0y"]
+[ext_resource type="Texture2D" uid="uid://cri5rwv0dk3to" path="res://Assets/Fonts/rascunho1.png" id="1_mr2y0"]
+[ext_resource type="PackedScene" uid="uid://bfl4a2qdvx5xe" path="res://Scenes/LevelBox/levelBox.tscn" id="2_nfuf5"]
+
+[sub_resource type="Animation" id="Animation_5re7o"]
+resource_name = "MoverMapaNiveis"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 219)]
+}
+
+[sub_resource type="Animation" id="Animation_gkpt1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5ouq"]
+_data = {
+"MoverMapaNiveis": SubResource("Animation_5re7o"),
+"RESET": SubResource("Animation_gkpt1")
+}
+
+[node name="LevelMap" type="Node2D"]
+
+[node name="UpButton" type="Button" parent="."]
+z_index = 1
+offset_left = 32.0
+offset_right = 42.0
+offset_bottom = 10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UpButton"]
+position = Vector2(1, 1)
+texture = ExtResource("1_0kt0y")
+centered = false
+
+[node name="MovableObjects" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MovableObjects"]
+libraries = {
+"": SubResource("AnimationLibrary_j5ouq")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="MovableObjects"]
+position = Vector2(23, 90)
+texture = ExtResource("1_mr2y0")
+
+[node name="Sprite2D2" type="Sprite2D" parent="MovableObjects"]
+position = Vector2(23, -129)
+texture = ExtResource("1_mr2y0")
+
+[node name="LevelBoxes" type="Node2D" parent="MovableObjects"]
+position = Vector2(0, 219)
+
+[node name="LevelBox" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 19.0
+offset_top = -32.0
+offset_right = 27.0
+offset_bottom = -24.0
+
+[node name="LevelBox2" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 27.0
+offset_top = -76.0
+offset_right = 35.0
+offset_bottom = -68.0
+
+[node name="LevelBox3" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 11.0
+offset_top = -120.0
+offset_right = 19.0
+offset_bottom = -112.0
+
+[node name="LevelBox4" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 27.0
+offset_top = -164.0
+offset_right = 35.0
+offset_bottom = -156.0
+
+[node name="LevelBox5" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 19.0
+offset_top = -208.0
+offset_right = 27.0
+offset_bottom = -200.0
+
+[node name="LevelBox6" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 19.0
+offset_top = -251.0
+offset_right = 27.0
+offset_bottom = -243.0
+
+[node name="LevelBox7" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 27.0
+offset_top = -295.0
+offset_right = 35.0
+offset_bottom = -287.0
+
+[node name="LevelBox8" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 11.0
+offset_top = -339.0
+offset_right = 19.0
+offset_bottom = -331.0
+
+[node name="LevelBox9" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 27.0
+offset_top = -383.0
+offset_right = 35.0
+offset_bottom = -375.0
+
+[node name="LevelBox10" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
+offset_left = 19.0
+offset_top = -427.0
+offset_right = 27.0
+offset_bottom = -419.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=15 format=3 uid="uid://c4esbof6p0tn5"]
 
 [ext_resource type="Script" path="res://Scenes/MainGameWindow/Tabuleiro.cs" id="1_3cr4x"]
 [ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="1_6165j"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://b5g663d4iklrg" path="res://Assets/Resources/Pipe4_Cross.tres" id="11_8cloy"]
 [ext_resource type="Script" path="res://Scripts/ColorChangerPipe.cs" id="13_ocrga"]
 [ext_resource type="Resource" uid="uid://co4v6t7l5stw" path="res://Assets/Resources/Pipe2ColorChanger_I_res.tres" id="13_u7uwo"]
+[ext_resource type="PackedScene" uid="uid://beths44p3fkc0" path="res://Scenes/LevelsMap/LevelsMap.tscn" id="14_ckgum"]
 
 [node name="MainGameWindow" type="Node2D"]
 
@@ -399,3 +400,5 @@ position = Vector2(9, 9)
 centered = false
 offset = Vector2(-8, -8)
 hframes = 5
+
+[node name="LevelsMap" parent="CanvasLayer" instance=ExtResource("14_ckgum")]

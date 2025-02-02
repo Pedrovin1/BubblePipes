@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="1_ukoks"]
 
 [node name="PipeSlot" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(18, 18)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -29,4 +30,7 @@ offset = Vector2(-8, -8)
 hframes = 5
 
 [node name="RootLiquids" type="Node2D" parent="CenterContainer/Panel"]
+position = Vector2(9, 9)
+
+[node name="ExtraDetails" type="Node2D" parent="CenterContainer/Panel"]
 position = Vector2(9, 9)

@@ -33,6 +33,7 @@ public partial class BasePipe : Button, ISlotInteractable
 
     protected Sprite2D pipeSprite;
     protected Node2D rootLiquidSprites;
+    protected Node2D extraDetails;
 
     public Dictionary<Directions, SlotOutlet> outletStates = new()
     {
@@ -53,6 +54,7 @@ public partial class BasePipe : Button, ISlotInteractable
         this.pipeSprite.Frame = pipeResource.pipeSpriteFrame;
 
         this.rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
+        this.extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
 
         foreach(Vector2I liquidSpriteInfo in this.pipeResource.baseLiquidSegmentLayout)
         {
@@ -67,10 +69,17 @@ public partial class BasePipe : Button, ISlotInteractable
             liquidNode.Owner = this;
         }
 
+        this.LoadExtraDetails();
+
         // -- Carrega os detalhes do Pipe -- //
         this.UpdateOutletOpeningStates();
         this.UpdateOutletConnections();
         this.UpdateDrawingState();
+    }
+
+    protected virtual void LoadExtraDetails()
+    {
+        return;
     }
 
     public void onClicked()
@@ -109,10 +118,13 @@ public partial class BasePipe : Button, ISlotInteractable
 
         this.pipeSprite.GlobalRotation = 0;
         this.rootLiquidSprites.Rotation = 0;
+        this.extraDetails.Rotation = 0;
 
         float radiansRotation = (float) (this.stateNumber % Directions_Quantity / 2d * Math.PI);
+
         this.pipeSprite.Rotate(radiansRotation);
         this.rootLiquidSprites.Rotate(radiansRotation);
+        this.extraDetails.Rotate(radiansRotation);
 
         foreach((var position, var outlet) in this.outletStates)
         {

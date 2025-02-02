@@ -1,11 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://beths44p3fkc0"]
+[gd_scene load_steps=8 format=3 uid="uid://beths44p3fkc0"]
 
 [ext_resource type="Texture2D" uid="uid://clwlyheb2m5y1" path="res://Assets/Sprites/seta.png" id="1_0kt0y"]
 [ext_resource type="Texture2D" uid="uid://cri5rwv0dk3to" path="res://Assets/Fonts/rascunho1.png" id="1_mr2y0"]
 [ext_resource type="PackedScene" uid="uid://bfl4a2qdvx5xe" path="res://Scenes/LevelBox/levelBox.tscn" id="2_nfuf5"]
 
 [sub_resource type="Animation" id="Animation_5re7o"]
-resource_name = "MoverMapaNiveis"
+resource_name = "MoverAvancarMapaNiveis"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -17,6 +17,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 219)]
+}
+
+[sub_resource type="Animation" id="Animation_vpesh"]
+resource_name = "MoverVoltarMapaNiveis"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 219), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_gkpt1"]
@@ -36,19 +51,36 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j5ouq"]
 _data = {
-"MoverMapaNiveis": SubResource("Animation_5re7o"),
+"MoverAvancarMapaNiveis": SubResource("Animation_5re7o"),
+"MoverVoltarMapaNiveis": SubResource("Animation_vpesh"),
 "RESET": SubResource("Animation_gkpt1")
 }
 
 [node name="LevelMap" type="Node2D"]
 
 [node name="UpButton" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
 z_index = 1
 offset_left = 32.0
 offset_right = 42.0
 offset_bottom = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UpButton"]
+position = Vector2(1, 1)
+texture = ExtResource("1_0kt0y")
+centered = false
+
+[node name="DownButton" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+z_index = 1
+offset_left = 32.0
+offset_top = 190.0
+offset_right = 42.0
+offset_bottom = 200.0
+rotation = 3.14159
+pivot_offset = Vector2(5, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="DownButton"]
 position = Vector2(1, 1)
 texture = ExtResource("1_0kt0y")
 centered = false

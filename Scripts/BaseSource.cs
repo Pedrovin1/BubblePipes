@@ -26,6 +26,7 @@ public partial class BaseSource : BasePipe
         }
 
         this.rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
+        this.extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
 
         // -- Carrega os detalhes do Pipe -- //
         this.UpdateOutletOpeningStates();

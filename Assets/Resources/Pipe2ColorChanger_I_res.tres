@@ -18,5 +18,5 @@ liquidSegmentsSpriteFile = ExtResource("1_ws78m")
 LiquidSegmentsHframes = 9
 baseLiquidSegmentLayout = Array[Vector2i]([Vector2i(7, 0), Vector2i(8, 2)])
 pipeSpriteFile = ExtResource("2_hntsh")
-pipeSpriteHframes = 1
+pipeSpriteHframes = 3
 pipeSpriteFrame = 0

@@ -4,7 +4,6 @@ using System;
 
 public partial class LevelBox : Button
 {
-
     public int levelNumber {get; private set;} = -1;
 
     private Label label;
@@ -24,6 +23,11 @@ public partial class LevelBox : Button
     public void SetLevelNumber(int number)
     {
         this.levelNumber = number;
+        this.UpdateSprite();
+    }
+
+    public void UpdateSprite()
+    {
         this.label.Text = this.levelNumber.ToString();
     }
 

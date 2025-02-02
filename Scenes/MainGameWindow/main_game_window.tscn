@@ -119,7 +119,7 @@ layout_mode = 2
 script = ExtResource("1_jr7wk")
 pipeResource = ExtResource("4_kxkx5")
 
-[node name="PipeSlot11" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
+[node name="ColorChangerPipe" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
 script = ExtResource("13_ocrga")
 pipeResource = ExtResource("13_u7uwo")
@@ -147,17 +147,17 @@ pipeResource = ExtResource("4_kxkx5")
 [node name="PipeSlot18" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
+pipeResource = ExtResource("9_h5fdt")
 
 [node name="PipeSlot19" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
+pipeResource = ExtResource("9_h5fdt")
 
 [node name="PipeSlot20" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
+pipeResource = ExtResource("9_h5fdt")
 
 [node name="PipeSlot21" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
@@ -202,7 +202,7 @@ pipeResource = ExtResource("4_kxkx5")
 [node name="PipeSlot28" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
+pipeResource = ExtResource("11_8cloy")
 
 [node name="PipeSlot29" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
@@ -402,3 +402,5 @@ offset = Vector2(-8, -8)
 hframes = 5
 
 [node name="LevelsMap" parent="CanvasLayer" instance=ExtResource("14_ckgum")]
+
+[editable path="CanvasLayer/Tabuleiro/ColorChangerPipe"]

@@ -117,6 +117,8 @@ public partial class Tabuleiro : GridContainer
 
             foreach(Directions connections in currentNode.GetConnections(outletPos))
             {
+                if(!currentNode.IsOpened(connections)){ continue; }
+
                 visitados[currentNode].Add(connections);
                 if(isMoveInsideBounds(((Node)currentNode).GetIndex(), connections, out ISlotInteractable neighborNode))
                 {
@@ -128,7 +130,7 @@ public partial class Tabuleiro : GridContainer
         }
     }
 
-    private bool isMoveInsideBounds(int currentIndex, Directions movement, out ISlotInteractable neighborNode)
+    public bool isMoveInsideBounds(int currentIndex, Directions movement, out ISlotInteractable neighborNode)
     {
         int movementIndexOffset = 0;
         neighborNode = null;

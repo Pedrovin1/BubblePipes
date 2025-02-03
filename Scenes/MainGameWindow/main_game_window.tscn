@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=17 format=3 uid="uid://c4esbof6p0tn5"]
 
 [ext_resource type="Script" path="res://Scenes/MainGameWindow/Tabuleiro.cs" id="1_3cr4x"]
 [ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="1_6165j"]
@@ -9,8 +9,10 @@
 [ext_resource type="Resource" uid="uid://doo3ouxuslbn1" path="res://Assets/Resources/LiquidResources/DefaultLiquid.tres" id="4_uf6ja"]
 [ext_resource type="PackedScene" uid="uid://dr8eo0pha47qj" path="res://Scenes/PipeSlot/PipeSlot.tscn" id="7_e4n8x"]
 [ext_resource type="Resource" uid="uid://cuyganbwsohkk" path="res://Assets/Resources/Pipe2_L_res.tres" id="9_h5fdt"]
+[ext_resource type="Script" path="res://Scripts/GatePipe.cs" id="10_bohe8"]
 [ext_resource type="Script" path="res://Scripts/LiquidObjective.cs" id="10_nnvmy"]
 [ext_resource type="Resource" uid="uid://b5g663d4iklrg" path="res://Assets/Resources/Pipe4_Cross.tres" id="11_8cloy"]
+[ext_resource type="Resource" uid="uid://c0ty3ps8ohkje" path="res://Assets/Resources/Pipe3Gate_res.tres" id="11_u4jg2"]
 [ext_resource type="Script" path="res://Scripts/ColorChangerPipe.cs" id="13_ocrga"]
 [ext_resource type="Resource" uid="uid://co4v6t7l5stw" path="res://Assets/Resources/Pipe2ColorChanger_I_res.tres" id="13_u7uwo"]
 [ext_resource type="PackedScene" uid="uid://beths44p3fkc0" path="res://Scenes/LevelsMap/LevelsMap.tscn" id="14_ckgum"]
@@ -82,7 +84,7 @@ pipeResource = ExtResource("4_kxkx5")
 [node name="PipeSlot4" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("9_h5fdt")
+pipeResource = ExtResource("4_kxkx5")
 
 [node name="PipeSlot6" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
@@ -97,12 +99,13 @@ pipeResource = ExtResource("11_8cloy")
 [node name="PipeSlot8" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
 script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
+pipeResource = ExtResource("9_h5fdt")
 
 [node name="PipeSlot9" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
+script = ExtResource("10_bohe8")
+gateLockColor = 4
+pipeResource = ExtResource("11_u4jg2")
 
 [node name="PipeSlot10" parent="CanvasLayer/Tabuleiro" instance=ExtResource("7_e4n8x")]
 layout_mode = 2

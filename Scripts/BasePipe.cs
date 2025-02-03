@@ -82,7 +82,7 @@ public partial class BasePipe : Button, ISlotInteractable
         return;
     }
 
-    public void onClicked()
+    public void onClicked() //maybe add a quick update state here (verify states around and update outlet states)
     {
         if(!canRotate){ return; }
 
@@ -112,7 +112,7 @@ public partial class BasePipe : Button, ISlotInteractable
         this.UpdateDrawingState();
     }
 
-    public void UpdateDrawingState()
+    public virtual void UpdateDrawingState()
     {
         const int Directions_Quantity = 4;
 
@@ -187,7 +187,7 @@ public partial class BasePipe : Button, ISlotInteractable
         }
     }
 
-    public bool IsOpened(Directions outletPos)
+    public virtual bool IsOpened(Directions outletPos)
     {
         return this.outletStates[outletPos].Opened;
     }

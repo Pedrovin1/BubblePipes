@@ -1,4 +1,4 @@
-public interface ISlotInteractable
+public interface ISlotInteractable : ISavable
 {
     public bool IsOpened(Directions outletPos);
 

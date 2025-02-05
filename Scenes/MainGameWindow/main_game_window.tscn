@@ -405,5 +405,3 @@ offset = Vector2(-8, -8)
 hframes = 5
 
 [node name="LevelsMap" parent="CanvasLayer" instance=ExtResource("14_ckgum")]
-
-[editable path="CanvasLayer/Tabuleiro/ColorChangerPipe"]

@@ -14,6 +14,15 @@ public static class GameUtils
         {LiquidType.Amarelo, Color.Color8(255, 208, 144)}
     };
 
+    public readonly static Dictionary<string, string> ScriptPaths = new Dictionary<string, string>
+    {
+        {"BaseSource", ""},
+        {"LiquidObjective",""},
+        {"BasePipe", ""},
+        {"ColorChangerPipe", ""},
+        {"GatePipe", ""}
+    };
+
     public static Directions OppositeSide(Directions direction)
     {
         const int outletPositions_Quantity = 4;

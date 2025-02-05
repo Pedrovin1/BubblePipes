@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 
 public class SlotOutlet
@@ -22,6 +24,7 @@ public class SlotOutlet
 
 public partial class BasePipe : Button, ISlotInteractable
 {
+    private static readonly string ClassName = "BasePipe";
 
     [Export]
     protected PipeResource pipeResource;
@@ -47,7 +50,6 @@ public partial class BasePipe : Button, ISlotInteractable
     {
         this.Pressed += this.onClicked;
 
-        // -- Desenha o Pipe -- //
         this.pipeSprite = (Sprite2D)FindChild("ContentFrame"); 
         this.pipeSprite.Texture = pipeResource.pipeSpriteFile;
         this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
@@ -210,4 +212,25 @@ public partial class BasePipe : Button, ISlotInteractable
     {
         return this.outletStates[outletPos].Connections;
     }
+
+
+    public virtual Godot.Collections.Dictionary<string, Variant> ExportData()
+    {
+        return new Godot.Collections.Dictionary<string, Variant>
+        {
+            {"PipeScriptPath", BasePipe.ClassName},
+
+            { "pipeResource",       this.pipeResource },
+            { "stateNumber",        this.stateNumber},
+            { "canRotate",          this.canRotate }
+        };
+    }
+    public virtual void ImportData(Godot.Collections.Dictionary<string, Variant> setupData)
+    {
+        foreach((string propertyName, var data) in setupData)
+        {
+            this.Set(propertyName, data);
+        }
+    }
+
 }

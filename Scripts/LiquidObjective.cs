@@ -6,6 +6,8 @@ using System.Linq;
 
 public partial class LiquidObjective : Button, ISlotInteractable
 {
+    private static readonly string ClassName = "LiquidObjective";
+
     [Signal]
     public delegate void ObjectiveSlotStateChangedEventHandler(LiquidObjective slotNode, bool correctlyFilled);
 
@@ -88,5 +90,22 @@ public partial class LiquidObjective : Button, ISlotInteractable
     public Directions[] GetConnections(Directions outletPos)
     {
         return this.outletStates[outletPos].Connections;
+    }
+
+     public virtual Godot.Collections.Dictionary<string, Variant> ExportData()
+    {
+        return new Godot.Collections.Dictionary<string, Variant>
+        {
+            {"PipeScriptPath", LiquidObjective.ClassName},
+            
+            { "requiredLiquid", (int)this.requiredLiquid },
+        };
+    }
+    public virtual void ImportData(Godot.Collections.Dictionary<string, Variant> setupData)
+    {
+        foreach((string propertyName, var data) in setupData)
+        {
+            this.Set(propertyName, data);
+        }
     }
 }

@@ -4,12 +4,11 @@ using System.Collections.Generic;
 
 public partial class Tabuleiro : GridContainer
 {
-
-    //[Export] 
-    //Resource LevelMap
-
     [Signal]
     public delegate void LevelCompletedEventHandler();
+
+    [Export]
+    private int currentLevel = -1;
 
     private List<int> LiquidSourceIndexes = new();
     private int objectiveSlotsAmount = 0;
@@ -17,7 +16,7 @@ public partial class Tabuleiro : GridContainer
 
     public override void _Ready()
     {
-        //CarregarLevel a partir da Resource
+        //CarregarLevel a partir da Resource e deletar do dicionaraio a entrada do scriptPath
 
         foreach(Node node in this.GetChildren())
         {

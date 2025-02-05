@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public partial class BaseSource : BasePipe
 {
+    private static readonly string ClassName = "BaseSource";
+
     [Export]
     LiquidType sourceLiquid = LiquidType.Azul;
 
@@ -32,6 +34,20 @@ public partial class BaseSource : BasePipe
         this.UpdateOutletOpeningStates();
         this.UpdateOutletConnections();
         this.UpdateDrawingState();
+    }
+
+    public override Godot.Collections.Dictionary<string, Variant> ExportData()
+    {
+        Godot.Collections.Dictionary<string, Variant> dataDict = new Godot.Collections.Dictionary<string, Variant>
+        {
+            {"PipeScriptPath", BaseSource.ClassName},
+            
+            {"sourceLiquid", (int)this.sourceLiquid}
+        };
+
+        dataDict.Merge(base.ExportData());
+
+        return dataDict;
     }
 
     public override void SetLiquid(Directions outletPos, LiquidType liquid)

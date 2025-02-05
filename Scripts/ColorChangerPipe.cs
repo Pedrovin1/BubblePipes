@@ -1,15 +1,39 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 public partial class ColorChangerPipe : BasePipe
 {
-    private (Directions, LiquidType) requiredColor = new (Directions.Cima, LiquidType.Roxo);
-    private (Directions, LiquidType) transformedColor = new (Directions.Baixo, LiquidType.Azul);
+    private static readonly string ClassName = "ColorChangerPipe";
+
+    private LiquidType requiredColor = LiquidType.Roxo;
+    private Directions positionRequiredColor = Directions.Cima;
+
+    private LiquidType transformedColor = LiquidType.Azul;
+    private Directions positionTransformedColor = Directions.Baixo;
 
     [Export]
     private bool Bidirectional = true;
+
+    public override Godot.Collections.Dictionary<string, Variant> ExportData()
+    {
+        Godot.Collections.Dictionary<string, Variant> dataDict = new Godot.Collections.Dictionary<string, Variant>
+        {
+            {"PipeScriptPath", ColorChangerPipe.ClassName},
+
+            {"requiredColor",            (int)this.requiredColor},
+            {"positionRequiredColor",    (int)this.positionRequiredColor},
+            {"transformedColor",         (int)this.transformedColor},
+            {"positionTransformedColor", (int)this.positionTransformedColor},
+            {"Bidirectional",                 this.Bidirectional}
+        };
+
+        dataDict.Merge(base.ExportData());
+
+        return dataDict;
+    }
 
     protected override void LoadExtraDetails()
     {
@@ -17,13 +41,13 @@ public partial class ColorChangerPipe : BasePipe
         detailSprite.Texture = this.pipeResource.pipeSpriteFile;
         detailSprite.Hframes = this.pipeResource.pipeSpriteHframes;
         detailSprite.Frame = 1;
-        detailSprite.SelfModulate = GameUtils.LiquidColorsRGB[requiredColor.Item2];
+        detailSprite.SelfModulate = GameUtils.LiquidColorsRGB[requiredColor];
         this.extraDetails.AddChild(detailSprite);
         detailSprite.Owner = this;
 
         detailSprite = (Sprite2D)detailSprite.Duplicate();
         detailSprite.Frame = 2;
-        detailSprite.SelfModulate = GameUtils.LiquidColorsRGB[transformedColor.Item2];
+        detailSprite.SelfModulate = GameUtils.LiquidColorsRGB[transformedColor];
         this.extraDetails.AddChild(detailSprite);
     }
 
@@ -31,19 +55,19 @@ public partial class ColorChangerPipe : BasePipe
     {
         this.outletStates[outletPos].CurrentLiquid = liquid;
 
-        Directions requiredOutletPos = (Directions)(((int)requiredColor.Item1 + this.stateNumber) % 4);
+        Directions requiredOutletPos = (Directions)(((int)positionRequiredColor + this.stateNumber) % 4);
         if(this.Bidirectional)
         {
-            if(outletPos == requiredOutletPos && liquid == requiredColor.Item2)
+            if(outletPos == requiredOutletPos && liquid == requiredColor)
             {
-                this.outletStates[GameUtils.OppositeSide(outletPos)].CurrentLiquid = transformedColor.Item2;
+                this.outletStates[GameUtils.OppositeSide(outletPos)].CurrentLiquid = transformedColor;
                 return;
             }
             else{
-                requiredOutletPos = (Directions)(((int)transformedColor.Item1 + this.stateNumber) % 4);
-                if(outletPos == requiredOutletPos && liquid == transformedColor.Item2)
+                requiredOutletPos = (Directions)(((int)positionTransformedColor + this.stateNumber) % 4);
+                if(outletPos == requiredOutletPos && liquid == transformedColor)
                 {
-                    this.outletStates[GameUtils.OppositeSide(outletPos)].CurrentLiquid = requiredColor.Item2;
+                    this.outletStates[GameUtils.OppositeSide(outletPos)].CurrentLiquid = requiredColor;
                     return;
                 }
                 else
@@ -56,9 +80,9 @@ public partial class ColorChangerPipe : BasePipe
         }
         else
         {
-            if(outletPos == requiredOutletPos && liquid == requiredColor.Item2)
+            if(outletPos == requiredOutletPos && liquid == requiredColor)
             {
-                this.outletStates[GameUtils.OppositeSide(outletPos)].CurrentLiquid = transformedColor.Item2;
+                this.outletStates[GameUtils.OppositeSide(outletPos)].CurrentLiquid = transformedColor;
             }
             else
             {

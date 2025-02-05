@@ -6,6 +6,9 @@ using System.Linq;
 
 public partial class GatePipe : BasePipe
 {
+    private static readonly string ClassName = "GatePipe";
+
+
     [Export]
     private LiquidType gateLockColor = LiquidType.Azul;
     private bool gateUnlocked = false;
@@ -22,6 +25,19 @@ public partial class GatePipe : BasePipe
         line.Owner = this;
     }
 
+    public override Godot.Collections.Dictionary<string, Variant> ExportData()
+    {
+        Godot.Collections.Dictionary<string, Variant> dataDict = new Godot.Collections.Dictionary<string, Variant>
+        {
+            {"PipeScriptPath", GatePipe.ClassName},
+
+            {"gateLockColor", (int)this.gateLockColor}
+        };
+
+         dataDict.Merge( base.ExportData() );
+
+         return dataDict;
+    }
 
     public override void SetLiquid(Directions outletPos, LiquidType liquid)
     {

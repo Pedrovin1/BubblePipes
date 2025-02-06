@@ -230,13 +230,16 @@ public partial class BasePipe : Button, ISlotInteractable
         {
             {"PipeScriptPath", GameUtils.ScriptPaths[BasePipe.ClassName]},
 
-            { "pipeResource",       this.pipeResource },
+            { "pipeResourcePath",   this.pipeResource.ResourcePath },
             { "stateNumber",        this.stateNumber},
             { "canRotate",          this.canRotate }
         };
     }
     public virtual void ImportData(Godot.Collections.Dictionary<string, Variant> setupData)
     {
+        this.pipeResource = ResourceLoader.Load<PipeResource>((string)setupData["pipeResourcePath"]);
+        setupData.Remove("pipeResourcePath");
+
         foreach((string propertyName, var data) in setupData)
         {
             this.Set(propertyName, data);

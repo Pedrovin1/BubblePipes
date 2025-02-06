@@ -16,7 +16,7 @@ public partial class Tabuleiro : GridContainer
 
     public override void _Ready()
     {
-        //this.LoadLevel(this.currentLevel);
+        this.LoadLevel(this.currentLevel);
 
         this.objectiveSlotsAmount = 0;
         this.objectiveSlotsCorrectlyFilled = 0;
@@ -36,7 +36,7 @@ public partial class Tabuleiro : GridContainer
             ((Button)node).Pressed += this.onChildInteraction;
         }
 
-        this.UpdateBoardState();
+        //this.UpdateBoardState();
     }
 
     public void onChildInteraction()
@@ -47,9 +47,6 @@ public partial class Tabuleiro : GridContainer
         {
             this.EmitSignal(Tabuleiro.SignalName.LevelCompleted);
         }
-
-        //TEMP TEMP TEMP
-        this.ExportLevel();
     }
 
     private void onObjectiveSlotStateChanged(LiquidObjective _, bool correctlyFilled)

@@ -86,10 +86,15 @@ public partial class Tabuleiro : GridContainer
             );
 
             Node childNode = this.GetChild(nodeIndex);
-            childNode.SetScript(ResourceLoader.Load((string)dataDictionary["PipeScriptPath"])); //
+
+            ulong nodeID = childNode.GetInstanceId();
+            childNode.SetScript(ResourceLoader.Load((string)dataDictionary["PipeScriptPath"])); //C# disposes current instance for some obscure reason
+            childNode = (Node)InstanceFromId(nodeID); //to find the new instance generated after the attachScript 
+
             dataDictionary.Remove("PipeScriptPath");
 
             ((ISavable)childNode).ImportData(dataDictionary);
+            childNode._Ready();
         }
 
         file.Close();
@@ -117,7 +122,10 @@ public partial class Tabuleiro : GridContainer
             var scene = ResourceLoader.Load<PackedScene>(GameUtils.PipeSlotScenePath);
             while(childCount < targetChildrenAmount)
             {
-                this.AddChild(scene.Instantiate());
+                var instance = scene.Instantiate();
+                this.AddChild(instance);
+                instance.Owner = this;
+
                 childCount++;
             }
             return;

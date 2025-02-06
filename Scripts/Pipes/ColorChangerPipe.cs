@@ -21,7 +21,7 @@ public partial class ColorChangerPipe : BasePipe
     {
         Godot.Collections.Dictionary<string, Variant> dataDict = new Godot.Collections.Dictionary<string, Variant>
         {
-            {"PipeScriptPath", ColorChangerPipe.ClassName},
+            {"PipeScriptPath", GameUtils.ScriptPaths[ColorChangerPipe.ClassName]},
 
             {"requiredColor",            (int)this.requiredColor},
             {"positionRequiredColor",    (int)this.positionRequiredColor},

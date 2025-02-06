@@ -29,6 +29,7 @@ public partial class BaseSource : BasePipe
 
         this.rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
         this.extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
+        this.ClearDetailSprites();
 
         // -- Carrega os detalhes do Pipe -- //
         this.UpdateOutletOpeningStates();
@@ -40,7 +41,7 @@ public partial class BaseSource : BasePipe
     {
         Godot.Collections.Dictionary<string, Variant> dataDict = new Godot.Collections.Dictionary<string, Variant>
         {
-            {"PipeScriptPath", BaseSource.ClassName},
+            {"PipeScriptPath", GameUtils.ScriptPaths[BaseSource.ClassName]},
             
             {"sourceLiquid", (int)this.sourceLiquid}
         };

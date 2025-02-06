@@ -29,7 +29,7 @@ public partial class GatePipe : BasePipe
     {
         Godot.Collections.Dictionary<string, Variant> dataDict = new Godot.Collections.Dictionary<string, Variant>
         {
-            {"PipeScriptPath", GatePipe.ClassName},
+            {"PipeScriptPath", GameUtils.ScriptPaths[GatePipe.ClassName]},
 
             {"gateLockColor", (int)this.gateLockColor}
         };

@@ -32,6 +32,8 @@ public partial class LiquidObjective : Button, ISlotInteractable
         this.contentSprite.Hframes = 5;
         this.contentSprite.Texture = ResourceLoader.Load<Texture2D>("res://Assets/Sprites/LiquidObjectiveSprites.png");
 
+        this.ClearDetailSprites();
+
         this.outletStates[Directions.Cima].Opened = true; //temporário!
 
         this.UpdateDrawingState();
@@ -40,6 +42,21 @@ public partial class LiquidObjective : Button, ISlotInteractable
     public void onClicked()
     {
         return;
+    }
+
+    private void ClearDetailSprites()
+    {
+        var rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
+        var extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
+        
+        foreach(Node node in rootLiquidSprites.GetChildren())
+        {
+            node.QueueFree();
+        }
+        foreach(Node node in extraDetails.GetChildren())
+        {
+            node.QueueFree();
+        }
     }
 
 
@@ -96,7 +113,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
     {
         return new Godot.Collections.Dictionary<string, Variant>
         {
-            {"PipeScriptPath", LiquidObjective.ClassName},
+            {"PipeScriptPath", GameUtils.ScriptPaths[LiquidObjective.ClassName]},
             
             { "requiredLiquid", (int)this.requiredLiquid },
         };

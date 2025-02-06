@@ -1,10 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-
 
 public class SlotOutlet
 {
@@ -57,6 +53,8 @@ public partial class BasePipe : Button, ISlotInteractable
 
         this.rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
         this.extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
+        this.ClearDetailSprites();
+
 
         foreach(Vector2I liquidSpriteInfo in this.pipeResource.baseLiquidSegmentLayout)
         {
@@ -82,6 +80,18 @@ public partial class BasePipe : Button, ISlotInteractable
     protected virtual void LoadExtraDetails()
     {
         return;
+    }
+
+    protected void ClearDetailSprites()
+    {
+        foreach(Node node in this.rootLiquidSprites.GetChildren())
+        {
+            node.QueueFree();
+        }
+        foreach(Node node in this.extraDetails.GetChildren())
+        {
+            node.QueueFree();
+        }
     }
 
     public void onClicked() //maybe add a quick update state here (verify states around and update outlet states)
@@ -218,7 +228,7 @@ public partial class BasePipe : Button, ISlotInteractable
     {
         return new Godot.Collections.Dictionary<string, Variant>
         {
-            {"PipeScriptPath", BasePipe.ClassName},
+            {"PipeScriptPath", GameUtils.ScriptPaths[BasePipe.ClassName]},
 
             { "pipeResource",       this.pipeResource },
             { "stateNumber",        this.stateNumber},

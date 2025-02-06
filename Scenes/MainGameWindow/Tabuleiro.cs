@@ -8,7 +8,7 @@ public partial class Tabuleiro : GridContainer
     public delegate void LevelCompletedEventHandler();
 
     [Export]
-    private int currentLevel = -1;
+    private int currentLevel = 1;
 
     private List<int> LiquidSourceIndexes = new();
     private int objectiveSlotsAmount = 0;
@@ -16,7 +16,11 @@ public partial class Tabuleiro : GridContainer
 
     public override void _Ready()
     {
-        //CarregarLevel a partir da Resource e deletar do dicionaraio a entrada do scriptPath
+        //this.LoadLevel(this.currentLevel);
+
+        this.objectiveSlotsAmount = 0;
+        this.objectiveSlotsCorrectlyFilled = 0;
+        this.LiquidSourceIndexes = new();
 
         foreach(Node node in this.GetChildren())
         {
@@ -43,6 +47,9 @@ public partial class Tabuleiro : GridContainer
         {
             this.EmitSignal(Tabuleiro.SignalName.LevelCompleted);
         }
+
+        //TEMP TEMP TEMP
+        this.ExportLevel();
     }
 
     private void onObjectiveSlotStateChanged(LiquidObjective _, bool correctlyFilled)
@@ -127,39 +134,5 @@ public partial class Tabuleiro : GridContainer
 
             visitados[currentNode].Add(outletPos);
         }
-    }
-
-    public bool isMoveInsideBounds(int currentIndex, Directions movement, out ISlotInteractable neighborNode)
-    {
-        int movementIndexOffset = 0;
-        neighborNode = null;
-        bool result = false;
-
-        switch(movement)
-        {
-            case Directions.Cima: movementIndexOffset = -this.Columns;
-                result = currentIndex + movementIndexOffset >= 0;
-                break;
-            
-            case Directions.Direita: movementIndexOffset = 1;
-                result = (currentIndex + movementIndexOffset) % this.Columns != 0 &&
-                        currentIndex + movementIndexOffset < this.GetChildCount(); //unecessary but safer
-                break;
-            
-            case Directions.Baixo: movementIndexOffset = this.Columns;
-                result = currentIndex + movementIndexOffset < this.GetChildCount(); 
-                break;
-        
-            case Directions.Esquerda: movementIndexOffset = -1;
-                result = currentIndex % this.Columns != 0;
-                break;
-
-        }
-
-        if(result)
-        { 
-            neighborNode = this.GetChild<ISlotInteractable>(currentIndex + movementIndexOffset); 
-        }
-        return result;
     }
 }

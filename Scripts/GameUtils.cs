@@ -4,6 +4,7 @@ using Godot;
 
 public static class GameUtils
 {
+    public static readonly string PipeSlotScenePath = "res://Scenes/PipeSlot/PipeSlot.tscn";
     public readonly static Dictionary<LiquidType, Color> LiquidColorsRGB = new Dictionary<LiquidType, Color>
     {
         {LiquidType.Vazio, Color.Color8(11, 11, 11)     },
@@ -16,11 +17,11 @@ public static class GameUtils
 
     public readonly static Dictionary<string, string> ScriptPaths = new Dictionary<string, string>
     {
-        {"BaseSource", ""},
-        {"LiquidObjective",""},
-        {"BasePipe", ""},
-        {"ColorChangerPipe", ""},
-        {"GatePipe", ""}
+        {"BaseSource", "res://Scripts/Pipes/BaseSource.cs"},
+        {"LiquidObjective","res://Scripts/LiquidObjective.cs"},
+        {"BasePipe", "res://Scripts/Pipes/BasePipe.cs"},
+        {"ColorChangerPipe", "res://Scripts/Pipes/ColorChangerPipe.cs"},
+        {"GatePipe", "res://Scripts/Pipes/GatePipe.cs"}
     };
 
     public static Directions OppositeSide(Directions direction)

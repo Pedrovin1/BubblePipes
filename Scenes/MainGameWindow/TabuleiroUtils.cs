@@ -5,7 +5,7 @@ using System.IO;
 
 public partial class Tabuleiro : GridContainer
 {
-    const string LevelExportPath = "res://Assets/Levels";
+    public const string LevelExportPath = "res://Assets/Levels";
     const string defaultMapFileName = "Level_0.json";
 
 

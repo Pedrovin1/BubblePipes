@@ -20,15 +20,23 @@ public partial class LevelBox : Button
         this.Pressed += this.onPressed;
     }
 
-    public void SetLevelNumber(int number)
+    public void SetLevelNumber(int number, bool unlocked = true)
     {
         this.levelNumber = number;
-        this.UpdateSprite();
+        this.UpdateSprite(unlocked);
     }
 
-    public void UpdateSprite()
+    private void UpdateSprite(bool unlocked)
     {
         this.label.Text = this.levelNumber.ToString();
+        this.buttonSprite.Frame = 1;
+        this.label.Visible = true;
+
+        if(!unlocked)
+        {
+            this.buttonSprite.Frame = 0;
+            this.label.Visible = false;
+        }
     }
 
     public void onPressed()

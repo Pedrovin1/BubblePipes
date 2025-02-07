@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://beths44p3fkc0"]
+[gd_scene load_steps=9 format=3 uid="uid://beths44p3fkc0"]
 
 [ext_resource type="Texture2D" uid="uid://clwlyheb2m5y1" path="res://Assets/Sprites/seta.png" id="1_0kt0y"]
 [ext_resource type="Texture2D" uid="uid://cri5rwv0dk3to" path="res://Assets/Fonts/rascunho1.png" id="1_mr2y0"]
+[ext_resource type="Script" path="res://Scenes/LevelMap/LevelMap.cs" id="1_qrbvg"]
 [ext_resource type="PackedScene" uid="uid://bfl4a2qdvx5xe" path="res://Scenes/LevelBox/levelBox.tscn" id="2_nfuf5"]
 
 [sub_resource type="Animation" id="Animation_5re7o"]
@@ -57,6 +58,7 @@ _data = {
 }
 
 [node name="LevelMap" type="Node2D"]
+script = ExtResource("1_qrbvg")
 
 [node name="UpButton" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -85,12 +87,13 @@ position = Vector2(1, 1)
 texture = ExtResource("1_0kt0y")
 centered = false
 
-[node name="MovableObjects" type="Node2D" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MovableObjects"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MovableObjects")
 libraries = {
 "": SubResource("AnimationLibrary_j5ouq")
 }
+
+[node name="MovableObjects" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="MovableObjects"]
 position = Vector2(23, 90)

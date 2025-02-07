@@ -14,7 +14,7 @@
 [ext_resource type="Resource" uid="uid://c0ty3ps8ohkje" path="res://Assets/Resources/Pipe3Gate_res.tres" id="11_u4jg2"]
 [ext_resource type="Script" path="res://Scripts/Pipes/ColorChangerPipe.cs" id="13_ocrga"]
 [ext_resource type="Resource" uid="uid://co4v6t7l5stw" path="res://Assets/Resources/Pipe2ColorChanger_I_res.tres" id="13_u7uwo"]
-[ext_resource type="PackedScene" uid="uid://beths44p3fkc0" path="res://Scenes/LevelsMap/LevelsMap.tscn" id="14_ckgum"]
+[ext_resource type="PackedScene" uid="uid://beths44p3fkc0" path="res://Scenes/LevelMap/LevelMap.tscn" id="14_ckgum"]
 
 [node name="MainGameWindow" type="Node2D"]
 

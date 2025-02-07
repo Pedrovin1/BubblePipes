@@ -36,7 +36,7 @@ public partial class Tabuleiro : GridContainer
             ((Button)node).Pressed += this.onChildInteraction;
         }
 
-        //this.UpdateBoardState();
+        this.UpdateBoardState();
     }
 
     public void onChildInteraction()

@@ -46,11 +46,17 @@ public partial class LevelMap : Node2D
     }
     private void onDownButtonPressed()
     {
-
+        this.showedLevelsRange[0] -= 5;
+        this.showedLevelsRange[1] -= 5;
+        this.updateLevelBoxes();
+        
+        this.animationNode.PlayBackwards("MoverAvancarMapaNiveis");
+        
     }
 
-    private void updateLevelBoxes()
+    private void updateLevelBoxes(bool inverted = false)
     {
+
         for( int i = 0; i < this.rootLevelBoxes.GetChildCount(); i++)
         {
             LevelBox lbox = this.rootLevelBoxes.GetChild<LevelBox>(i);

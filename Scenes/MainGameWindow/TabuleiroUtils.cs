@@ -51,7 +51,7 @@ public partial class Tabuleiro : GridContainer
 
         foreach(ISavable node in this.GetChildren())
         {
-            file.StoreLine(Json.Stringify(node.ExportData()));
+            file.StoreLine(Json.Stringify(node.GetExportData()));
         }
 
         file.Close();

@@ -224,7 +224,7 @@ public partial class BasePipe : Button, ISlotInteractable
     }
 
 
-    public virtual Godot.Collections.Dictionary<string, Variant> ExportData()
+    public virtual Godot.Collections.Dictionary<string, Variant> GetExportData()
     {
         return new Godot.Collections.Dictionary<string, Variant>
         {

@@ -37,7 +37,7 @@ public partial class BaseSource : BasePipe
         this.UpdateDrawingState();
     }
 
-    public override Godot.Collections.Dictionary<string, Variant> ExportData()
+    public override Godot.Collections.Dictionary<string, Variant> GetExportData()
     {
         Godot.Collections.Dictionary<string, Variant> dataDict = new Godot.Collections.Dictionary<string, Variant>
         {
@@ -46,7 +46,7 @@ public partial class BaseSource : BasePipe
             {"sourceLiquid", (int)this.sourceLiquid}
         };
 
-        dataDict.Merge(base.ExportData());
+        dataDict.Merge(base.GetExportData());
 
         return dataDict;
     }

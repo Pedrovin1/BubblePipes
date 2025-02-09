@@ -17,7 +17,7 @@ public partial class ColorChangerPipe : BasePipe
     [Export]
     private bool Bidirectional = true;
 
-    public override Godot.Collections.Dictionary<string, Variant> ExportData()
+    public override Godot.Collections.Dictionary<string, Variant> GetExportData()
     {
         Godot.Collections.Dictionary<string, Variant> dataDict = new Godot.Collections.Dictionary<string, Variant>
         {
@@ -30,7 +30,7 @@ public partial class ColorChangerPipe : BasePipe
             {"Bidirectional",                 this.Bidirectional}
         };
 
-        dataDict.Merge(base.ExportData());
+        dataDict.Merge(base.GetExportData());
 
         return dataDict;
     }

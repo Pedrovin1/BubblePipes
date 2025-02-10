@@ -41,6 +41,8 @@ public partial class LevelBox : Button
 
     public void onPressed()
     {
-        //
+        if(PlayerData.self.lastUnlockedLevel < this.levelNumber){ return; }
+        
+        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelSelected, this.levelNumber);
     }
 }

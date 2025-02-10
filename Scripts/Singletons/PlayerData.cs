@@ -1,21 +1,30 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Godot.NativeInterop;
 using static System.Environment;
 
 public partial class PlayerData : Node, ISavable
 {
+    [Signal]
+    public delegate void PlayerDataChangedEventHandler();
+    public static PlayerData self;
+
     private const string saveFolderName = "BubblePipesData";
     private const string saveFileName = "bubblepipesdata.json";
     private string saveFileDirectory;
     
-    private int selectedLevel = 1;
-    private int lastUnlockedLevel = 1;
 
-    bool safeToExport = false;
+    public int selectedLevel {get; private set;} = 1;
+    public int lastUnlockedLevel {get; private set;} = 1;
+
 
     public override void _Ready()
     {
+        PlayerData.self = this;
+
+        SignalBus.self.Connect(SignalBus.SignalName.LevelCompleted, new Callable(PlayerData.self, MethodName.onLevelCompleted));
+
         this.saveFileDirectory = System.Environment.GetFolderPath(SpecialFolder.ApplicationData);
         this.saveFileDirectory += $"\\{PlayerData.saveFolderName}";
 
@@ -27,12 +36,14 @@ public partial class PlayerData : Node, ISavable
         if(!Godot.FileAccess.FileExists(this.saveFileDirectory+$"\\{PlayerData.saveFileName}"))
         {
             Godot.FileAccess.Open(this.saveFileDirectory+$"\\{PlayerData.saveFileName}", Godot.FileAccess.ModeFlags.Write).Close();
+            this.ExportData();
             return;
         }
 
         using var saveFile = Godot.FileAccess.Open(this.saveFileDirectory+$"\\{PlayerData.saveFileName}", Godot.FileAccess.ModeFlags.Read);
 
-        string jsonString = saveFile.GetAsText(true).Trim().Split('\n').Join("");
+
+        string jsonString = saveFile.GetAsText(skipCr:true).Trim().Split('\n').Join("");
         Json json = new();
         if(json.Parse(jsonString) != Error.Ok){ throw new Exception(json.GetErrorMessage()); }
 
@@ -46,9 +57,25 @@ public partial class PlayerData : Node, ISavable
         saveFile.Close();
     }
 
+    private void onLevelCompleted(int levelCompleted)
+    {
+        if(levelCompleted == this.lastUnlockedLevel)
+        {
+            this.lastUnlockedLevel++;
+            this.EmitSignal(SignalName.PlayerDataChanged);
+        }
+
+        this.ExportData();
+    }
+
     private void ExportData()
     {
+        //if(this.lastUnlockedLevel <= 1){ return; }
 
+        using var saveFile = Godot.FileAccess.Open( this.saveFileDirectory + $"\\{PlayerData.saveFileName}", 
+                                                    FileAccess.ModeFlags.Write);
+        saveFile.StoreString(Json.Stringify(this.GetExportData()));
+        saveFile.Close(); 
     }
 
     public Godot.Collections.Dictionary<string, Variant> GetExportData()
@@ -66,5 +93,7 @@ public partial class PlayerData : Node, ISavable
         {
             this.Set(propertyName, value);
         }
+
+        this.EmitSignal(SignalName.PlayerDataChanged);
     }
 }

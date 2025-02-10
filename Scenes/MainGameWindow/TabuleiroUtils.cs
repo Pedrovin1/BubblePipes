@@ -6,9 +6,9 @@ using System.IO;
 public partial class Tabuleiro : GridContainer
 {
     public const string LevelExportPath = "res://Assets/Levels";
-    const string defaultMapFileName = "Level_0.json";
+    private const string defaultMapFileName = "Level_0.json";
 
-
+    
     public bool isMoveInsideBounds(int currentIndex, Directions movement, out ISlotInteractable neighborNode)
     {
         int movementIndexOffset = 0;

@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SignalBus="*res://Scripts/Singletons/SignalBus.cs"
 PlayerData="*res://Scripts/Singletons/PlayerData.cs"
 
 [display]

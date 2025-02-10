@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 public partial class Tabuleiro : GridContainer
 {
-    [Signal]
-    public delegate void LevelCompletedEventHandler();
-
     [Export]
     private int currentLevel = 1;
 
@@ -14,14 +11,28 @@ public partial class Tabuleiro : GridContainer
     private int objectiveSlotsAmount = 0;
     private int objectiveSlotsCorrectlyFilled = 0;
 
+    private bool c_connect = true;
+    private Callable c_onObjectiveSlotStateChanged;
+    private Callable c_onChildInteraction;
+    private Callable c_onLevelSelected;
+
     public override void _Ready()
     {
-        this.LoadLevel(this.currentLevel);
+        if(this.c_connect)
+        {
+            this.c_connect = false;
+            this.c_onObjectiveSlotStateChanged = new Callable(this, MethodName.onObjectiveSlotStateChanged);
+            this.c_onChildInteraction = new Callable(this, MethodName.onChildInteraction);
+            this.c_onLevelSelected = new Callable(this, MethodName.onLevelSelected);
 
+            GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.LevelSelected, this.c_onLevelSelected);
+        }
+        
+        this.LoadLevel(this.currentLevel);
         this.objectiveSlotsAmount = 0;
         this.objectiveSlotsCorrectlyFilled = 0;
         this.LiquidSourceIndexes = new();
-
+        
         foreach(Node node in this.GetChildren())
         {
             switch(node)
@@ -29,14 +40,28 @@ public partial class Tabuleiro : GridContainer
                 case BaseSource: LiquidSourceIndexes.Add(node.GetIndex()); break;
                 case LiquidObjective slotObjective: 
                     this.objectiveSlotsAmount++;
-                    slotObjective.ObjectiveSlotStateChanged += this.onObjectiveSlotStateChanged;
+                    if(!slotObjective.IsConnected(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged))
+                    {
+                        slotObjective.Connect(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged);
+                    }
+                    
                     break;
             }
 
-            ((Button)node).Pressed += this.onChildInteraction;
+            var button = (Button)node;
+            if(!button.IsConnected(Button.SignalName.Pressed, this.c_onChildInteraction))
+            {
+                button.Connect(Button.SignalName.Pressed, this.c_onChildInteraction);
+            }
         }
 
         this.UpdateBoardState();
+    }
+
+    public void onLevelSelected(int level)
+    {
+        this.currentLevel = level;
+        this._Ready();
     }
 
     public void onChildInteraction()
@@ -45,7 +70,7 @@ public partial class Tabuleiro : GridContainer
 
         if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
         {
-            this.EmitSignal(Tabuleiro.SignalName.LevelCompleted);
+            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelCompleted, this.currentLevel);
         }
     }
 
@@ -53,6 +78,11 @@ public partial class Tabuleiro : GridContainer
     {
         if(correctlyFilled){ this.objectiveSlotsCorrectlyFilled++; }
         else{                this.objectiveSlotsCorrectlyFilled--; }
+
+        if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
+        {
+            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelCompleted, this.currentLevel);
+        }
     }
 
     private void UpdateBoardState()

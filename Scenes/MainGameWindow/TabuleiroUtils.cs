@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 public partial class Tabuleiro : GridContainer
 {
@@ -65,8 +66,9 @@ public partial class Tabuleiro : GridContainer
 
         using var file = Godot.FileAccess.Open(filePath, Godot.FileAccess.ModeFlags.Read);
 
-        int nodesAmount = file.GetAsText().Count("\n");
-        this.BalanceChildrenAmount(nodesAmount);
+        //int nodesAmount = file.GetAsText().Count("\n");
+        // this.BalanceChildrenAmount(nodesAmount)
+        this.ResetBoard();
 
         int nodeIndex = -1;
         while(file.GetPosition() < file.GetLength())
@@ -99,6 +101,31 @@ public partial class Tabuleiro : GridContainer
 
         file.Close();
    }
+
+    private void ResetBoard(int columns = 5) //has edge cases but not a problem for the current game scope
+    {
+        int requiredNodes = (columns * 10) - this.GetChildCount();
+        var scene = ResourceLoader.Load<PackedScene>(GameUtils.PipeSlotScenePath);
+
+        for(int i = 0; i < requiredNodes; i++)
+        {
+            var instance = scene.Instantiate();
+            this.AddChild(instance);
+            instance.Owner = this;
+        }
+
+        for(int i = 0; i < GetChildCount(); i++)
+        {
+            Node instance = this.GetChild(i);
+
+            ulong nodeID = instance.GetInstanceId();
+            instance.SetScript(ResourceLoader.Load("res://Scripts/Pipes/BasePipe.cs"));
+            instance = (Node)InstanceFromId(nodeID);
+
+            instance.Owner = this;
+            instance._Ready();
+        }
+    }
 
    private void BalanceChildrenAmount(int targetChildrenAmount)
    {

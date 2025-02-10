@@ -11,7 +11,11 @@ public partial class BaseSource : BasePipe
 
     public override void _Ready()
     {
-        this.Pressed += this.onClicked;
+        if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked)))
+        {
+            this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
+        }
+        
         this.canRotate = false;
 
         // -- Desenha o Pipe -- //

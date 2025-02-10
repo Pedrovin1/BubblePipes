@@ -17,7 +17,10 @@ public partial class LevelBox : Button
         this.buttonSprite = (Sprite2D) FindChild("Sprite2D");
         this.buttonSprite.Frame = 0;
         
-        this.Pressed += this.onPressed;
+        if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onPressed)))
+        {
+            this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onPressed));
+        }
     }
 
     public void SetLevelNumber(int number, bool unlocked = true)

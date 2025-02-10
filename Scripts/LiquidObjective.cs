@@ -27,7 +27,11 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
     public override void _Ready()
     {
-        this.Pressed += this.onClicked;
+        if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked)))
+        {
+            this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
+        }
+        
         this.contentSprite = (Sprite2D)FindChild("ContentFrame");
         this.contentSprite.Hframes = 5;
         this.contentSprite.Texture = ResourceLoader.Load<Texture2D>("res://Assets/Sprites/LiquidObjectiveSprites.png");
@@ -51,11 +55,11 @@ public partial class LiquidObjective : Button, ISlotInteractable
         
         foreach(Node node in rootLiquidSprites.GetChildren())
         {
-            node.QueueFree();
+            node.Free();
         }
         foreach(Node node in extraDetails.GetChildren())
         {
-            node.QueueFree();
+            node.Free();
         }
     }
 

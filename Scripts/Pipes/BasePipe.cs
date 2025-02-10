@@ -23,7 +23,7 @@ public partial class BasePipe : Button, ISlotInteractable
     private static readonly string ClassName = "BasePipe";
 
     [Export]
-    protected PipeResource pipeResource;
+    protected PipeResource pipeResource = null;
 
     [Export]
     protected byte stateNumber = 0;
@@ -44,7 +44,12 @@ public partial class BasePipe : Button, ISlotInteractable
 
     public override void _Ready()
     {
-        this.Pressed += this.onClicked;
+        if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked)))
+        {
+            this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
+        }
+
+        if(this.pipeResource == null){ this.pipeResource = ResourceLoader.Load<PipeResource>("res://Assets/Resources/Pipe0_empty.tres"); }
 
         this.pipeSprite = (Sprite2D)FindChild("ContentFrame"); 
         this.pipeSprite.Texture = pipeResource.pipeSpriteFile;
@@ -63,6 +68,7 @@ public partial class BasePipe : Button, ISlotInteractable
                 Texture = this.pipeResource.liquidSegmentsSpriteFile,
                 Hframes = this.pipeResource.LiquidSegmentsHframes,
                 Frame = liquidSpriteInfo[0],
+                //SelfModulate = GameUtils.LiquidColorsRGB[LiquidType.Vazio]
             };
 
             rootLiquidSprites.AddChild(liquidNode);
@@ -74,6 +80,8 @@ public partial class BasePipe : Button, ISlotInteractable
         // -- Carrega os detalhes do Pipe -- //
         this.UpdateOutletOpeningStates();
         this.UpdateOutletConnections();
+        this.ResetOutletLiquids();
+
         this.UpdateDrawingState();
     }
 
@@ -86,11 +94,11 @@ public partial class BasePipe : Button, ISlotInteractable
     {
         foreach(Node node in this.rootLiquidSprites.GetChildren())
         {
-            node.QueueFree();
+            node.Free();
         }
         foreach(Node node in this.extraDetails.GetChildren())
         {
-            node.QueueFree();
+            node.Free();
         }
     }
 

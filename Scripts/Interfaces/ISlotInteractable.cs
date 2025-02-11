@@ -7,7 +7,8 @@ public interface ISlotInteractable : ISavable
 
     public Directions[] GetConnections(Directions outletPos);
 
-    public void UpdateDrawingState();
+    public bool IsPlayingAnimation();
+    public void UpdateDrawingState(bool animate = false);
     
     public void ResetOutletLiquids(LiquidType defaultLiquid);
 }

@@ -16,6 +16,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
     private bool correctlyFilled = false;
 
     private Sprite2D contentSprite;
+    private Tween loopRotationTween;
 
     public Dictionary<Directions, SlotOutlet> outletStates = new()
     {
@@ -40,6 +41,9 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
         this.outletStates[Directions.Cima].Opened = true; //temporário!
 
+        this.loopRotationTween = this.CreateTween().SetLoops();
+        this.loopRotationTween.TweenProperty(this.contentSprite, "rotation", Mathf.DegToRad(360), 4.5f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
+        this.loopRotationTween.TweenProperty(this.contentSprite, "rotation", Mathf.DegToRad(0), 0f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
         this.UpdateDrawingState();
     }
 
@@ -64,12 +68,24 @@ public partial class LiquidObjective : Button, ISlotInteractable
     }
 
 
-    public void UpdateDrawingState()
+    public void UpdateDrawingState(bool _ = false)
     {
         this.contentSprite.GlobalRotation = 0;
-
         this.contentSprite.Frame = (int)requiredLiquid - 1;
-        
+
+        if(this.correctlyFilled)
+        {
+            this.loopRotationTween.Play();
+        }
+        else
+        {
+            this.loopRotationTween.Pause();  
+        }
+    }
+
+    public bool IsPlayingAnimation()
+    {
+        return false;
     }
 
     public void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
@@ -91,6 +107,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
     }
     public void SetLiquid(Directions outletPos, LiquidType liquid)
     {
+
         this.outletStates[outletPos].CurrentLiquid = liquid;
 
         foreach(Directions connection in this.outletStates[outletPos].Connections)
@@ -99,7 +116,11 @@ public partial class LiquidObjective : Button, ISlotInteractable
         }
 
         bool oldState = this.correctlyFilled;
-        this.correctlyFilled = liquid == this.requiredLiquid;
+        if(this.outletStates[outletPos].Opened)
+        {
+            this.correctlyFilled = liquid == this.requiredLiquid;
+        }
+        
 
         if(this.correctlyFilled != oldState)
         {
@@ -119,7 +140,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         {
             {"PipeScriptPath", GameUtils.ScriptPaths[LiquidObjective.ClassName]},
             
-            { "requiredLiquid", (int)this.requiredLiquid },
+            {LiquidObjective.PropertyName.requiredLiquid, (int)this.requiredLiquid },
         };
     }
     public virtual void ImportData(Godot.Collections.Dictionary<string, Variant> setupData)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=13 format=3 uid="uid://c4esbof6p0tn5"]
 
 [ext_resource type="Script" path="res://Scenes/MainGameWindow/Tabuleiro.cs" id="1_3cr4x"]
 [ext_resource type="Script" path="res://Scripts/Pipes/BasePipe.cs" id="1_jr7wk"]
@@ -9,10 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dr8eo0pha47qj" path="res://Scenes/PipeSlot/PipeSlot.tscn" id="7_e4n8x"]
 [ext_resource type="Resource" uid="uid://cuyganbwsohkk" path="res://Assets/Resources/Pipe2_L_res.tres" id="9_h5fdt"]
 [ext_resource type="Script" path="res://Scripts/Pipes/GatePipe.cs" id="10_bohe8"]
-[ext_resource type="Script" path="res://Scripts/LiquidObjective.cs" id="10_nnvmy"]
 [ext_resource type="Resource" uid="uid://b5g663d4iklrg" path="res://Assets/Resources/Pipe4_Cross.tres" id="11_8cloy"]
 [ext_resource type="Resource" uid="uid://c0ty3ps8ohkje" path="res://Assets/Resources/Pipe3Gate_res.tres" id="11_u4jg2"]
-[ext_resource type="Resource" uid="uid://cgn1bscy1lk3v" path="res://Assets/Resources/Pipe0_empty.tres" id="12_a425n"]
 [ext_resource type="PackedScene" uid="uid://beths44p3fkc0" path="res://Scenes/LevelMap/LevelMap.tscn" id="14_ckgum"]
 
 [node name="MainGameWindow" type="Node2D"]
@@ -272,14 +270,5 @@ pipeResource = ExtResource("4_kxkx5")
 layout_mode = 2
 script = ExtResource("1_jr7wk")
 pipeResource = ExtResource("4_kxkx5")
-
-[node name="ObjectiveSlot" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("12_a425n")
-
-[node name="ObjectiveSlot2" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("10_nnvmy")
 
 [node name="LevelsMap" parent="CanvasLayer" instance=ExtResource("14_ckgum")]

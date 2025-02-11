@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 public partial class Tabuleiro : GridContainer
 {
@@ -124,8 +125,8 @@ public partial class Tabuleiro : GridContainer
                 }
             }
 
-            node.UpdateDrawingState();
-        }
+            if(node.IsPlayingAnimation()){ continue; }
+            node.UpdateDrawingState();}
     }
 
     private void FillPipes(Dictionary<ISlotInteractable, List<Directions>> visitados, Stack<(ISlotInteractable, Directions, LiquidType)> proxVisita)

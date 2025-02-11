@@ -49,7 +49,7 @@ public partial class GatePipe : BasePipe
         base.SetLiquid(outletPos, liquid);
     }
 
-    public override void UpdateDrawingState()
+    public override void UpdateDrawingState(bool animate = false)
     {
         Line2D lineNode = this.extraDetails.GetChild<Line2D>(0);
 
@@ -61,7 +61,7 @@ public partial class GatePipe : BasePipe
             this.pipeSprite.Frame = 1;
         }
 
-        base.UpdateDrawingState();
+        base.UpdateDrawingState(animate);
     }
 
     public override bool IsOpened(Directions outletPos)

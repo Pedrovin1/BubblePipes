@@ -33,6 +33,7 @@ public partial class BasePipe : Button, ISlotInteractable
     protected Sprite2D pipeSprite;
     protected Node2D rootLiquidSprites;
     protected Node2D extraDetails;
+    protected bool isPlayingAnimation = false;
 
     public Dictionary<Directions, SlotOutlet> outletStates = new()
     {
@@ -104,14 +105,14 @@ public partial class BasePipe : Button, ISlotInteractable
 
     public void onClicked() //maybe add a quick update state here (verify states around and update outlet states)
     {
-        if(!canRotate){ return; }
+        if(!canRotate || this.IsPlayingAnimation()){ return; }
 
         this.stateNumber = (byte) ((stateNumber + 1) % pipeResource.statesAmount);
         this.UpdateOutletOpeningStates();
         this.UpdateOutletConnections();
         this.ResetOutletLiquids();
 
-        this.UpdateDrawingState();
+        this.UpdateDrawingState(animate:true);
     }
 
 
@@ -131,21 +132,44 @@ public partial class BasePipe : Button, ISlotInteractable
         this.UpdateOutletConnections();
         this.UpdateDrawingState();
     }
-
-    public virtual void UpdateDrawingState()
+    public bool IsPlayingAnimation()
+    {
+        return this.isPlayingAnimation;
+    }
+    public virtual void UpdateDrawingState(bool animate = false)
     {
         const int Directions_Quantity = 4;
+        float radiansRotation;
 
-        this.pipeSprite.GlobalRotation = 0;
-        this.rootLiquidSprites.Rotation = 0;
-        this.extraDetails.Rotation = 0;
+        if(animate)
+        {   
+            this.isPlayingAnimation = true;
 
-        float radiansRotation = (float) (this.stateNumber % Directions_Quantity / 2d * Math.PI);
+            radiansRotation = Godot.Mathf.DegToRad(this.stateNumber * 90);
+            if(this.stateNumber == 0)
+            { 
+                radiansRotation = Godot.Mathf.DegToRad(360);
+            }
 
-        this.pipeSprite.Rotate(radiansRotation);
-        this.rootLiquidSprites.Rotate(radiansRotation);
-        this.extraDetails.Rotate(radiansRotation);
+            using var rotationTween = this.GetTree().CreateTween().SetParallel(true); //memory leak here somehow, ~50kb each time
+            rotationTween.TweenProperty(this.pipeSprite, "rotation", radiansRotation, 1.0f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+            rotationTween.TweenProperty(this.rootLiquidSprites, "rotation", radiansRotation, 1.0f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+            rotationTween.TweenProperty(this.extraDetails, "rotation", radiansRotation, 1.0f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+            rotationTween.Chain().TweenCallback(Callable.From(this.onAnimationFinished));
+            rotationTween.Play();
+        }
+        else
+        {
+            radiansRotation = Godot.Mathf.DegToRad(this.stateNumber * 90);
 
+            this.pipeSprite.GlobalRotation = 0;
+            this.pipeSprite.Rotate(radiansRotation);
+            this.rootLiquidSprites.Rotation = 0;
+            this.extraDetails.Rotation = 0;
+            this.rootLiquidSprites.Rotate(radiansRotation);
+            this.extraDetails.Rotate(radiansRotation); 
+        }
+        
         foreach((var position, var outlet) in this.outletStates)
         {
             if(outlet.Opened)
@@ -252,6 +276,12 @@ public partial class BasePipe : Button, ISlotInteractable
         {
             this.Set(propertyName, data);
         }
+    }
+
+    protected void onAnimationFinished()
+    {
+        this.isPlayingAnimation = false;
+        this.UpdateDrawingState(animate:false);
     }
 
 }

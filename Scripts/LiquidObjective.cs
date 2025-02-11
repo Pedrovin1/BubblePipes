@@ -41,9 +41,6 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
         this.outletStates[Directions.Cima].Opened = true; //temporário!
 
-        this.loopRotationTween = this.CreateTween().SetLoops();
-        this.loopRotationTween.TweenProperty(this.contentSprite, "rotation", Mathf.DegToRad(360), 4.5f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
-        this.loopRotationTween.TweenProperty(this.contentSprite, "rotation", Mathf.DegToRad(0), 0f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
         this.UpdateDrawingState();
     }
 
@@ -68,24 +65,40 @@ public partial class LiquidObjective : Button, ISlotInteractable
     }
 
 
-    public void UpdateDrawingState(bool _ = false)
+    public void UpdateDrawingState(bool stateChanged = false)
     {
-        this.contentSprite.GlobalRotation = 0;
         this.contentSprite.Frame = (int)requiredLiquid - 1;
 
-        if(this.correctlyFilled)
+        if(this.loopRotationTween != null)
         {
-            this.loopRotationTween.Play();
+            this.loopRotationTween.Kill();
+        }
+
+        this.loopRotationTween = GetTree().CreateTween().SetLoops();
+        if(this.correctlyFilled && stateChanged)
+        {
+            loopRotationTween.TweenProperty(this.contentSprite, "rotation", Mathf.DegToRad(360), 4.5f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
+            loopRotationTween.TweenProperty(this.contentSprite, "rotation", Mathf.DegToRad(0), 0f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
+            loopRotationTween.Play();
         }
         else
         {
-            this.loopRotationTween.Pause();  
+            loopRotationTween.Kill();  
+            this.contentSprite.GlobalRotation = 0;
         }
     }
 
     public bool IsPlayingAnimation()
     {
-        return false;
+        return this.loopRotationTween.IsRunning();
+    }
+
+    public void ResetTweens()
+    {
+        if(loopRotationTween != null)
+        {
+             loopRotationTween.Kill();
+        }
     }
 
     public void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
@@ -125,6 +138,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         if(this.correctlyFilled != oldState)
         {
             this.EmitSignal(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this, liquid == this.requiredLiquid);
+            this.UpdateDrawingState(stateChanged:true);
         }
         
     }

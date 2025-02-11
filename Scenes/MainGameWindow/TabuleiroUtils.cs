@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -117,6 +118,7 @@ public partial class Tabuleiro : GridContainer
         for(int i = 0; i < GetChildCount(); i++)
         {
             Node instance = this.GetChild(i);
+            if(instance is ISlotInteractable slot){ slot.ResetTweens(); }
 
             ulong nodeID = instance.GetInstanceId();
             instance.SetScript(ResourceLoader.Load("res://Scripts/Pipes/BasePipe.cs"));

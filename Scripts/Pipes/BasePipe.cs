@@ -136,6 +136,11 @@ public partial class BasePipe : Button, ISlotInteractable
     {
         return this.isPlayingAnimation;
     }
+
+    public void ResetTweens()
+    {
+        return;
+    }
     public virtual void UpdateDrawingState(bool animate = false)
     {
         const int Directions_Quantity = 4;

@@ -68,6 +68,7 @@ public partial class Tabuleiro : GridContainer
     public void onChildInteraction()
     {
         this.UpdateBoardState();
+        this.UpdateBoardState();
 
         if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
         {

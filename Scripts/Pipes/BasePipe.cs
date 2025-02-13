@@ -30,7 +30,7 @@ public partial class BasePipe : Button, ISlotInteractable
 
     public bool canRotate = true;
 
-    protected Sprite2D pipeSprite;
+    protected Node2D pipeSprite;
     protected Node2D rootLiquidSprites;
     protected Node2D extraDetails;
     protected bool isPlayingAnimation = false;
@@ -52,10 +52,12 @@ public partial class BasePipe : Button, ISlotInteractable
 
         if(this.pipeResource == null){ this.pipeResource = ResourceLoader.Load<PipeResource>("res://Assets/Resources/Pipe0_empty.tres"); }
 
-        this.pipeSprite = (Sprite2D)FindChild("ContentFrame"); 
-        this.pipeSprite.Texture = pipeResource.pipeSpriteFile;
-        this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
-        this.pipeSprite.Frame = pipeResource.pipeSpriteFrame;
+        this.pipeSprite = (Sprite2D)FindChild("ContentFrame");
+        Sprite2D sprite = (Sprite2D)this.pipeSprite;
+        sprite.Texture = pipeResource.pipeSpriteFile;
+        sprite.Hframes = pipeResource.pipeSpriteHframes;
+        sprite.Frame = pipeResource.pipeSpriteFrame;
+        sprite.Show();
 
         this.rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
         this.extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
@@ -91,7 +93,7 @@ public partial class BasePipe : Button, ISlotInteractable
         return;
     }
 
-    protected void ClearDetailSprites()
+    protected virtual void ClearDetailSprites()
     {
         foreach(Node node in this.rootLiquidSprites.GetChildren())
         {
@@ -101,9 +103,13 @@ public partial class BasePipe : Button, ISlotInteractable
         {
             node.Free();
         }
+
+        var animSprite = (AnimatedSprite2D)FindChild("AnimatedSprite2D");
+        animSprite.Stop();
+        animSprite.Hide();
     }
 
-    public void onClicked() //maybe add a quick update state here (verify states around and update outlet states)
+    public void onClicked()
     {
         if(!canRotate || this.IsPlayingAnimation()){ return; }
 
@@ -118,19 +124,19 @@ public partial class BasePipe : Button, ISlotInteractable
 
     public void ChangePipeContent(PipeResource newPipe, byte state = 0, bool canRotate = true)
     {
-        this.pipeResource = newPipe;
-        this.stateNumber = (byte) (state % newPipe.statesAmount);
-        this.canRotate = canRotate;
+        // this.pipeResource = newPipe;
+        // this.stateNumber = (byte) (state % newPipe.statesAmount);
+        // this.canRotate = canRotate;
 
-        this.pipeSprite.Texture = newPipe.pipeSpriteFile;
-        this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
-        this.pipeSprite.Frame = newPipe.pipeSpriteFrame;
+        // this.pipeSprite.Texture = newPipe.pipeSpriteFile;
+        // this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
+        // this.pipeSprite.Frame = newPipe.pipeSpriteFrame;
 
-        //TODO: atualizar os pipe filling sprites2D
+        // //TODO: atualizar os pipe filling sprites2D
 
-        this.UpdateOutletOpeningStates();
-        this.UpdateOutletConnections();
-        this.UpdateDrawingState();
+        // this.UpdateOutletOpeningStates();
+        // this.UpdateOutletConnections();
+        // this.UpdateDrawingState();
     }
     public bool IsPlayingAnimation()
     {
@@ -161,6 +167,7 @@ public partial class BasePipe : Button, ISlotInteractable
             rotationTween.TweenProperty(this.rootLiquidSprites, "rotation", radiansRotation, 1.0f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
             rotationTween.TweenProperty(this.extraDetails, "rotation", radiansRotation, 1.0f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
             rotationTween.Chain().TweenCallback(Callable.From(this.onAnimationFinished));
+            
             rotationTween.Play();
         }
         else

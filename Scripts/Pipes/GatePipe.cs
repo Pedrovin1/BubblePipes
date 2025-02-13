@@ -54,11 +54,13 @@ public partial class GatePipe : BasePipe
         Line2D lineNode = this.extraDetails.GetChild<Line2D>(0);
 
         lineNode.Points = new Vector2[]{ lineNode.Points[0], new(8f, 0f) }; 
-        this.pipeSprite.Frame = 0;
+        Sprite2D sprite = (Sprite2D)this.pipeSprite;
+
+        sprite.Frame = 0;
         if(gateUnlocked)
         {
             lineNode.Points = new Vector2[]{ lineNode.Points[0], new(-4f, 0f) }; 
-            this.pipeSprite.Frame = 1;
+            sprite.Frame = 1;
         }
 
         base.UpdateDrawingState(animate);

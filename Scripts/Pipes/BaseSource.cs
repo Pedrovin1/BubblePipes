@@ -19,12 +19,19 @@ public partial class BaseSource : BasePipe
         this.canRotate = false;
 
         // -- Desenha o Pipe -- //
-        this.pipeSprite = (Sprite2D)FindChild("ContentFrame"); 
-        this.pipeSprite.Texture = pipeResource.pipeSpriteFile;
-        this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
+        this.pipeSprite = (AnimatedSprite2D)FindChild("AnimatedSprite2D");
+        ((Node2D)FindChild("ContentFrame")).Hide();
 
-        const int enumOffset = 1;
-        this.pipeSprite.Frame = ((int)sourceLiquid) - enumOffset;
+        AnimatedSprite2D sprite = (AnimatedSprite2D)this.pipeSprite;
+        sprite.SpriteFrames = ResourceLoader.Load<SpriteFrames>("res://Assets/Sprites/LiquidAnimations.tres");
+        sprite.Animation = sourceLiquid.ToString();
+        sprite.Offset = new Vector2(-8,-7);
+        sprite.Position = new Vector2(9, 9);
+        sprite.Centered = false;
+        sprite.ZIndex = 2;
+
+        //const int enumOffset = 1;
+        //this.pipeSprite.Frame = ((int)sourceLiquid) - enumOffset;
 
         foreach(SlotOutlet slotOutlet in this.outletStates.Values)
         {
@@ -34,6 +41,9 @@ public partial class BaseSource : BasePipe
         this.rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
         this.extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
         this.ClearDetailSprites();
+
+        sprite.Play(); //depois de resetar os detail sprites
+        sprite.Show();
 
         // -- Carrega os detalhes do Pipe -- //
         this.UpdateOutletOpeningStates();

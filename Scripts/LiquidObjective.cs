@@ -39,7 +39,10 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
         this.ClearDetailSprites();
 
-        this.outletStates[Directions.Cima].Opened = true; //temporário!
+        this.outletStates[Directions.Cima].Opened = true;
+        this.outletStates[Directions.Direita].Opened = true;
+        this.outletStates[Directions.Baixo].Opened = true;
+        this.outletStates[Directions.Esquerda].Opened = true;
 
         this.UpdateDrawingState();
     }
@@ -129,18 +132,21 @@ public partial class LiquidObjective : Button, ISlotInteractable
         }
 
         bool oldState = this.correctlyFilled;
-        if(this.outletStates[outletPos].Opened)
-        {
-            this.correctlyFilled = liquid == this.requiredLiquid;
-        }
         
+        this.correctlyFilled = false;
+        foreach(SlotOutlet outlet in this.outletStates.Values)
+        {
+            if(outlet.CurrentLiquid == requiredLiquid)
+            {
+                this.correctlyFilled = true;
+            }
+        }
 
         if(this.correctlyFilled != oldState)
         {
             this.EmitSignal(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this, liquid == this.requiredLiquid);
             this.UpdateDrawingState(stateChanged:true);
         }
-        
     }
 
     public Directions[] GetConnections(Directions outletPos)

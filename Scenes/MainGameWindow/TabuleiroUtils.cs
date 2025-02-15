@@ -45,6 +45,11 @@ public partial class Tabuleiro : GridContainer
         return result;
     }
 
+    public Vector2 GetSlotPosition(int slotIndex)
+    {
+        return default;
+    }
+
    public void ExportLevel(string savePath = Tabuleiro.LevelExportPath)
    {
         if(DirAccess.Open(savePath) is null){ throw new DirectoryNotFoundException($"Directory {savePath} Not Found"); }

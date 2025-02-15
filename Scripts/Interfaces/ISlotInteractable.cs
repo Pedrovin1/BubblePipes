@@ -6,6 +6,8 @@ public interface ISlotInteractable : ISavable
 
     public LiquidType GetLiquid(Directions outletPos);
     public void SetLiquid(Directions outletPos, LiquidType liquid);
+    public void LockRotation();
+    public void UnlockRotation();
 
     public Directions[] GetConnections(Directions outletPos);
 

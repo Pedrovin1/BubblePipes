@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Versioning;
 
 
 public partial class LiquidObjective : Button, ISlotInteractable
@@ -14,6 +15,11 @@ public partial class LiquidObjective : Button, ISlotInteractable
     [Export]
     public LiquidType requiredLiquid = LiquidType.Azul;
     private bool correctlyFilled = false;
+    private bool bubbleLocked = false;
+    public int[] bubbleLockedTilesIndexes {get; private set;} = {5, 6 ,15}; //testing
+
+
+    Node2D extraDetails;
 
     private Sprite2D contentSprite;
     private Tween loopRotationTween;
@@ -37,6 +43,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         this.contentSprite.Hframes = 5;
         this.contentSprite.Texture = ResourceLoader.Load<Texture2D>("res://Assets/Sprites/LiquidObjectiveSprites.png");
 
+        this.extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
         this.ClearDetailSprites();
 
         this.outletStates[Directions.Cima].Opened = true;
@@ -44,24 +51,97 @@ public partial class LiquidObjective : Button, ISlotInteractable
         this.outletStates[Directions.Baixo].Opened = true;
         this.outletStates[Directions.Esquerda].Opened = true;
 
+        this.LoadBubbleLocks();
         this.UpdateDrawingState();
     }
 
-    public void onClicked()
+    private void LoadBubbleLocks()
+    {   
+        const int frameOffset = -1;
+
+        Texture2D texture = ResourceLoader.Load<Texture2D>("res://Assets/Sprites/bubbleLocks.png");
+
+        foreach( int bubbleIndex in this.bubbleLockedTilesIndexes)
+        {
+            Sprite2D bubbleNode = new Sprite2D()
+            {
+                Texture = texture,
+                Hframes = 5,
+                Frame = (int)this.requiredLiquid + frameOffset,
+                ZIndex = 5,
+                Position = new Vector2(0f, 0f)
+            };
+            this.extraDetails.AddChild(bubbleNode);
+            bubbleNode.Owner = this;
+            
+
+            // Vector2 finalPosition = new Vector2(((bubbleIndex % 5) -2) * 17, (Mathf.Floor(bubbleIndex / 5f)-5) * 17); //magic numbers to offset the slot anchors
+            
+            // using Tween movementTween = this.GetTree().CreateTween();
+            // movementTween.TweenProperty(bubbleNode, "position", finalPosition, 1.5f)
+            //     .SetEase(Tween.EaseType.Out)
+            //     .SetTrans(Tween.TransitionType.Expo);
+            // movementTween.Play();
+        }
+    }
+
+    public void PlayBubbleSpreadingAnimation()
     {
-        return;
+        using Tween movementTween = this.GetTree().CreateTween();
+        for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
+        {
+            var bubble = this.extraDetails.GetChild<Sprite2D>(i);
+            bubble.Position = new Vector2(0f, 0f);
+            bubble.Show();
+
+            int destinySlotIndex = this.bubbleLockedTilesIndexes[i];
+            Vector2 finalPosition = new Vector2(((destinySlotIndex % 5) -2) * 17, (Mathf.Floor(destinySlotIndex / 5f)-5) * 17);
+            
+            movementTween.TweenProperty(bubble, "position", finalPosition, 0.5f) //globalPos
+                .SetTrans(Tween.TransitionType.Cubic);
+            movementTween.Play();
+        }
+    }
+
+    public void PlayBubbleReleasingAnimation()
+    {
+        using Tween floatingTween = this.GetTree().CreateTween();
+
+        for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
+        {
+            var bubble = this.extraDetails.GetChild<Sprite2D>(i);
+            floatingTween.TweenProperty(bubble, "position:y", -150f, 0.5f)
+                .SetEase(Tween.EaseType.InOut)
+                .SetTrans(Tween.TransitionType.Sine);
+
+            floatingTween.TweenCallback(Callable.From(bubble.Hide));
+            floatingTween.TweenProperty(bubble, "position", Vector2.Zero, 0f);
+    
+            floatingTween.Play();
+        }
+    }
+
+    public void onClicked(){ return; }
+    public void LockRotation()
+    { 
+        this.bubbleLocked = true; 
+        this.ResetOutletLiquids();
+        this.UpdateDrawingState();
+    }
+    public void UnlockRotation()
+    {  
+        this.bubbleLocked = false; 
     }
 
     private void ClearDetailSprites()
     {
         var rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
-        var extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
         
         foreach(Node node in rootLiquidSprites.GetChildren())
         {
             node.Free();
         }
-        foreach(Node node in extraDetails.GetChildren())
+        foreach(Node node in this.extraDetails.GetChildren())
         {
             node.Free();
         }
@@ -123,6 +203,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
     }
     public void SetLiquid(Directions outletPos, LiquidType liquid)
     {
+        if(this.bubbleLocked){ return; }
 
         this.outletStates[outletPos].CurrentLiquid = liquid;
 
@@ -161,6 +242,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
             {"PipeScriptPath", GameUtils.ScriptPaths[LiquidObjective.ClassName]},
             
             {LiquidObjective.PropertyName.requiredLiquid, (int)this.requiredLiquid },
+            {LiquidObjective.PropertyName.bubbleLockedTilesIndexes, this.bubbleLockedTilesIndexes}
         };
     }
     public virtual void ImportData(Godot.Collections.Dictionary<string, Variant> setupData)

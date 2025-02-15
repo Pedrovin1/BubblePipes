@@ -19,6 +19,10 @@ public partial class Tabuleiro : GridContainer
 
     public override void _Ready()
     {
+        GD.Print(this.Position);
+        GD.Print(this.GlobalPosition);
+        GD.Print(this.GetScreenPosition());
+
         if(this.c_connect)
         {
             this.c_connect = false;
@@ -44,6 +48,12 @@ public partial class Tabuleiro : GridContainer
                     if(!slotObjective.IsConnected(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged))
                     {
                         slotObjective.Connect(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged);
+                    }
+
+                    slotObjective.PlayBubbleSpreadingAnimation();
+                    foreach(int lockedIndex in slotObjective.bubbleLockedTilesIndexes)
+                    {
+                        this.GetChild<ISlotInteractable>(lockedIndex).LockRotation();
                     }
                     
                     break;
@@ -76,10 +86,26 @@ public partial class Tabuleiro : GridContainer
         }
     }
 
-    private void onObjectiveSlotStateChanged(LiquidObjective _, bool correctlyFilled)
+    private void onObjectiveSlotStateChanged(LiquidObjective objectiveSlot, bool correctlyFilled)
     {
-        if(correctlyFilled){ this.objectiveSlotsCorrectlyFilled++; }
-        else{                this.objectiveSlotsCorrectlyFilled--; }
+        if(correctlyFilled)
+        { 
+            this.objectiveSlotsCorrectlyFilled++;
+            objectiveSlot.PlayBubbleReleasingAnimation();
+            foreach(int index in objectiveSlot.bubbleLockedTilesIndexes)
+            {
+                this.GetChild<ISlotInteractable>(index).UnlockRotation();
+            }
+        }
+        else
+        {                
+            this.objectiveSlotsCorrectlyFilled--;
+            objectiveSlot.PlayBubbleSpreadingAnimation();
+            foreach(int index in objectiveSlot.bubbleLockedTilesIndexes)
+            {
+                this.GetChild<ISlotInteractable>(index).LockRotation();
+            }
+        }
 
         if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
         {

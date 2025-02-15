@@ -290,6 +290,9 @@ public partial class BasePipe : Button, ISlotInteractable
         }
     }
 
+    public void LockRotation(){this.canRotate = false;}
+    public void UnlockRotation(){this.canRotate = true;}
+
     protected void onAnimationFinished()
     {
         this.isPlayingAnimation = false;

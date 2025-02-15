@@ -16,7 +16,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
     public LiquidType requiredLiquid = LiquidType.Azul;
     private bool correctlyFilled = false;
     private bool bubbleLocked = false;
-    public int[] bubbleLockedTilesIndexes {get; private set;} = {5, 6 ,15}; //testing
+    public int[] bubbleLockedTilesIndexes {get; private set;}
 
 
     Node2D extraDetails;
@@ -57,11 +57,12 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
     private void LoadBubbleLocks()
     {   
+        if(this.bubbleLockedTilesIndexes == null || this.bubbleLockedTilesIndexes.Length == 0){ return; }
+
         const int frameOffset = -1;
-
         Texture2D texture = ResourceLoader.Load<Texture2D>("res://Assets/Sprites/bubbleLocks.png");
-
-        foreach( int bubbleIndex in this.bubbleLockedTilesIndexes)
+        
+        foreach(int bubbleIndex in this.bubbleLockedTilesIndexes)
         {
             Sprite2D bubbleNode = new Sprite2D()
             {
@@ -73,24 +74,18 @@ public partial class LiquidObjective : Button, ISlotInteractable
             };
             this.extraDetails.AddChild(bubbleNode);
             bubbleNode.Owner = this;
-            
-
-            // Vector2 finalPosition = new Vector2(((bubbleIndex % 5) -2) * 17, (Mathf.Floor(bubbleIndex / 5f)-5) * 17); //magic numbers to offset the slot anchors
-            
-            // using Tween movementTween = this.GetTree().CreateTween();
-            // movementTween.TweenProperty(bubbleNode, "position", finalPosition, 1.5f)
-            //     .SetEase(Tween.EaseType.Out)
-            //     .SetTrans(Tween.TransitionType.Expo);
-            // movementTween.Play();
         }
     }
 
     public void PlayBubbleSpreadingAnimation(Vector2 boardGlobalPos)
     {
+        if(this.bubbleLockedTilesIndexes == null || this.bubbleLockedTilesIndexes.Length == 0){ return; }
+
         const int slotSize = 17;
         const int pivotOffset = 9;
 
         using Tween movementTween = this.GetTree().CreateTween();
+
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
             var bubble = this.extraDetails.GetChild<Sprite2D>(i);
@@ -184,7 +179,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
     {
         if(loopRotationTween != null)
         {
-             loopRotationTween.Kill();
+            loopRotationTween.Kill();
         }
     }
 

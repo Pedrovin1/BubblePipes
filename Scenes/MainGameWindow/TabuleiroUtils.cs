@@ -110,7 +110,7 @@ public partial class Tabuleiro : GridContainer
 
     private void ResetBoard(int columns = 5) //has edge cases but not a problem for the current game scope
     {
-        int requiredNodes = (columns * 10) - this.GetChildCount();
+        int requiredNodes = 50 - this.GetChildCount();
         var scene = ResourceLoader.Load<PackedScene>(GameUtils.PipeSlotScenePath);
 
         for(int i = 0; i < requiredNodes; i++)
@@ -122,15 +122,15 @@ public partial class Tabuleiro : GridContainer
 
         for(int i = 0; i < GetChildCount(); i++)
         {
-            Node instance = this.GetChild(i);
-            if(instance is ISlotInteractable slot){ slot.ResetTweens(); }
+            Node node = this.GetChild(i);
+            if(node is ISlotInteractable slot){ slot.ResetTweens(); }
 
-            ulong nodeID = instance.GetInstanceId();
-            instance.SetScript(ResourceLoader.Load("res://Scripts/Pipes/BasePipe.cs"));
-            instance = (Node)InstanceFromId(nodeID);
+            ulong nodeID = node.GetInstanceId();
+            node.SetScript(ResourceLoader.Load("res://Scripts/Pipes/BasePipe.cs"));
+            node = (Node)InstanceFromId(nodeID);
 
-            instance.Owner = this;
-            instance._Ready();
+            node.Owner = this;
+            node._Ready();
         }
     }
 

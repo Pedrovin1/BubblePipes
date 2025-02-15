@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=14 format=3 uid="uid://c4esbof6p0tn5"]
 
 [ext_resource type="Script" path="res://Scenes/MainGameWindow/Tabuleiro.cs" id="1_3cr4x"]
 [ext_resource type="Script" path="res://Scripts/Pipes/BasePipe.cs" id="1_jr7wk"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/Pipes/GatePipe.cs" id="10_bohe8"]
 [ext_resource type="Resource" uid="uid://b5g663d4iklrg" path="res://Assets/Resources/Pipe4_Cross.tres" id="11_8cloy"]
 [ext_resource type="Resource" uid="uid://c0ty3ps8ohkje" path="res://Assets/Resources/Pipe3Gate_res.tres" id="11_u4jg2"]
+[ext_resource type="Script" path="res://Scripts/LiquidObjective.cs" id="12_8b1xv"]
 [ext_resource type="PackedScene" uid="uid://beths44p3fkc0" path="res://Scenes/LevelMap/LevelMap.tscn" id="14_ckgum"]
 
 [node name="MainGameWindow" type="Node2D"]
@@ -231,10 +232,9 @@ layout_mode = 2
 script = ExtResource("1_jr7wk")
 pipeResource = ExtResource("4_kxkx5")
 
-[node name="PipeSlot33" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
+[node name="Objective" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
+script = ExtResource("12_8b1xv")
 
 [node name="PipeSlot34" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
@@ -257,7 +257,6 @@ script = ExtResource("1_jr7wk")
 pipeResource = ExtResource("4_kxkx5")
 
 [node name="PipeSlot38" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 script = ExtResource("1_jr7wk")
 pipeResource = ExtResource("4_kxkx5")

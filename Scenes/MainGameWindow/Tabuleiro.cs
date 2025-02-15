@@ -19,10 +19,6 @@ public partial class Tabuleiro : GridContainer
 
     public override void _Ready()
     {
-        GD.Print(this.Position);
-        GD.Print(this.GlobalPosition);
-        GD.Print(this.GetScreenPosition());
-
         if(this.c_connect)
         {
             this.c_connect = false;

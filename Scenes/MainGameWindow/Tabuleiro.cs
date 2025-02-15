@@ -50,7 +50,7 @@ public partial class Tabuleiro : GridContainer
                         slotObjective.Connect(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged);
                     }
 
-                    slotObjective.PlayBubbleSpreadingAnimation();
+                    slotObjective.PlayBubbleSpreadingAnimation(this.GlobalPosition);
                     foreach(int lockedIndex in slotObjective.bubbleLockedTilesIndexes)
                     {
                         this.GetChild<ISlotInteractable>(lockedIndex).LockRotation();
@@ -100,7 +100,7 @@ public partial class Tabuleiro : GridContainer
         else
         {                
             this.objectiveSlotsCorrectlyFilled--;
-            objectiveSlot.PlayBubbleSpreadingAnimation();
+            objectiveSlot.PlayBubbleSpreadingAnimation(this.GlobalPosition);
             foreach(int index in objectiveSlot.bubbleLockedTilesIndexes)
             {
                 this.GetChild<ISlotInteractable>(index).LockRotation();

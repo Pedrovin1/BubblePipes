@@ -85,8 +85,11 @@ public partial class LiquidObjective : Button, ISlotInteractable
         }
     }
 
-    public void PlayBubbleSpreadingAnimation()
+    public void PlayBubbleSpreadingAnimation(Vector2 boardGlobalPos)
     {
+        const int slotSize = 17;
+        const int pivotOffset = 9;
+
         using Tween movementTween = this.GetTree().CreateTween();
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
@@ -95,9 +98,10 @@ public partial class LiquidObjective : Button, ISlotInteractable
             bubble.Show();
 
             int destinySlotIndex = this.bubbleLockedTilesIndexes[i];
-            Vector2 finalPosition = new Vector2(((destinySlotIndex % 5) -2) * 17, (Mathf.Floor(destinySlotIndex / 5f)-5) * 17);
+            Vector2 finalPosition = new Vector2(destinySlotIndex % 5 * slotSize + boardGlobalPos.X + pivotOffset, 
+                                                Mathf.Floor(destinySlotIndex / 5f) * slotSize + boardGlobalPos.Y + pivotOffset);
             
-            movementTween.TweenProperty(bubble, "position", finalPosition, 0.5f) //globalPos
+            movementTween.TweenProperty(bubble, "global_position", finalPosition, 0.5f)
                 .SetTrans(Tween.TransitionType.Cubic);
             movementTween.Play();
         }
@@ -110,7 +114,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
             var bubble = this.extraDetails.GetChild<Sprite2D>(i);
-            floatingTween.TweenProperty(bubble, "position:y", -150f, 0.5f)
+            floatingTween.TweenProperty(bubble, "global_position:y", -25f, 0.5f)
                 .SetEase(Tween.EaseType.InOut)
                 .SetTrans(Tween.TransitionType.Sine);
 

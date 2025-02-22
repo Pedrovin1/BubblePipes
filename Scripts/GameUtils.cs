@@ -21,7 +21,8 @@ public static class GameUtils
         {"LiquidObjective","res://Scripts/LiquidObjective.cs"},
         {"BasePipe", "res://Scripts/Pipes/BasePipe.cs"},
         {"ColorChangerPipe", "res://Scripts/Pipes/ColorChangerPipe.cs"},
-        {"GatePipe", "res://Scripts/Pipes/GatePipe.cs"}
+        {"GatePipe", "res://Scripts/Pipes/GatePipe.cs"},
+        {"ChangeablePipe","res://Scripts/Pipes/ChangeablePipe.cs"}
     };
 
     public static Directions OppositeSide(Directions direction)

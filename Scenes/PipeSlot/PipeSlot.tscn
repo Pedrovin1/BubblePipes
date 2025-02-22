@@ -21,6 +21,7 @@ mouse_filter = 2
 [node name="BorderFrame" type="Sprite2D" parent="CenterContainer/Panel"]
 texture = ExtResource("1_ukoks")
 centered = false
+hframes = 2
 
 [node name="ContentFrame" type="Sprite2D" parent="CenterContainer/Panel"]
 z_index = 1

@@ -23,12 +23,14 @@ public partial class BasePipe : Button, ISlotInteractable
     private static readonly string ClassName = "BasePipe";
 
     [Export]
-    protected PipeResource pipeResource = null;
+    public PipeResource pipeResource = null;
 
     [Export]
     protected byte stateNumber = 0;
 
     public bool canRotate = true;
+
+    public static PipeResource defaultEmptyPipeResource;
 
     protected Node2D pipeSprite;
     protected Node2D rootLiquidSprites;
@@ -50,7 +52,8 @@ public partial class BasePipe : Button, ISlotInteractable
             this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
         }
 
-        if(this.pipeResource == null){ this.pipeResource = ResourceLoader.Load<PipeResource>("res://Assets/Resources/Pipe0_empty.tres"); }
+        BasePipe.defaultEmptyPipeResource = ResourceLoader.Load<PipeResource>("res://Assets/Resources/Pipe0_empty.tres");
+        if(this.pipeResource == null){ this.pipeResource = BasePipe.defaultEmptyPipeResource; }
 
         this.pipeSprite = (Sprite2D)FindChild("ContentFrame");
         Sprite2D sprite = (Sprite2D)this.pipeSprite;
@@ -109,7 +112,7 @@ public partial class BasePipe : Button, ISlotInteractable
         animSprite.Hide();
     }
 
-    public void onClicked()
+    public virtual void onClicked()
     {
         if(!canRotate || this.IsPlayingAnimation()){ return; }
 

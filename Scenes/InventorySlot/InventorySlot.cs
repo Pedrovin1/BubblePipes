@@ -4,7 +4,7 @@ using System;
 public partial class InventorySlot : CenterContainer
 {
     [Signal]
-    public delegate void ItemSlotClickedEventHandler(int slotPosition, Texture2D itemTexture);
+    public delegate void ItemSlotClickedEventHandler(int slotPosition, Node2D itemSpriteNode);
 
     private Sprite2D spriteNode;
 
@@ -16,11 +16,18 @@ public partial class InventorySlot : CenterContainer
 
     public void onClicked()
     {
-        this.EmitSignal(InventorySlot.SignalName.ItemSlotClicked, this.GetIndex(), spriteNode.Texture);
+        this.EmitSignal(InventorySlot.SignalName.ItemSlotClicked, this.GetIndex(), spriteNode);
     }
 
     public void SetSprite(Sprite2D spriteMirror)
     {
+        if(spriteMirror == null)
+        {
+            spriteNode.Hide();
+            return;
+        }
+
+        spriteNode.Show();
         this.spriteNode.Texture = spriteMirror.Texture;
         this.spriteNode.Hframes = spriteMirror.Hframes;
         this.spriteNode.Frame = spriteMirror.Frame;

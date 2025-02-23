@@ -18,7 +18,7 @@ public partial class Inventory : Control
     int pagesAmount = 0;
     int currentPage = 0;
 
-    List<string> pipesJsonData;
+    List<string> pipesJsonData = new();
 
 
     Buttons buttons;
@@ -48,6 +48,15 @@ public partial class Inventory : Control
         {
             slot.Connect(InventorySlot.SignalName.ItemSlotClicked, new Callable(this, Inventory.MethodName.onInventorySlotClicked));
         }
+
+        this.updateSlotSprites();
+
+
+        //FOR DEBUG TESTING
+        this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_L_res.tres\",\"stateNumber\":0}");
+        this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_L_res.tres\",\"stateNumber\":0}");
+        this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_I_res.tres\",\"stateNumber\":0}");
+        this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe4_Cross.tres\",\"stateNumber\":0}");
     }
 
     private void onInventoryButtonPressed()
@@ -59,10 +68,13 @@ public partial class Inventory : Control
         else{ this.animationNode.PlayBackwards("OpenInventory"); }
     }
 
-    private void onInventorySlotClicked(int slotIndex, Texture2D itemTexture)
+    private void onInventorySlotClicked(int slotIndex, Sprite2D itemSpriteNode)
     {
-        string jsonItem = ""; //TO IMPLEMENT list index conversion
-        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.ItemSelected, jsonItem, itemTexture);
+        int index = slotIndex + this.currentPage * 3;
+        if(index > this.pipesJsonData.Count - 1){ return; }
+
+        string jsonItem = this.pipesJsonData[index];
+        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.ItemSelected, jsonItem, itemSpriteNode);
     }
 
     private void onAddItemToInventory(string itemJsonData)
@@ -74,7 +86,7 @@ public partial class Inventory : Control
 
     private void onRemoveItemToInventory()
     {
-        //to implement
+        //to implement (remove by index or string comparison)
         this.pagesAmount = (int)Mathf.Ceil(this.pipesJsonData.Count / 3f); 
         this.updateSlotSprites();
     }
@@ -87,15 +99,38 @@ public partial class Inventory : Control
 
     private void onRightButtonClicked()
     {
-        this.currentPage = Math.Min(this.currentPage + 1, this.pagesAmount);
+        this.currentPage = Math.Min(this.currentPage + 1, this.pagesAmount - 1);
         this.updateSlotSprites();
     }
 
     private void updateSlotSprites()
     {
+        for(int i = 0; i < 3; i++)
+        {
+            int index = i + this.currentPage * 3;
 
+            if(index > this.pipesJsonData.Count - 1)
+            {
+                inventorySlotsRoot.GetChild<InventorySlot>(i).SetSprite(null);
+                continue;
+            }
+
+            string pipeData = pipesJsonData[index];
+
+            Json json = new();
+            json.Parse(pipeData);
+            var dataDict = new Godot.Collections.Dictionary<string, Variant>
+            ((Godot.Collections.Dictionary)json.Data);
+            PipeResource pipeResource = ResourceLoader.Load<PipeResource>((string)dataDict["pipeResourcePath"]);
+
+            var mirrorSpriteNode = new Sprite2D
+            {
+                Texture = pipeResource.pipeSpriteFile,
+                Hframes = pipeResource.pipeSpriteHframes,
+                Frame = pipeResource.pipeSpriteFrame
+            };
+
+            inventorySlotsRoot.GetChild<InventorySlot>(i).SetSprite(mirrorSpriteNode);
+        }
     }
-
-
-
 }

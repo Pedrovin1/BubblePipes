@@ -6,9 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c0n7x8hc5mmo3" path="res://Scenes/InventorySlot/InventorySlot.tscn" id="4_j7733"]
 [ext_resource type="Texture2D" uid="uid://c8u2sggiy62od" path="res://Assets/Sprites/arrow2.png" id="4_us3sw"]
 
-[sub_resource type="Animation" id="Animation_3qqwx"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_b8ao4"]
 resource_name = "CloseInventory"
 length = 0.8
@@ -36,6 +33,9 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 1), Vector2(1, 1)]
 }
+
+[sub_resource type="Animation" id="Animation_3qqwx"]
+length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8cueb"]
 _data = {
@@ -94,23 +94,23 @@ layout_mode = 2
 [node name="InventorySlot3" parent="InventoryBackground/ItemSlotsContainer" instance=ExtResource("4_j7733")]
 layout_mode = 2
 
-[node name="ArrowLeft" type="Button" parent="InventoryBackground"]
+[node name="ArrowRight" type="Button" parent="InventoryBackground"]
 offset_left = 60.0
 offset_top = 6.0
 offset_right = 68.0
 offset_bottom = 14.0
 
-[node name="Sprite2D" type="Sprite2D" parent="InventoryBackground/ArrowLeft"]
+[node name="Sprite2D" type="Sprite2D" parent="InventoryBackground/ArrowRight"]
 texture = ExtResource("4_us3sw")
 centered = false
 
-[node name="ArrowRight" type="Button" parent="InventoryBackground"]
+[node name="ArrowLeft" type="Button" parent="InventoryBackground"]
 offset_left = 2.0
 offset_top = 6.0
 offset_right = 10.0
 offset_bottom = 14.0
 
-[node name="Sprite2D" type="Sprite2D" parent="InventoryBackground/ArrowRight"]
+[node name="Sprite2D" type="Sprite2D" parent="InventoryBackground/ArrowLeft"]
 texture = ExtResource("4_us3sw")
 centered = false
 flip_h = true

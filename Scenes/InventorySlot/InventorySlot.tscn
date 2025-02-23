@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0n7x8hc5mmo3"]
+
+[ext_resource type="Script" path="res://Scenes/InventorySlot/InventorySlot.cs" id="1_7ff82"]
+
+[node name="InventorySlot" type="CenterContainer"]
+script = ExtResource("1_7ff82")
+
+[node name="ButtonSlot" type="Button" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="ItemSprite" type="Sprite2D" parent="ButtonSlot"]
+centered = false

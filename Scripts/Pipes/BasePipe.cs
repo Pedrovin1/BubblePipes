@@ -26,7 +26,7 @@ public partial class BasePipe : Button, ISlotInteractable
     public PipeResource pipeResource = null;
 
     [Export]
-    protected byte stateNumber = 0;
+    public byte stateNumber = 0;
 
     public bool canRotate = true;
 

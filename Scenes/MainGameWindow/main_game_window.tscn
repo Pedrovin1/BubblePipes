@@ -16,8 +16,6 @@
 
 [node name="MainGameWindow" type="Node2D"]
 
-[node name="DummyNodes" type="Node2D" parent="."]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Background" type="Sprite2D" parent="CanvasLayer"]

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public partial class ChangeablePipe : BasePipe
 {
-    [Signal]
-    public delegate void AddItemToInventoryEventHandler();
+   
     [Signal]
     public delegate void HeldPipePlacedEventHandler();
+
     private static readonly string ClassName = "ChangeablePipe";
 
     
@@ -50,6 +50,9 @@ public partial class ChangeablePipe : BasePipe
         currentPipe = (BasePipe)instance; 
         currentPipe.GlobalPosition = this.GlobalPosition;
         currentPipe.ZIndex = 10; //TESTING
+        currentPipe.canRotate = true;
+        currentPipe.stateNumber = 0;
+        
 
         instance._Ready();
     }

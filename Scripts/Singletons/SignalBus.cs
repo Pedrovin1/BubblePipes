@@ -13,6 +13,12 @@ public partial class SignalBus : Node
     [Signal]
     public delegate void LevelSelectedEventHandler(int level);
 
+    [Signal]
+    public delegate void AddItemToInventoryEventHandler(string itemJsonData);
+
+    [Signal]
+    public delegate void ItemSelectedEventHandler(string itemJson, Texture2D texture);
+
 
     public override void _Ready()
     {

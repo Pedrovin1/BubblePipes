@@ -141,12 +141,12 @@ public partial class BasePipe : Button, ISlotInteractable
         // this.UpdateOutletConnections();
         // this.UpdateDrawingState();
     }
-    public bool IsPlayingAnimation()
+    public virtual bool IsPlayingAnimation()
     {
         return this.isPlayingAnimation;
     }
 
-    public void ResetTweens()
+    public virtual void ResetTweens()
     {
         return;
     }
@@ -251,7 +251,7 @@ public partial class BasePipe : Button, ISlotInteractable
         return this.outletStates[outletPos].Opened;
     }
 
-    public LiquidType GetLiquid(Directions outletPos)
+    public virtual LiquidType GetLiquid(Directions outletPos)
     {
         return this.outletStates[outletPos].CurrentLiquid;
     }
@@ -265,7 +265,7 @@ public partial class BasePipe : Button, ISlotInteractable
         }
     }
 
-    public Directions[] GetConnections(Directions outletPos)
+    public virtual Directions[] GetConnections(Directions outletPos)
     {
         return this.outletStates[outletPos].Connections;
     }
@@ -293,8 +293,8 @@ public partial class BasePipe : Button, ISlotInteractable
         }
     }
 
-    public void LockRotation(){this.canRotate = false;}
-    public void UnlockRotation(){this.canRotate = true;}
+    public virtual void LockRotation(){this.canRotate = false;}
+    public virtual void UnlockRotation(){this.canRotate = true;}
 
     protected void onAnimationFinished()
     {

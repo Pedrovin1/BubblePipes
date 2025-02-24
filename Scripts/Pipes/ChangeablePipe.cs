@@ -1,18 +1,16 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 public partial class ChangeablePipe : BasePipe
 {
-   
-    [Signal]
-    public delegate void HeldPipePlacedEventHandler();
-
     private static readonly string ClassName = "ChangeablePipe";
 
     
     [Export]
     public string jsonPlacedPipeData;
+
     [Export]
     public int inventoryPipeAmount = 0;
 
@@ -49,7 +47,8 @@ public partial class ChangeablePipe : BasePipe
 
         currentPipe = (BasePipe)instance; 
         currentPipe.GlobalPosition = this.GlobalPosition;
-        currentPipe.ZIndex = 10; //TESTING
+        currentPipe.MouseFilter = MouseFilterEnum.Ignore;
+        //currentPipe.ZIndex = 10; //TESTING
         currentPipe.canRotate = true;
         currentPipe.stateNumber = 0;
         
@@ -74,23 +73,37 @@ public partial class ChangeablePipe : BasePipe
 
     public override void onClicked()
     {
-        //if not holding pipe
-        this.currentPipe.onClicked();
-        //return;
-
-        if(this.currentPipe.pipeResource == BasePipe.defaultEmptyPipeResource)
+        if(Inventory.indexSelectedItem < 0)
         {
-            //get info of held pipe, 
-            // update placed pipe data
-            //remove from inventory
+            this.currentPipe.onClicked();
+            return;
+        }
+        
+
+        if(this.currentPipe.pipeResource == BasePipe.defaultEmptyPipeResource) //might cause problems
+        {
+            this.jsonPlacedPipeData = Inventory.jsonDataSelectedItem;
+            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.RemoveHeldItemFromInventory);
         }
         else
         {
-            //get info held pipe
-            //sent current pipe to inventory
-            //update placed pipe data
+            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.AddItemToInventory, this.jsonPlacedPipeData);
+            this.jsonPlacedPipeData = Inventory.jsonDataSelectedItem;
+            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.RemoveHeldItemFromInventory);
         }
 
+        this._Ready();
     }
+
+    public override bool IsOpened(Directions outletPos) => this.currentPipe.IsOpened(outletPos);
+    public override LiquidType GetLiquid(Directions outletPos) => this.currentPipe.GetLiquid(outletPos);
+    public override void SetLiquid(Directions outletPos, LiquidType liquid) => this.currentPipe.SetLiquid(outletPos, liquid);
+    public override void LockRotation() => this.currentPipe.LockRotation();
+    public override void UnlockRotation() => this.currentPipe.UnlockRotation();
+    public override Directions[] GetConnections(Directions outletPos) => this.currentPipe.GetConnections(outletPos);
+    public override bool IsPlayingAnimation() => this.currentPipe.IsPlayingAnimation();
+    public override void ResetTweens() => this.currentPipe.ResetTweens();
+    public override void UpdateDrawingState(bool animate = false) => this.currentPipe.UpdateDrawingState(animate);
+    public override void ResetOutletLiquids(LiquidType defaultLiquid) => this.currentPipe.ResetOutletLiquids();
 }
 

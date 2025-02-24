@@ -8,11 +8,11 @@
 [ext_resource type="Resource" uid="uid://doo3ouxuslbn1" path="res://Assets/Resources/LiquidResources/DefaultLiquid.tres" id="4_uf6ja"]
 [ext_resource type="PackedScene" uid="uid://dr8eo0pha47qj" path="res://Scenes/PipeSlot/PipeSlot.tscn" id="7_e4n8x"]
 [ext_resource type="Resource" uid="uid://cuyganbwsohkk" path="res://Assets/Resources/Pipe2_L_res.tres" id="9_h5fdt"]
-[ext_resource type="Script" path="res://Scripts/Pipes/GatePipe.cs" id="10_bohe8"]
+[ext_resource type="Script" path="res://Scripts/Pipes/ChangeablePipe.cs" id="10_upxwj"]
 [ext_resource type="Resource" uid="uid://b5g663d4iklrg" path="res://Assets/Resources/Pipe4_Cross.tres" id="11_8cloy"]
-[ext_resource type="Resource" uid="uid://c0ty3ps8ohkje" path="res://Assets/Resources/Pipe3Gate_res.tres" id="11_u4jg2"]
 [ext_resource type="Script" path="res://Scripts/LiquidObjective.cs" id="12_8b1xv"]
 [ext_resource type="PackedScene" uid="uid://beths44p3fkc0" path="res://Scenes/LevelMap/LevelMap.tscn" id="14_ckgum"]
+[ext_resource type="PackedScene" uid="uid://co52lhdf8a768" path="res://Scenes/Inventory/Inventory.tscn" id="14_mqge5"]
 
 [node name="MainGameWindow" type="Node2D"]
 
@@ -24,9 +24,9 @@ texture = ExtResource("1_yuph6")
 
 [node name="Tabuleiro" type="GridContainer" parent="CanvasLayer"]
 offset_left = 58.0
-offset_top = 9.0
+offset_top = 5.0
 offset_right = 144.0
-offset_bottom = 180.0
+offset_bottom = 176.0
 theme_override_constants/h_separation = -1
 theme_override_constants/v_separation = -1
 columns = 5
@@ -106,11 +106,9 @@ layout_mode = 2
 script = ExtResource("1_jr7wk")
 pipeResource = ExtResource("4_kxkx5")
 
-[node name="PipeSlot9" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
+[node name="ChangeableSlot" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
-script = ExtResource("10_bohe8")
-gateLockColor = 4
-pipeResource = ExtResource("11_u4jg2")
+script = ExtResource("10_upxwj")
 
 [node name="PipeSlot10" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
 layout_mode = 2
@@ -272,3 +270,9 @@ script = ExtResource("1_jr7wk")
 pipeResource = ExtResource("4_kxkx5")
 
 [node name="LevelsMap" parent="CanvasLayer" instance=ExtResource("14_ckgum")]
+
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource("14_mqge5")]
+offset_left = 58.0
+offset_top = 178.0
+offset_right = -4.0
+offset_bottom = -2.0

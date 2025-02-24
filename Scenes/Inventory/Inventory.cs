@@ -18,8 +18,10 @@ public partial class Inventory : Control
     int pagesAmount = 0;
     int currentPage = 0;
 
-    List<string> pipesJsonData = new();
 
+    public static int indexSelectedItem = -1;
+    public static string jsonDataSelectedItem = "";
+    List<string> pipesJsonData = new();
 
     Buttons buttons;
     Button inventoryButton;
@@ -49,14 +51,15 @@ public partial class Inventory : Control
             slot.Connect(InventorySlot.SignalName.ItemSlotClicked, new Callable(this, Inventory.MethodName.onInventorySlotClicked));
         }
 
+        GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.RemoveHeldItemFromInventory, Callable.From(this.onRemoveHeldItemFromInventory));
         this.updateSlotSprites();
 
-
-        //FOR DEBUG TESTING
+         //FOR DEBUG TESTING
         this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_L_res.tres\",\"stateNumber\":0}");
         this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_L_res.tres\",\"stateNumber\":0}");
         this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_I_res.tres\",\"stateNumber\":0}");
         this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe4_Cross.tres\",\"stateNumber\":0}");
+    
     }
 
     private void onInventoryButtonPressed()
@@ -71,9 +74,13 @@ public partial class Inventory : Control
     private void onInventorySlotClicked(int slotIndex, Sprite2D itemSpriteNode)
     {
         int index = slotIndex + this.currentPage * 3;
-        if(index > this.pipesJsonData.Count - 1){ return; }
+        if(index > this.pipesJsonData.Count - 1){ Inventory.indexSelectedItem = -1; return; }
 
         string jsonItem = this.pipesJsonData[index];
+
+        Inventory.indexSelectedItem = index;
+        Inventory.jsonDataSelectedItem = jsonItem;
+
         GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.ItemSelected, jsonItem, itemSpriteNode);
     }
 
@@ -84,10 +91,11 @@ public partial class Inventory : Control
         this.updateSlotSprites();
     }
 
-    private void onRemoveItemToInventory()
+    private void onRemoveHeldItemFromInventory()
     {
-        //to implement (remove by index or string comparison)
+        this.pipesJsonData.RemoveAt(Inventory.indexSelectedItem);
         this.pagesAmount = (int)Mathf.Ceil(this.pipesJsonData.Count / 3f); 
+        Inventory.indexSelectedItem = -1;
         this.updateSlotSprites();
     }
 

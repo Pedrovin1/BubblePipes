@@ -15,6 +15,8 @@ public partial class SignalBus : Node
 
     [Signal]
     public delegate void AddItemToInventoryEventHandler(string itemJsonData);
+    [Signal]
+    public delegate void RemoveHeldItemFromInventoryEventHandler();
 
     [Signal]
     public delegate void ItemSelectedEventHandler(string itemJson, Sprite2D texture);

@@ -55,8 +55,10 @@ public partial class BasePipe : Button, ISlotInteractable
         BasePipe.defaultEmptyPipeResource = ResourceLoader.Load<PipeResource>("res://Assets/Resources/Pipe0_empty.tres");
         if(this.pipeResource == null){ this.pipeResource = BasePipe.defaultEmptyPipeResource; }
 
+        ((Sprite2D)this.FindChild("BorderFrame")).Frame = 0;
         this.pipeSprite = (Sprite2D)FindChild("ContentFrame");
         Sprite2D sprite = (Sprite2D)this.pipeSprite;
+        sprite.SelfModulate = Color.Color8(255, 255, 255, 255);
         sprite.Texture = pipeResource.pipeSpriteFile;
         sprite.Hframes = pipeResource.pipeSpriteHframes;
         sprite.Frame = pipeResource.pipeSpriteFrame;

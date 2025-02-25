@@ -2,8 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-
-
 public partial class Inventory : Control
 {
 
@@ -52,18 +50,14 @@ public partial class Inventory : Control
         }
 
         GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.RemoveHeldItemFromInventory, Callable.From(this.onRemoveHeldItemFromInventory));
+        GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.AddItemToInventory, new Callable(this, Inventory.MethodName.onAddItemToInventory));
         this.updateSlotSprites();
-
-         //FOR DEBUG TESTING
-        this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_L_res.tres\",\"stateNumber\":0}");
-        this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_L_res.tres\",\"stateNumber\":0}");
-        this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_I_res.tres\",\"stateNumber\":0}");
-        this.onAddItemToInventory("{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe4_Cross.tres\",\"stateNumber\":0}");
-    
     }
 
     private void onInventoryButtonPressed()
     {
+        if(this.pipesJsonData.Count <= 0 && !this.opened){ return; } //maybe add an alert saying that there are no pipes in inventory or somehitng
+
         this.opened = !this.opened;
         this.inventoryBagSprite.Frame = this.opened ? 1 : 0;
 
@@ -96,6 +90,12 @@ public partial class Inventory : Control
         this.pipesJsonData.RemoveAt(Inventory.indexSelectedItem);
         this.pagesAmount = (int)Mathf.Ceil(this.pipesJsonData.Count / 3f); 
         Inventory.indexSelectedItem = -1;
+        this.updateSlotSprites();
+    }
+
+    public void WipeInventoryItems()
+    {
+        this.pipesJsonData = new();
         this.updateSlotSprites();
     }
 

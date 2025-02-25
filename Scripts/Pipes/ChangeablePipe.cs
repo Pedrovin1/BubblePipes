@@ -2,9 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-//TO FIX:
-//inventory sync issues
-
 public partial class ChangeablePipe : BasePipe
 {
     private static readonly string ClassName = "ChangeablePipe";
@@ -14,7 +11,7 @@ public partial class ChangeablePipe : BasePipe
     public string jsonPlacedPipeData;
 
     [Export]
-    public int inventoryPipeAmount = 0;
+    public Godot.Collections.Array<string> jsonData_PipesToAddToInventory;
 
     private BasePipe currentPipe;
 
@@ -57,6 +54,12 @@ public partial class ChangeablePipe : BasePipe
         instance._Ready();
 
         ((Sprite2D)currentPipe.FindChild("BorderFrame")).SelfModulate = Color.Color8(0,0,0, 0);
+
+        if(jsonData_PipesToAddToInventory == null){ return; }
+        foreach(string jsonPipe in jsonData_PipesToAddToInventory)
+        {
+            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.AddItemToInventory, jsonPipe);
+        }
     }
 
     public override Godot.Collections.Dictionary<string, Variant> GetExportData()
@@ -66,7 +69,7 @@ public partial class ChangeablePipe : BasePipe
             {"PipeScriptPath", GameUtils.ScriptPaths[ChangeablePipe.ClassName]},
             
             {"jsonPlacedPipeData", this.jsonPlacedPipeData ?? Json.Stringify(base.GetExportData())},
-            {"inventoryPipeAmount", this.inventoryPipeAmount}
+            {"jsonData_PipesToAddToInventory", this.jsonData_PipesToAddToInventory}
         };
 
         dataDict.Merge(base.GetExportData());

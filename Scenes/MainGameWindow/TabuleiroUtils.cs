@@ -75,6 +75,7 @@ public partial class Tabuleiro : GridContainer
         //int nodesAmount = file.GetAsText().Count("\n");
         // this.BalanceChildrenAmount(nodesAmount)
         this.ResetBoard();
+        this.GetNode<Inventory>("../Inventory").WipeInventoryItems();
 
         int nodeIndex = -1;
         while(file.GetPosition() < file.GetLength())

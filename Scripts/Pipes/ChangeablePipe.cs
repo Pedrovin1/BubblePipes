@@ -14,6 +14,7 @@ public partial class ChangeablePipe : BasePipe
     public Godot.Collections.Array<string> jsonData_PipesToAddToInventory;
 
     private BasePipe currentPipe;
+    private bool pipesAdded = false;
 
     protected override void LoadExtraDetails()
     {
@@ -55,7 +56,8 @@ public partial class ChangeablePipe : BasePipe
 
         ((Sprite2D)currentPipe.FindChild("BorderFrame")).SelfModulate = Color.Color8(0,0,0, 0);
 
-        if(jsonData_PipesToAddToInventory == null){ return; }
+        if(jsonData_PipesToAddToInventory == null || this.pipesAdded == true){ return; }
+        this.pipesAdded = true;
         foreach(string jsonPipe in jsonData_PipesToAddToInventory)
         {
             GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.AddItemToInventory, jsonPipe);

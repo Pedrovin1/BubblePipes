@@ -1,0 +1,168 @@
+[gd_scene load_steps=11 format=3 uid="uid://bwywwukntmeeq"]
+
+[ext_resource type="Script" path="res://Scenes/StartMenuScreen/StartMenuScreen.cs" id="1_03cse"]
+[ext_resource type="Texture2D" uid="uid://46qj1378abkk" path="res://Assets/Sprites/StartMenuScreen/startmenubackground.png" id="1_7bif8"]
+[ext_resource type="Texture2D" uid="uid://dkhttghmtjd76" path="res://Assets/Sprites/StartMenuScreen/bubblecoverpinkpipe.png" id="2_3xlu6"]
+[ext_resource type="Texture2D" uid="uid://c0rtldv8q5avv" path="res://Assets/Sprites/StartMenuScreen/bubblecoverbubble.png" id="3_yqt43"]
+[ext_resource type="Texture2D" uid="uid://bfi4r4dkhfoxu" path="res://Assets/Sprites/StartMenuScreen/bubblecoverplaybutton.png" id="4_0tuo7"]
+[ext_resource type="Script" path="res://Scenes/StartMenuScreen/StartButton.cs" id="5_u8t4p"]
+
+[sub_resource type="Animation" id="Animation_wdol1"]
+resource_name = "GameStartupAnimation"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/PinkPipe_Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Bubble_Sprite:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 2.7, 3.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(47, -200), Vector2(47, -200), Vector2(47, 123.42), Vector2(47, 154)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StartButton/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Polygon2D:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.4, 3.1, 3.4, 4.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_epxo7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/PinkPipe_Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Bubble_Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(47, 154)]
+}
+
+[sub_resource type="Animation" id="Animation_6kgni"]
+resource_name = "BubbleIdle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Bubble_Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2, 3, 4, 5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(47, 154), Vector2(47, 152), Vector2(50, 150), Vector2(56, 155), Vector2(53, 157), Vector2(42, 152), Vector2(45, 155), Vector2(46.44, 153.55)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bt3vd"]
+_data = {
+"BubbleIdle": SubResource("Animation_6kgni"),
+"GameStartupAnimation": SubResource("Animation_wdol1"),
+"RESET": SubResource("Animation_epxo7")
+}
+
+[node name="StartMenuScreen" type="Node2D"]
+script = ExtResource("1_03cse")
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 151.0
+offset_bottom = 200.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bt3vd")
+}
+autoplay = "GameStartupAnimation"
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(11, -19)
+
+[node name="Background_Sprite" type="Sprite2D" parent="Node2D"]
+position = Vector2(64, 119)
+scale = Vector2(2.34375, 2.5)
+texture = ExtResource("1_7bif8")
+
+[node name="PinkPipe_Sprite" type="Sprite2D" parent="Node2D"]
+position = Vector2(64, 120)
+scale = Vector2(2, 2)
+texture = ExtResource("2_3xlu6")
+hframes = 2
+frame = 1
+
+[node name="Bubble_Sprite" type="Sprite2D" parent="Node2D"]
+position = Vector2(47, 154)
+scale = Vector2(2, 2)
+texture = ExtResource("3_yqt43")
+
+[node name="StartButton" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 19.0
+offset_top = 27.0
+offset_right = 79.0
+offset_bottom = 51.0
+script = ExtResource("5_u8t4p")
+
+[node name="Sprite2D" type="Sprite2D" parent="StartButton"]
+scale = Vector2(2, 2)
+texture = ExtResource("4_0tuo7")
+centered = false
+hframes = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-2, 0)
+polygon = PackedVector2Array(141, 21, 141, 181, 13, 181, 13, 21)
+
+[connection signal="mouse_entered" from="StartButton" to="StartButton" method="onMouseEntered"]
+[connection signal="mouse_exited" from="StartButton" to="StartButton" method="onMouseExited"]
+[connection signal="pressed" from="StartButton" to="." method="onStartButtonPressed"]

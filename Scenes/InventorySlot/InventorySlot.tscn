@@ -1,13 +1,111 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0n7x8hc5mmo3"]
+[gd_scene load_steps=6 format=3 uid="uid://c0n7x8hc5mmo3"]
 
 [ext_resource type="Script" path="res://Scenes/InventorySlot/InventorySlot.cs" id="1_7ff82"]
+[ext_resource type="Texture2D" uid="uid://rftjkcqbyb6y" path="res://Assets/Sprites/selectedSlotIcon.png" id="3_pmvjp"]
+
+[sub_resource type="Animation" id="Animation_fcdlf"]
+resource_name = "SmoothMovement"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonSlot/ItemSprite:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0872665, -0.0872665, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonSlot/ItemSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-6, -9), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonSlot/ItemSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(6, 9), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p2t13"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonSlot/ItemSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonSlot/ItemSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonSlot/ItemSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q3mvp"]
+_data = {
+"RESET": SubResource("Animation_p2t13"),
+"SmoothMovement": SubResource("Animation_fcdlf")
+}
 
 [node name="InventorySlot" type="CenterContainer"]
 script = ExtResource("1_7ff82")
 
 [node name="ButtonSlot" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 
 [node name="ItemSprite" type="Sprite2D" parent="ButtonSlot"]
 centered = false
+
+[node name="DetailSprites" type="Node2D" parent="ButtonSlot"]
+
+[node name="SelectedMarker" type="Sprite2D" parent="ButtonSlot"]
+texture = ExtResource("3_pmvjp")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q3mvp")
+}

@@ -67,6 +67,8 @@ public partial class Inventory : Control
 
     private void onInventorySlotClicked(int slotIndex, Sprite2D itemSpriteNode)
     {
+        foreach(InventorySlot slot in this.inventorySlotsRoot.GetChildren()){slot.HideSelectionMarker();}
+
         int index = slotIndex + this.currentPage * 3;
         if(index > this.pipesJsonData.Count - 1){ Inventory.indexSelectedItem = -1; return; }
 
@@ -74,6 +76,8 @@ public partial class Inventory : Control
 
         Inventory.indexSelectedItem = index;
         Inventory.jsonDataSelectedItem = jsonItem;
+
+        this.inventorySlotsRoot.GetChild<InventorySlot>(slotIndex).ShowSelectedMarker();
 
         GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.ItemSelected, jsonItem, itemSpriteNode);
     }
@@ -87,6 +91,7 @@ public partial class Inventory : Control
 
     private void onRemoveHeldItemFromInventory()
     {
+        foreach(InventorySlot slot in this.inventorySlotsRoot.GetChildren()){slot.HideSelectionMarker();}
         this.pipesJsonData.RemoveAt(Inventory.indexSelectedItem);
         this.pagesAmount = (int)Mathf.Ceil(this.pipesJsonData.Count / 3f); 
         Inventory.indexSelectedItem = -1;
@@ -96,11 +101,13 @@ public partial class Inventory : Control
     public void WipeInventoryItems()
     {
         this.pipesJsonData = new();
+        Inventory.indexSelectedItem = -1;
         this.updateSlotSprites();
     }
 
     private void onLeftButtonClicked()
     {
+
         this.currentPage = Math.Max(this.currentPage - 1, 0);
         this.updateSlotSprites();
     }
@@ -113,6 +120,8 @@ public partial class Inventory : Control
 
     private void updateSlotSprites()
     {
+        foreach(InventorySlot slot in this.inventorySlotsRoot.GetChildren()){slot.HideSelectionMarker();}
+
         for(int i = 0; i < 3; i++)
         {
             int index = i + this.currentPage * 3;
@@ -122,6 +131,8 @@ public partial class Inventory : Control
                 inventorySlotsRoot.GetChild<InventorySlot>(i).SetSprite(null);
                 continue;
             }
+
+            if(index == Inventory.indexSelectedItem){ this.inventorySlotsRoot.GetChild<InventorySlot>(i).ShowSelectedMarker();}
 
             string pipeData = pipesJsonData[index];
 
@@ -137,6 +148,9 @@ public partial class Inventory : Control
                 Hframes = pipeResource.pipeSpriteHframes,
                 Frame = pipeResource.pipeSpriteFrame
             };
+
+            //List<Sprite2D> detailSprites = new();
+            //
 
             inventorySlotsRoot.GetChild<InventorySlot>(i).SetSprite(mirrorSpriteNode);
         }

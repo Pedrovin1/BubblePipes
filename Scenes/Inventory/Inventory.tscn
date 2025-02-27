@@ -95,6 +95,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ArrowRight" type="Button" parent="InventoryBackground"]
+self_modulate = Color(1, 1, 1, 0)
 offset_left = 60.0
 offset_top = 6.0
 offset_right = 68.0
@@ -105,6 +106,7 @@ texture = ExtResource("4_us3sw")
 centered = false
 
 [node name="ArrowLeft" type="Button" parent="InventoryBackground"]
+self_modulate = Color(1, 1, 1, 0)
 offset_left = 2.0
 offset_top = 6.0
 offset_right = 10.0

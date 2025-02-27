@@ -80,11 +80,11 @@ libraries = {
 [node name="MovableObjects" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="MovableObjects"]
-position = Vector2(23, 90)
+position = Vector2(23.5, 90)
 texture = ExtResource("1_mr2y0")
 
 [node name="Sprite2D2" type="Sprite2D" parent="MovableObjects"]
-position = Vector2(23, -129)
+position = Vector2(23.5, -129)
 texture = ExtResource("1_mr2y0")
 
 [node name="LevelBoxes" type="Node2D" parent="MovableObjects"]

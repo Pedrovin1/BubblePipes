@@ -107,7 +107,7 @@ public partial class Inventory : Control
 
     private void onRightButtonClicked()
     {
-        this.currentPage = Math.Min(this.currentPage + 1, this.pagesAmount - 1);
+        this.currentPage = Math.Min(this.currentPage + 1, Math.Max(this.pagesAmount - 1, 0));
         this.updateSlotSprites();
     }
 

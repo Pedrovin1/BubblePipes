@@ -42,7 +42,7 @@ public partial class LevelMap : Node2D
 
     private void onUpButtonPressed()
     {
-        //if(this.showedLevelsRange[1] >= this.levelsAmount){ return; }
+        if(this.showedLevelsRange[1] >= this.levelsAmount){ return; }
 
         this.animationNode.Play("MoverAvancarMapaNiveis");
         this.showedLevelsRange[0] += 5;

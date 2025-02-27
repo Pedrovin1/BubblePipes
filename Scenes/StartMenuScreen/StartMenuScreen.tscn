@@ -7,9 +7,26 @@
 [ext_resource type="Texture2D" uid="uid://bfi4r4dkhfoxu" path="res://Assets/Sprites/StartMenuScreen/bubblecoverplaybutton.png" id="4_0tuo7"]
 [ext_resource type="Script" path="res://Scenes/StartMenuScreen/StartButton.cs" id="5_u8t4p"]
 
+[sub_resource type="Animation" id="Animation_6kgni"]
+resource_name = "BubbleIdle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Bubble_Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2, 3, 4, 5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(47, 154), Vector2(47, 152), Vector2(50, 150), Vector2(56, 155), Vector2(53, 157), Vector2(42, 152), Vector2(45, 155), Vector2(46.44, 153.55)]
+}
+
 [sub_resource type="Animation" id="Animation_wdol1"]
 resource_name = "GameStartupAnimation"
-length = 5.0
+length = 4.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -86,23 +103,6 @@ tracks/1/keys = {
 "values": [Vector2(47, 154)]
 }
 
-[sub_resource type="Animation" id="Animation_6kgni"]
-resource_name = "BubbleIdle"
-length = 6.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Bubble_Sprite:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 2, 3, 4, 5, 6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(47, 154), Vector2(47, 152), Vector2(50, 150), Vector2(56, 155), Vector2(53, 157), Vector2(42, 152), Vector2(45, 155), Vector2(46.44, 153.55)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bt3vd"]
 _data = {
 "BubbleIdle": SubResource("Animation_6kgni"),
@@ -153,6 +153,7 @@ offset_bottom = 51.0
 script = ExtResource("5_u8t4p")
 
 [node name="Sprite2D" type="Sprite2D" parent="StartButton"]
+visible = false
 scale = Vector2(2, 2)
 texture = ExtResource("4_0tuo7")
 centered = false

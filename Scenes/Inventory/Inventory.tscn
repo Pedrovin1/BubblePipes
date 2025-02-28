@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://co52lhdf8a768"]
+[gd_scene load_steps=10 format=3 uid="uid://co52lhdf8a768"]
 
 [ext_resource type="Texture2D" uid="uid://bbgsioysbfrub" path="res://Assets/Sprites/InventoryIcon.png" id="1_e1yr1"]
 [ext_resource type="Script" path="res://Scenes/Inventory/Inventory.cs" id="1_nq4b4"]
 [ext_resource type="Texture2D" uid="uid://dxrx874q0rh2n" path="res://Assets/Sprites/InventoryBackground.png" id="2_5inqq"]
 [ext_resource type="PackedScene" uid="uid://c0n7x8hc5mmo3" path="res://Scenes/InventorySlot/InventorySlot.tscn" id="4_j7733"]
 [ext_resource type="Texture2D" uid="uid://c8u2sggiy62od" path="res://Assets/Sprites/arrow2.png" id="4_us3sw"]
+
+[sub_resource type="Animation" id="Animation_1rp5y"]
+resource_name = "LockedInventoryCue"
 
 [sub_resource type="Animation" id="Animation_b8ao4"]
 resource_name = "CloseInventory"
@@ -39,6 +42,7 @@ length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8cueb"]
 _data = {
+"LockedInventoryCue": SubResource("Animation_1rp5y"),
 "OpenInventory": SubResource("Animation_b8ao4"),
 "RESET": SubResource("Animation_3qqwx")
 }

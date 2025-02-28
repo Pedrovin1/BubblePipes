@@ -8,6 +8,7 @@ public partial class LevelBox : Button
 
     private Label label;
     private Sprite2D buttonSprite;
+    private AnimationPlayer animationPlayer;
 
     public override void _Ready()
     {
@@ -16,6 +17,8 @@ public partial class LevelBox : Button
 
         this.buttonSprite = (Sprite2D) FindChild("Sprite2D");
         this.buttonSprite.Frame = 0;
+
+        this.animationPlayer = (AnimationPlayer)FindChild("AnimationPlayer");
         
         if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onPressed)))
         {
@@ -35,11 +38,19 @@ public partial class LevelBox : Button
         this.buttonSprite.Frame = 1;
         this.label.Visible = true;
 
+        Random rng = new(DateTime.Now.Millisecond / (this.levelNumber % 10 + 1));
+        if(!this.animationPlayer.IsPlaying())
+        {
+            this.animationPlayer.Play("Idle", customSpeed: rng.NextSingle() + 0.7f);
+        }
+
         if(!unlocked)
         {
             this.buttonSprite.Frame = 0;
             this.label.Visible = false;
+            this.animationPlayer.Stop();
         }
+        
     }
 
     public void onPressed()

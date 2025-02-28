@@ -46,5 +46,5 @@
 {"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[],"requiredLiquid":1}
 {"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[10,16],"requiredLiquid":4}
 {"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[],"requiredLiquid":2}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[],"requiredLiquid":1}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[],"requiredLiquid":3}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[23,40, 32],"requiredLiquid":1}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[28],"requiredLiquid":3}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfl4a2qdvx5xe"]
+[gd_scene load_steps=8 format=3 uid="uid://bfl4a2qdvx5xe"]
 
 [ext_resource type="Texture2D" uid="uid://lsf1mk8kl0ja" path="res://Assets/Sprites/levelBox.png" id="1_1dhqr"]
 [ext_resource type="Script" path="res://Scenes/LevelBox/LevelBox.cs" id="1_yovnh"]
@@ -8,35 +8,99 @@
 base_font = ExtResource("2_8bwsn")
 spacing_glyph = -1
 
+[sub_resource type="Animation" id="Animation_ales7"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_gu3f2"]
+resource_name = "Idle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.3, 1.9, 2.3, 3.1, 3.9, 4.9, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1, -1), Vector2(1, -2), Vector2(2, 0), Vector2(2, 1), Vector2(-1, 2), Vector2(-2, 3), Vector2(-5, 2), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0959931, -0.0959931, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gst35"]
+_data = {
+"Idle": SubResource("Animation_gu3f2"),
+"RESET": SubResource("Animation_ales7")
+}
+
 [node name="LevelBox" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 offset_right = 8.0
-offset_bottom = 8.0
+offset_bottom = 8.00001
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_yovnh")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 position = Vector2(4, 4)
 texture = ExtResource("1_1dhqr")
 hframes = 2
 frame = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="Node2D"]
 custom_minimum_size = Vector2(24, 14)
-layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.375
 anchor_right = 0.5
 anchor_bottom = 0.375
-offset_left = -17.0
-offset_top = -7.0
-offset_right = 19.0
-offset_bottom = 7.0
+offset_left = -13.0
+offset_top = -4.0
+offset_right = 23.0
+offset_bottom = 10.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="CenterContainer"]
+[node name="Label" type="Label" parent="Node2D/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.048994, 0.043659, 0.0672998, 1)
 theme_override_fonts/font = SubResource("FontVariation_fdffe")
@@ -44,3 +108,8 @@ theme_override_font_sizes/font_size = 40
 text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gst35")
+}

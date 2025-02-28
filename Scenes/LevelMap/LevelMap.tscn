@@ -103,10 +103,10 @@ offset_right = 35.0
 offset_bottom = -68.0
 
 [node name="LevelBox3" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
-offset_left = 11.0
-offset_top = -120.0
-offset_right = 19.0
-offset_bottom = -112.0
+offset_left = 13.0
+offset_top = -122.0
+offset_right = 21.0
+offset_bottom = -114.0
 
 [node name="LevelBox4" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
 offset_left = 27.0
@@ -133,10 +133,10 @@ offset_right = 35.0
 offset_bottom = -287.0
 
 [node name="LevelBox8" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
-offset_left = 11.0
-offset_top = -339.0
-offset_right = 19.0
-offset_bottom = -331.0
+offset_left = 13.0
+offset_top = -341.0
+offset_right = 21.0
+offset_bottom = -333.0
 
 [node name="LevelBox9" parent="MovableObjects/LevelBoxes" instance=ExtResource("2_nfuf5")]
 offset_left = 27.0

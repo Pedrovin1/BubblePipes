@@ -13,6 +13,8 @@ public partial class Tabuleiro : GridContainer
     private int objectiveSlotsAmount = 0;
     private int objectiveSlotsCorrectlyFilled = 0;
 
+    private bool levelCompleted = false;
+
     private bool c_connect = true;
     private Callable c_onObjectiveSlotStateChanged;
     private Callable c_onChildInteraction;
@@ -20,6 +22,8 @@ public partial class Tabuleiro : GridContainer
 
     public override void _Ready()
     {
+        this.levelCompleted = false;
+
         if(this.c_connect)
         {
             this.c_connect = false;
@@ -69,19 +73,25 @@ public partial class Tabuleiro : GridContainer
 
     public void onLevelSelected(int level)
     {
+        foreach(Node node in this.GetChildren()){ node.GetChild<AnimationPlayer>(0).Play("RESET"); }
+
         this.currentLevel = level;
-        this.GetOwner<Node>().GetChild<AnimationPlayer>(0).Play("levelTransition"); //it calls _Reaady during animation!
+        ((Node2D)this.GetOwner<Node>().FindChild("LevelCompleteSprite")).Hide();
+        this.GetOwner<Node>().GetChild<AnimationPlayer>(0).Play("levelTransition"); //it calls _Ready during animation!
         //this._Ready();
     }
 
     public void onChildInteraction()
     {
+        if(this.levelCompleted){ return; }
+
         this.UpdateBoardState();
         this.UpdateBoardState();
 
         if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
         {
             GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelCompleted, this.currentLevel);
+            this.levelCompleted = true;
         }
     }
 
@@ -109,6 +119,10 @@ public partial class Tabuleiro : GridContainer
         if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
         {
             GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelCompleted, this.currentLevel);
+            foreach(Node node in this.GetChildren()){ node.GetChild<AnimationPlayer>(0).Play("LevelCompletedAnimation"); }
+            
+            if(this.levelCompleted == false){ this.GetOwner<Node>().GetChild<AnimationPlayer>(0).Play("LevelComplete"); }
+            this.levelCompleted = true;
         }
     }
 

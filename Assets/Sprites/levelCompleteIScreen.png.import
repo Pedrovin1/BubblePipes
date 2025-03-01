@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6f7d4jf7o6mb"
-path="res://.godot/imported/patchrectlevelcompletedtransition.png-83311a96868fcc4d63dccd9a6556c1be.ctex"
+uid="uid://cyj4w6u5t72gd"
+path="res://.godot/imported/levelCompleteIScreen.png-4a3fda3cddebc015ee50735211eb486a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/patchrectlevelcompletedtransition.png"
-dest_files=["res://.godot/imported/patchrectlevelcompletedtransition.png-83311a96868fcc4d63dccd9a6556c1be.ctex"]
+source_file="res://Assets/Sprites/levelCompleteIScreen.png"
+dest_files=["res://.godot/imported/levelCompleteIScreen.png-4a3fda3cddebc015ee50735211eb486a.ctex"]
 
 [params]
 

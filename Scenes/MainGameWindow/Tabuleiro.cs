@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 public partial class Tabuleiro : GridContainer
 {
@@ -46,7 +47,8 @@ public partial class Tabuleiro : GridContainer
                         slotObjective.Connect(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged);
                     }
 
-                    slotObjective.PlayBubbleSpreadingAnimation(this.GlobalPosition);
+                    slotObjective.CallDeferred(LiquidObjective.MethodName.PlayBubbleSpreadingAnimation, this.GlobalPosition);
+        
                     foreach(int lockedIndex in slotObjective.bubbleLockedTilesIndexes)
                     {
                         this.GetChild<ISlotInteractable>(lockedIndex).LockRotation();
@@ -68,7 +70,8 @@ public partial class Tabuleiro : GridContainer
     public void onLevelSelected(int level)
     {
         this.currentLevel = level;
-        this._Ready();
+        this.GetOwner<Node>().GetChild<AnimationPlayer>(0).Play("levelTransition"); //it calls _Reaady during animation!
+        //this._Ready();
     }
 
     public void onChildInteraction()

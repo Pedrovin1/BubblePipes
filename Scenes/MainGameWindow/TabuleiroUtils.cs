@@ -1,9 +1,7 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
+
 
 public partial class Tabuleiro : GridContainer
 {
@@ -103,10 +101,12 @@ public partial class Tabuleiro : GridContainer
             dataDictionary.Remove("PipeScriptPath");
 
             ((ISavable)childNode).ImportData(dataDictionary);
+
             childNode._Ready();
         }
 
         file.Close();
+        //foreach(Node slot in this.GetChildren()){ slot._Ready(); } 
    }
 
     private void ResetBoard(int columns = 5) //has edge cases but not a problem for the current game scope

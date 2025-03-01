@@ -74,6 +74,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
             };
             this.extraDetails.AddChild(bubbleNode);
             bubbleNode.Owner = this;
+            bubbleNode.Hide();
         }
     }
 
@@ -90,12 +91,12 @@ public partial class LiquidObjective : Button, ISlotInteractable
         {
             var bubble = this.extraDetails.GetChild<Sprite2D>(i);
             bubble.Position = new Vector2(0f, 0f);
-            bubble.Show();
 
             int destinySlotIndex = this.bubbleLockedTilesIndexes[i];
             Vector2 finalPosition = new Vector2(destinySlotIndex % 5 * slotSize + boardGlobalPos.X + pivotOffset, 
                                                 Mathf.Floor(destinySlotIndex / 5f) * slotSize + boardGlobalPos.Y + pivotOffset);
             
+            movementTween.TweenCallback(Callable.From(bubble.Show));
             movementTween.TweenProperty(bubble, "global_position", finalPosition, 0.5f)
                 .SetTrans(Tween.TransitionType.Cubic);
             movementTween.Play();

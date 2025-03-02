@@ -203,8 +203,6 @@ public partial class LiquidObjective : Button, ISlotInteractable
     }
     public void SetLiquid(Directions outletPos, LiquidType liquid)
     {
-        if(this.bubbleLocked){ return; }
-
         this.outletStates[outletPos].CurrentLiquid = liquid;
 
         foreach(Directions connection in this.outletStates[outletPos].Connections)
@@ -215,11 +213,15 @@ public partial class LiquidObjective : Button, ISlotInteractable
         bool oldState = this.correctlyFilled;
         
         this.correctlyFilled = false;
-        foreach(SlotOutlet outlet in this.outletStates.Values)
+
+        if(this.bubbleLocked == false)
         {
-            if(outlet.CurrentLiquid == requiredLiquid)
+            foreach(SlotOutlet outlet in this.outletStates.Values)
             {
-                this.correctlyFilled = true;
+                if(outlet.CurrentLiquid == requiredLiquid)
+                {
+                    this.correctlyFilled = true;
+                }
             }
         }
 

@@ -23,6 +23,7 @@ public partial class GatePipe : BasePipe
         };
         this.extraDetails.AddChild(line);
         line.Owner = this;
+
     }
 
     public override Godot.Collections.Dictionary<string, Variant> GetExportData()

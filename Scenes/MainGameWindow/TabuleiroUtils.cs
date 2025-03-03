@@ -102,6 +102,7 @@ public partial class Tabuleiro : GridContainer
 
             ((ISavable)childNode).ImportData(dataDictionary);
 
+            ((Control)childNode).Modulate = Color.Color8(255,255,255, 255);
             childNode._Ready();
         }
 

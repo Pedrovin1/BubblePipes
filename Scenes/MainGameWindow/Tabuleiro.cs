@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 public partial class Tabuleiro : GridContainer
 {
     [Export]
+    private bool exportLevelMode = false;
+    [Export]
     private int currentLevel = 1;
 
     private List<int> LiquidSourceIndexes = new();
@@ -35,6 +37,15 @@ public partial class Tabuleiro : GridContainer
         }
         
         this.LoadLevel(this.currentLevel);
+
+        //DEBUG-CREATOR-MODE:------
+        if(this.exportLevelMode)
+        {
+            this.ExportLevel();
+            return;
+        }
+        //-------------------------
+
         this.objectiveSlotsAmount = 0;
         this.objectiveSlotsCorrectlyFilled = 0;
         this.LiquidSourceIndexes = new();

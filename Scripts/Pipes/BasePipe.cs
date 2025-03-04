@@ -90,6 +90,8 @@ public partial class BasePipe : Button, ISlotInteractable
 
         this.LoadExtraDetails();
 
+        //[.]
+
         // -- Carrega os detalhes do Pipe -- //
         this.UpdateOutletOpeningStates();
         this.UpdateOutletConnections();

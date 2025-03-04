@@ -130,41 +130,42 @@ public partial class Tabuleiro : GridContainer
             ulong nodeID = node.GetInstanceId();
             node.SetScript(ResourceLoader.Load("res://Scripts/Pipes/BasePipe.cs"));
             node = (Node)InstanceFromId(nodeID);
+            ((BasePipe)node).pipeResource = BasePipe.defaultEmptyPipeResource;
 
             node.Owner = this;
             node._Ready();
         }
     }
 
-   private void BalanceChildrenAmount(int targetChildrenAmount)
-   {
-        int childCount = this.GetChildCount();
+//    private void BalanceChildrenAmount(int targetChildrenAmount)
+//    {
+//         int childCount = this.GetChildCount();
 
-        if(childCount > targetChildrenAmount)
-        {   
-            while(childCount > targetChildrenAmount)
-            {
-                int index = 0;
-                while(this.GetChild(index).IsQueuedForDeletion()){ index++; }
+//         if(childCount > targetChildrenAmount)
+//         {   
+//             while(childCount > targetChildrenAmount)
+//             {
+//                 int index = 0;
+//                 while(this.GetChild(index).IsQueuedForDeletion()){ index++; }
                 
-                this.GetChild(index).QueueFree();
-                childCount--;
-            }
-            return;
-        }
+//                 this.GetChild(index).QueueFree();
+//                 childCount--;
+//             }
+//             return;
+//         }
 
-        if(childCount < targetChildrenAmount)
-        {
-            var scene = ResourceLoader.Load<PackedScene>(GameUtils.PipeSlotScenePath);
-            while(childCount < targetChildrenAmount)
-            {
-                var instance = scene.Instantiate();
-                this.AddChild(instance);
-                instance.Owner = this;
+//         if(childCount < targetChildrenAmount)
+//         {
+//             var scene = ResourceLoader.Load<PackedScene>(GameUtils.PipeSlotScenePath);
+//             while(childCount < targetChildrenAmount)
+//             {
+//                 var instance = scene.Instantiate();
+//                 this.AddChild(instance);
+//                 instance.Owner = this;
 
-                childCount++;
-            }
-            return;
-        }
-   }
+//                 childCount++;
+//             }
+//             return;
+//         }
+//    }
 }

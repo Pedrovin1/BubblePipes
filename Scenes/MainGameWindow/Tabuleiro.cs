@@ -12,8 +12,7 @@ public partial class Tabuleiro : GridContainer
     private int currentLevel = 1;
 
     private List<int> LiquidSourceIndexes = new();
-    private int objectiveSlotsAmount = 0;
-    private int objectiveSlotsCorrectlyFilled = 0;
+    private List<int> LiquidObjectiveIndexes = new();
 
     private bool levelCompleted = false;
 
@@ -46,9 +45,9 @@ public partial class Tabuleiro : GridContainer
         }
         //-------------------------
 
-        this.objectiveSlotsAmount = 0;
-        this.objectiveSlotsCorrectlyFilled = 0;
+ 
         this.LiquidSourceIndexes = new();
+        this.LiquidObjectiveIndexes = new();
         
         foreach(Node node in this.GetChildren())
         {
@@ -56,7 +55,8 @@ public partial class Tabuleiro : GridContainer
             {
                 case BaseSource: LiquidSourceIndexes.Add(node.GetIndex()); break;
                 case LiquidObjective slotObjective: 
-                    this.objectiveSlotsAmount++;
+                    this.LiquidObjectiveIndexes.Add(node.GetIndex());
+                    
                     if(!slotObjective.IsConnected(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged))
                     {
                         slotObjective.Connect(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged);
@@ -99,18 +99,25 @@ public partial class Tabuleiro : GridContainer
         this.UpdateBoardState();
         this.UpdateBoardState();
 
-        if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
+        foreach(int index in this.LiquidObjectiveIndexes)
         {
-            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelCompleted, this.currentLevel);
-            this.levelCompleted = true;
+            if(this.GetChild<LiquidObjective>(index).correctlyFilled == false)
+            {
+                return;
+            }
         }
+
+        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelCompleted, this.currentLevel);
+        foreach(Node node in this.GetChildren()){ node.GetChild<AnimationPlayer>(0).Play("LevelCompletedAnimation"); }
+            
+        if(this.levelCompleted == false){ this.GetOwner<Node>().GetChild<AnimationPlayer>(0).Play("LevelComplete"); }
+        this.levelCompleted = true;
     }
 
     private void onObjectiveSlotStateChanged(LiquidObjective objectiveSlot, bool correctlyFilled)
     {
         if(correctlyFilled)
         { 
-            this.objectiveSlotsCorrectlyFilled++;
             objectiveSlot.PlayBubbleReleasingAnimation();
             foreach(int index in objectiveSlot.bubbleLockedTilesIndexes)
             {
@@ -119,21 +126,11 @@ public partial class Tabuleiro : GridContainer
         }
         else
         {                
-            this.objectiveSlotsCorrectlyFilled--;
             objectiveSlot.PlayBubbleSpreadingAnimation(this.GlobalPosition);
             foreach(int index in objectiveSlot.bubbleLockedTilesIndexes)
             {
                 this.GetChild<ISlotInteractable>(index).LockRotation();
             }
-        }
-
-        if(this.objectiveSlotsCorrectlyFilled >= this.objectiveSlotsAmount)
-        {
-            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelCompleted, this.currentLevel);
-            foreach(Node node in this.GetChildren()){ node.GetChild<AnimationPlayer>(0).Play("LevelCompletedAnimation"); }
-            
-            if(this.levelCompleted == false){ this.GetOwner<Node>().GetChild<AnimationPlayer>(0).Play("LevelComplete"); }
-            this.levelCompleted = true;
         }
     }
 
@@ -177,7 +174,8 @@ public partial class Tabuleiro : GridContainer
             }
 
             if(node.IsPlayingAnimation()){ continue; }
-            node.UpdateDrawingState();}
+            node.UpdateDrawingState();
+        }
     }
 
     private void FillPipes(Dictionary<ISlotInteractable, List<Directions>> visitados, Stack<(ISlotInteractable, Directions, LiquidType)> proxVisita)

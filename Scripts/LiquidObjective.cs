@@ -14,15 +14,15 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
     [Export]
     public LiquidType requiredLiquid = LiquidType.Azul;
-    private bool correctlyFilled = false;
+    public bool correctlyFilled {get; private set;} = false;
     private bool bubbleLocked = false;
     public int[] bubbleLockedTilesIndexes {get; private set;}
 
 
+    AnimationPlayer animationNode;
     Node2D extraDetails;
 
     private Sprite2D contentSprite;
-    private Tween loopRotationTween;
 
     public Dictionary<Directions, SlotOutlet> outletStates = new()
     {
@@ -38,6 +38,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         {
             this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
         }
+        this.animationNode = (AnimationPlayer)FindChild("AnimationPlayer");
         
         this.contentSprite = (Sprite2D)FindChild("ContentFrame");
         this.contentSprite.Hframes = 5;
@@ -152,36 +153,25 @@ public partial class LiquidObjective : Button, ISlotInteractable
     {
         this.contentSprite.Frame = (int)requiredLiquid - 1;
 
-        if(this.loopRotationTween != null)
-        {
-            this.loopRotationTween.Kill();
-        }
-
-        this.loopRotationTween = GetTree().CreateTween().SetLoops();
         if(this.correctlyFilled && stateChanged)
         {
-            loopRotationTween.TweenProperty(this.contentSprite, "rotation", Mathf.DegToRad(360), 4.5f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
-            loopRotationTween.TweenProperty(this.contentSprite, "rotation", Mathf.DegToRad(0), 0f).SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Linear);
-            loopRotationTween.Play();
+            animationNode.Play("ContentLoopRotation");
         }
         else
         {
-            loopRotationTween.Kill();  
+            animationNode.Stop();  
             this.contentSprite.GlobalRotation = 0;
         }
     }
 
     public bool IsPlayingAnimation()
     {
-        return this.loopRotationTween.IsRunning();
+        return this.animationNode.IsPlaying();
     }
 
     public void ResetTweens()
     {
-        if(loopRotationTween != null)
-        {
-            loopRotationTween.Kill();
-        }
+        return;
     }
 
     public void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://c45qus87fmeye"]
+
+[ext_resource type="Script" path="res://Scenes/LevelDesignTool/LevelDesignSlot.cs" id="1_gkcrr"]
+
+[node name="LevelDesignSlot" type="Button"]
+custom_minimum_size = Vector2(18, 18)
+offset_right = 18.0
+offset_bottom = 18.0
+flat = true
+script = ExtResource("1_gkcrr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9, 9)
+centered = false
+offset = Vector2(-8, -8)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(9, 9)

@@ -86,7 +86,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         const int slotSize = 17;
         const int pivotOffset = 9;
 
-        using Tween movementTween = this.GetTree().CreateTween();
+        Tween movementTween = this.GetTree().CreateTween();
 
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
@@ -106,10 +106,11 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
     public void PlayBubbleReleasingAnimation()
     {
-        using Tween floatingTween = this.GetTree().CreateTween();
-
+        
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
+            using Tween floatingTween = this.GetTree().CreateTween();
+
             var bubble = this.extraDetails.GetChild<Sprite2D>(i);
             floatingTween.TweenProperty(bubble, "global_position:y", -25f, 0.5f)
                 .SetEase(Tween.EaseType.InOut)

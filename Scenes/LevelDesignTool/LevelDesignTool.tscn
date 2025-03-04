@@ -1,0 +1,360 @@
+[gd_scene load_steps=12 format=3 uid="uid://dmcer8a73cpky"]
+
+[ext_resource type="Texture2D" uid="uid://ok0dy5g2smj5" path="res://Scenes/LevelDesignTool/Sprites/levelmakerbackgrund.png" id="1_345lb"]
+[ext_resource type="Script" path="res://Scenes/LevelDesignTool/LevelDesignTool.cs" id="1_jjet6"]
+[ext_resource type="Script" path="res://Scenes/LevelDesignTool/ContentSampleSlot/ContentSampleSlot.cs" id="2_2fsmj"]
+[ext_resource type="PackedScene" uid="uid://c45qus87fmeye" path="res://Scenes/LevelDesignTool/LevelDesignSlot/LevelDesignSlot.tscn" id="2_74ref"]
+[ext_resource type="Texture2D" uid="uid://clevgkn542nkf" path="res://Assets/Sprites/BasicPipes.png" id="4_efgw7"]
+[ext_resource type="Texture2D" uid="uid://swgc7umpsi8v" path="res://Assets/Sprites/CrossPipe.png" id="5_6crju"]
+[ext_resource type="Texture2D" uid="uid://bu72qyrl1f6ml" path="res://Assets/Sprites/ColorGatePipe.png" id="6_aplpp"]
+[ext_resource type="Texture2D" uid="uid://b84op1rklpw22" path="res://Assets/Sprites/ColorChangerPipe.png" id="7_wcl6f"]
+[ext_resource type="Texture2D" uid="uid://rftjkcqbyb6y" path="res://Assets/Sprites/selectedSlotIcon.png" id="8_y5r0h"]
+[ext_resource type="Texture2D" uid="uid://dokq5n7xis0uw" path="res://Assets/Sprites/LiquidObjectiveSprites.png" id="9_kqvqv"]
+[ext_resource type="Texture2D" uid="uid://dsf4d1p8utww7" path="res://Assets/Sprites/LiquidSprites.png" id="10_rho8d"]
+
+[node name="LevelDesignTool" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jjet6")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(103, 88.5)
+texture = ExtResource("1_345lb")
+
+[node name="SamplesContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 44.0
+offset_bottom = 130.0
+columns = 2
+
+[node name="SampleEmpty" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe0_empty.tres\",\"stateNumber\":0}"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleEmpty"]
+position = Vector2(1, 1)
+texture = ExtResource("4_efgw7")
+centered = false
+hframes = 5
+frame = 4
+
+[node name="SampleVertical" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_I_res.tres\",\"stateNumber\":0}"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleVertical"]
+position = Vector2(1, 1)
+texture = ExtResource("4_efgw7")
+centered = false
+hframes = 5
+frame = 3
+
+[node name="SampleL" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2_L_res.tres\",\"stateNumber\":0}"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleL"]
+position = Vector2(1, 1)
+texture = ExtResource("4_efgw7")
+centered = false
+hframes = 5
+frame = 2
+
+[node name="SampleCross" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe4_Cross.tres\",\"stateNumber\":0}"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleCross"]
+position = Vector2(1, 1)
+texture = ExtResource("5_6crju")
+centered = false
+
+[node name="SampleGate" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/GatePipe.cs\",\"canRotate\":true,\"gateLockColor\":4,\"pipeResourcePath\":\"res://Assets/Resources/Pipe3Gate_res.tres\",\"stateNumber\":0}"
+pipeName = "gate"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleGate"]
+position = Vector2(1, 1)
+texture = ExtResource("6_aplpp")
+centered = false
+hframes = 2
+
+[node name="Line2D" type="Line2D" parent="SamplesContainer/SampleGate"]
+position = Vector2(8, 9)
+scale = Vector2(1.02373, 0.200894)
+points = PackedVector2Array(-4, 0, 7, 0)
+
+[node name="SampleT" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe3__L.tres\",\"stateNumber\":0}"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleT"]
+position = Vector2(1, 1)
+texture = ExtResource("4_efgw7")
+centered = false
+hframes = 5
+frame = 1
+
+[node name="SamplePlus" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe4_plus.tres\",\"stateNumber\":0}"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SamplePlus"]
+position = Vector2(1, 1)
+texture = ExtResource("4_efgw7")
+centered = false
+hframes = 5
+
+[node name="SampleColorChanger" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"Bidirectional\":true,\"PipeScriptPath\":\"res://Scripts/Pipes/ColorChangerPipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe2ColorChanger_I_res.tres\",\"positionRequiredColor\":0,\"positionTransformedColor\":2,\"requiredColor\":0,\"stateNumber\":0,\"transformedColor\":0}"
+pipeName = "color_changer"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleColorChanger"]
+position = Vector2(1, 1)
+texture = ExtResource("7_wcl6f")
+centered = false
+hframes = 3
+
+[node name="SampleChangeable" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/ChangeablePipe.cs\",\"canRotate\":true,\"jsonData_PipesToAddToInventory\":[@@@@@@],\"jsonPlacedPipeData\":\"{\\\"PipeScriptPath\\\":\\\"res://Scripts/Pipes/BasePipe.cs\\\",\\\"canRotate\\\":true,\\\"pipeResourcePath\\\":\\\"res://Assets/Resources/Pipe0_empty.tres\\\",\\\"stateNumber\\\":0}\",\"pipeResourcePath\":\"res://Assets/Resources/Pipe0_empty.tres\",\"stateNumber\":0}"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleChangeable"]
+position = Vector2(1, 1)
+texture = ExtResource("8_y5r0h")
+centered = false
+
+[node name="SampleObjective" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/LiquidObjective.cs\",\"bubbleLockedTilesIndexes\":[],\"requiredLiquid\":1}"
+pipeName = "objective"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleObjective"]
+position = Vector2(1, 1)
+texture = ExtResource("9_kqvqv")
+centered = false
+hframes = 5
+
+[node name="SampleSource" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BaseSource.cs\",\"canRotate\":false,\"pipeResourcePath\":\"res://Assets/Resources/LiquidResources/DefaultLiquid.tres\",\"sourceLiquid\":1,\"stateNumber\":0}"
+pipeName = "source"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleSource"]
+position = Vector2(1, 1)
+texture = ExtResource("10_rho8d")
+centered = false
+hframes = 5
+
+[node name="DesignSlotsContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 3.0
+offset_right = 146.0
+offset_bottom = 174.0
+theme_override_constants/h_separation = -1
+theme_override_constants/v_separation = -1
+columns = 5
+
+[node name="Slot" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot2" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot3" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot4" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot5" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot6" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot7" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot8" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot9" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot10" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot11" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot12" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot13" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot14" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot15" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot16" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot17" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot18" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot19" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot20" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot21" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot22" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot23" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot24" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot25" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot26" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot27" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot28" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot29" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot30" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot31" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot32" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot33" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot34" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot35" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot36" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot37" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot38" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot39" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot40" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot41" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot42" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot43" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot44" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot45" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot46" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot47" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot48" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot49" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="Slot50" parent="DesignSlotsContainer" instance=ExtResource("2_74ref")]
+layout_mode = 2
+
+[node name="ExportLevelButton" type="Button" parent="."]
+self_modulate = Color(0.6, 1, 0.364706, 1)
+layout_mode = 0
+offset_left = 6.0
+offset_top = 171.0
+offset_right = 49.0
+offset_bottom = 195.0
+theme_override_font_sizes/font_size = 11
+text = "Export"
+
+[node name="ColorButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 15.0
+offset_right = 59.0
+offset_bottom = 30.0
+toggle_mode = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ColorButton"]
+position = Vector2(7.5, 5.5)
+scale = Vector2(0.1375, 0.9375)
+texture = ExtResource("10_rho8d")

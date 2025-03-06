@@ -21,7 +21,7 @@ public partial class LevelDesignTool : Control
         foreach(ContentSampleSlot sample in this.samplesRoot.GetChildren()){ sample.SampleSlotPressed += this.onSampleSelected; }
         foreach(LevelDesignSlot slot in this.designSlotsRoot.GetChildren()){ slot.LevelDesignSlotPressed += this.onDesignSlotPressed; }
     }
-
+    
     private void onSampleSelected(int sampleIndex, Sprite2D sprite, string name)
     {
         this.selectedSample = (sampleIndex, sprite, name);
@@ -48,10 +48,10 @@ public partial class LevelDesignTool : Control
                     slot.GetChild<Sprite2D>(0).Frame = (int)slot.color; 
                     return;
 
-                case "color_changer": 
-                    if(Input.IsKeyPressed(Key.Space) == true)
+                case "color_changer":
+                    if(Input.IsKeyPressed(Key.Shift))
                     {
-                        slot.color2 = (LiquidType)(((int)slot.color + 1) % 5);
+                        slot.color2 = (LiquidType)(((int)slot.color2 + 1) % 5);
                         slot.SetColor(GameUtils.LiquidColorsRGB[slot.color2], 1);
                     }
                     else

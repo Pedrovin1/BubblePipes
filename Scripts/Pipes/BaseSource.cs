@@ -70,6 +70,24 @@ public partial class BaseSource : BasePipe
         return;
     }
 
+    public override void LockRotation()
+    {
+        base.LockRotation();
+        foreach(SlotOutlet slotOulet in this.outletStates.Values)
+        {
+            slotOulet.Opened = false;
+        }
+    }
+
+    public override void UnlockRotation()
+    {
+        base.LockRotation();
+        foreach(SlotOutlet slotOulet in this.outletStates.Values)
+        {
+            slotOulet.Opened = true;
+        }
+    }
+
     public override void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)
     {
         return;

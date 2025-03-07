@@ -28,6 +28,7 @@ public partial class BasePipe : Button, ISlotInteractable
     [Export]
     public byte stateNumber = 0;
 
+    public bool bubbleLocked = false;
     public bool canRotate = true;
 
     public static PipeResource defaultEmptyPipeResource;
@@ -302,8 +303,8 @@ public partial class BasePipe : Button, ISlotInteractable
         }
     }
 
-    public virtual void LockRotation(){this.canRotate = false;}
-    public virtual void UnlockRotation(){this.canRotate = true;}
+    public virtual void LockRotation(){this.canRotate = false; this.bubbleLocked = true;}
+    public virtual void UnlockRotation(){this.canRotate = true; this.bubbleLocked = false;}
 
     protected void onAnimationFinished()
     {

@@ -69,8 +69,14 @@ public partial class LevelDesignSlot : Button
 
     public void SetSprite(Sprite2D sprite)
     {
+        this.GetChild<Sprite2D>(0).Show();
         this.GetChild<Sprite2D>(0).Texture = sprite.Texture;
         this.GetChild<Sprite2D>(0).Hframes = sprite.Hframes;
         this.GetChild<Sprite2D>(0).Frame = sprite.Frame;
+    }
+
+    public void HideSprite()
+    {
+        this.GetChild<Sprite2D>(0).Hide();
     }
 }

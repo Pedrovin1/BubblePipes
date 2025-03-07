@@ -28,8 +28,8 @@
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":3,"stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":1,"stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[17],"requiredLiquid":3}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[17],"requiredLiquid":1}

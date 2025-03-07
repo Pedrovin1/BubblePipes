@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmcer8a73cpky"]
+[gd_scene load_steps=14 format=3 uid="uid://dmcer8a73cpky"]
 
 [ext_resource type="Texture2D" uid="uid://ok0dy5g2smj5" path="res://Scenes/LevelDesignTool/Sprites/levelmakerbackgrund.png" id="1_345lb"]
 [ext_resource type="Script" path="res://Scenes/LevelDesignTool/LevelDesignTool.cs" id="1_jjet6"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://rftjkcqbyb6y" path="res://Assets/Sprites/selectedSlotIcon.png" id="8_y5r0h"]
 [ext_resource type="Texture2D" uid="uid://dokq5n7xis0uw" path="res://Assets/Sprites/LiquidObjectiveSprites.png" id="9_kqvqv"]
 [ext_resource type="Texture2D" uid="uid://dsf4d1p8utww7" path="res://Assets/Sprites/LiquidSprites.png" id="10_rho8d"]
+[ext_resource type="Texture2D" uid="uid://345pqxd4brs1" path="res://Assets/Sprites/doubleLpipe.png" id="11_jdhom"]
+[ext_resource type="Texture2D" uid="uid://dcoor80fxujbd" path="res://Assets/Sprites/bubbleLocks.png" id="13_ob050"]
 
 [node name="LevelDesignTool" type="Control"]
 layout_mode = 3
@@ -38,6 +40,7 @@ custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 script = ExtResource("2_2fsmj")
 DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe0_empty.tres\",\"stateNumber\":0}"
+pipeName = "empty"
 
 [node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleEmpty"]
 position = Vector2(1, 1)
@@ -175,6 +178,17 @@ position = Vector2(1, 1)
 texture = ExtResource("10_rho8d")
 centered = false
 hframes = 5
+
+[node name="SampleDoubleL" type="Button" parent="SamplesContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+script = ExtResource("2_2fsmj")
+DefaultPipeJson = "{\"PipeScriptPath\":\"res://Scripts/Pipes/BasePipe.cs\",\"canRotate\":true,\"pipeResourcePath\":\"res://Assets/Resources/Pipe4_double_L.tres\",\"stateNumber\":0}"
+
+[node name="Sprite2D" type="Sprite2D" parent="SamplesContainer/SampleDoubleL"]
+position = Vector2(1, 1)
+texture = ExtResource("11_jdhom")
+centered = false
 
 [node name="DesignSlotsContainer" type="GridContainer" parent="."]
 layout_mode = 0
@@ -358,3 +372,19 @@ toggle_mode = true
 position = Vector2(7.5, 5.5)
 scale = Vector2(0.1375, 0.9375)
 texture = ExtResource("10_rho8d")
+
+[node name="BubbleButton" type="Button" parent="."]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 0
+offset_left = 45.0
+offset_top = 39.0
+offset_right = 53.0
+offset_bottom = 47.0
+toggle_mode = true
+
+[node name="Sprite2D" type="Sprite2D" parent="BubbleButton"]
+position = Vector2(1, 1)
+scale = Vector2(0.8125, 0.8125)
+texture = ExtResource("13_ob050")
+centered = false
+hframes = 5

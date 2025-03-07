@@ -16,3 +16,5 @@ offset = Vector2(-8, -8)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(9, 9)
+
+[node name="Bubble" type="Node" parent="."]

@@ -1,0 +1,5 @@
+Rewind Action
+lock icon on inventory when it is empty 
+hard-locked rotaion pipe
+hover over a objective slot shows their binded bubble slots
+special bubble that resets th pipe to its default level position when triggered

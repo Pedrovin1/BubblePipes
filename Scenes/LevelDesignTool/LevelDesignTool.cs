@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 public partial class LevelDesignTool : Control
@@ -7,6 +8,8 @@ public partial class LevelDesignTool : Control
     Node samplesRoot;
     Node designSlotsRoot;
     Button ColorButton;
+    Button BubbleButton;
+    List<int> indexSlotsWithBubble = new();
 
     (int index, Sprite2D sprite, string name) selectedSample;
 
@@ -15,6 +18,7 @@ public partial class LevelDesignTool : Control
         this.samplesRoot = FindChild("SamplesContainer");
         this.designSlotsRoot = FindChild("DesignSlotsContainer");
         this.ColorButton = (Button)FindChild("ColorButton");
+        this.BubbleButton = (Button)FindChild("BubbleButton");
 
 
         ((Button)this.FindChild("ExportLevelButton")).Pressed += this.onExportButtonPressed;
@@ -65,6 +69,38 @@ public partial class LevelDesignTool : Control
             return;
         }
 
+        if(this.BubbleButton.ButtonPressed)
+        {
+            if(!this.indexSlotsWithBubble.Contains(slot.GetIndex()))
+            {
+                this.indexSlotsWithBubble.Add(slot.GetIndex());
+
+                slot.FindChild("Bubble").AddChild
+                (
+                    new Sprite2D()
+                    {
+                        Texture = this.BubbleButton.GetChild<Sprite2D>(0).Texture,
+                        Hframes = 5,
+                        Frame = 0,
+                        Centered = false,
+                        GlobalPosition = slot.GlobalPosition,
+                        Offset = new Vector2(1, 1)
+                    }
+                );
+                return;
+            }
+
+            if(Input.IsKeyPressed(Key.Shift))
+            {
+                slot.FindChild("Bubble").GetChild<Sprite2D>(0).QueueFree();
+                this.indexSlotsWithBubble.Remove(slot.GetIndex());
+                return;
+            }
+
+            slot.FindChild("Bubble").GetChild<Sprite2D>(0).Frame++;
+            return;
+        }
+
 
         slot.contentSampleIndex = selectedSample.index;
 
@@ -78,6 +114,7 @@ public partial class LevelDesignTool : Control
         slot.SetSprite(selectedSample.sprite);
         switch(selectedSample.name)
         {
+            case "empty": slot.HideSprite(); break;
             case "gate": 
                 slot.AddDetailSprite
                 (
@@ -117,7 +154,8 @@ public partial class LevelDesignTool : Control
 
     private void onExportButtonPressed()
     {
-        using var file = Godot.FileAccess.Open("res://Assets/Levels/Level_DRAFTNUMBERHERE.json", FileAccess.ModeFlags.Write);
+        int levelsAmount = Godot.DirAccess.GetFilesAt("res://Assets/Levels/").Length;
+        using var file = Godot.FileAccess.Open($"res://Assets/Levels/Level_{levelsAmount + 1}.json", FileAccess.ModeFlags.Write);
 
         foreach(LevelDesignSlot slot in this.designSlotsRoot.GetChildren())
         {

@@ -1,16 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://c4esbof6p0tn5"]
+[gd_scene load_steps=12 format=3 uid="uid://c4esbof6p0tn5"]
 
 [ext_resource type="Script" path="res://Scenes/MainGameWindow/Tabuleiro.cs" id="1_3cr4x"]
-[ext_resource type="Script" path="res://Scripts/Pipes/BasePipe.cs" id="1_jr7wk"]
-[ext_resource type="Script" path="res://Scripts/Pipes/BaseSource.cs" id="1_xqss7"]
 [ext_resource type="Texture2D" uid="uid://co1vw5jj0vh2m" path="res://Assets/Sprites/basebackground.png" id="1_yuph6"]
-[ext_resource type="Resource" uid="uid://cgr0j2udsdllu" path="res://Assets/Resources/Pipe2_I_res.tres" id="4_kxkx5"]
-[ext_resource type="Resource" uid="uid://doo3ouxuslbn1" path="res://Assets/Resources/LiquidResources/DefaultLiquid.tres" id="4_uf6ja"]
-[ext_resource type="PackedScene" uid="uid://dr8eo0pha47qj" path="res://Scenes/PipeSlot/PipeSlot.tscn" id="7_e4n8x"]
-[ext_resource type="Resource" uid="uid://cuyganbwsohkk" path="res://Assets/Resources/Pipe2_L_res.tres" id="9_h5fdt"]
-[ext_resource type="Script" path="res://Scripts/Pipes/ChangeablePipe.cs" id="10_upxwj"]
-[ext_resource type="Resource" uid="uid://b5g663d4iklrg" path="res://Assets/Resources/Pipe4_Cross.tres" id="11_8cloy"]
-[ext_resource type="Script" path="res://Scripts/LiquidObjective.cs" id="12_8b1xv"]
+[ext_resource type="PackedScene" uid="uid://bygbcga2h7x1l" path="res://Scenes/ConfigsMenu/ConfigsMenu.tscn" id="4_d74ba"]
 [ext_resource type="Texture2D" uid="uid://cyj4w6u5t72gd" path="res://Assets/Sprites/levelCompleteIScreen.png" id="13_vagg7"]
 [ext_resource type="PackedScene" uid="uid://beths44p3fkc0" path="res://Scenes/LevelMap/LevelMap.tscn" id="14_ckgum"]
 [ext_resource type="PackedScene" uid="uid://co52lhdf8a768" path="res://Scenes/Inventory/Inventory.tscn" id="14_mqge5"]
@@ -178,10 +170,14 @@ position = Vector2(75, 100)
 texture = ExtResource("1_yuph6")
 
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource("14_mqge5")]
+z_index = 1
 offset_left = 57.0
 offset_top = 178.0
 offset_right = -5.0
 offset_bottom = -2.0
+
+[node name="ConfigsMenu" parent="CanvasLayer" instance=ExtResource("4_d74ba")]
+z_index = 8
 
 [node name="Tabuleiro" type="GridContainer" parent="CanvasLayer"]
 offset_left = 58.0
@@ -192,243 +188,6 @@ theme_override_constants/h_separation = -1
 theme_override_constants/v_separation = -1
 columns = 5
 script = ExtResource("1_3cr4x")
-
-[node name="Placeholder" type="GridContainer" parent="CanvasLayer"]
-visible = false
-offset_left = 56.0
-offset_top = 9.0
-offset_right = 146.0
-offset_bottom = 189.0
-theme_override_constants/h_separation = -1
-theme_override_constants/v_separation = -1
-columns = 5
-
-[node name="SourceSlot" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_xqss7")
-pipeResource = ExtResource("4_uf6ja")
-
-[node name="SourceSlot2" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_xqss7")
-sourceLiquid = 2
-pipeResource = ExtResource("4_uf6ja")
-
-[node name="SourceSlot3" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_xqss7")
-sourceLiquid = 3
-pipeResource = ExtResource("4_uf6ja")
-
-[node name="SourceSlot4" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_xqss7")
-sourceLiquid = 4
-pipeResource = ExtResource("4_uf6ja")
-
-[node name="SourceSlot5" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_xqss7")
-sourceLiquid = 5
-pipeResource = ExtResource("4_uf6ja")
-
-[node name="PipeSlot" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("9_h5fdt")
-
-[node name="PipeSlot2" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("9_h5fdt")
-
-[node name="PipeSlot3" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot4" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot6" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("9_h5fdt")
-
-[node name="PipeSlot7" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("11_8cloy")
-
-[node name="PipeSlot8" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="ChangeableSlot" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("10_upxwj")
-
-[node name="PipeSlot10" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("9_h5fdt")
-
-[node name="PipeSlot12" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot13" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="ColorChangerPipe" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot14" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot15" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot16" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot17" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot18" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot19" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("9_h5fdt")
-
-[node name="PipeSlot20" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("9_h5fdt")
-
-[node name="PipeSlot21" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot22" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot5" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot23" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot24" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot25" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot26" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot27" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot28" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("11_8cloy")
-
-[node name="PipeSlot29" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot30" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot31" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot32" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="Objective" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("12_8b1xv")
-
-[node name="PipeSlot34" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot35" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot36" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot37" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot38" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot39" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
-
-[node name="PipeSlot40" parent="CanvasLayer/Placeholder" instance=ExtResource("7_e4n8x")]
-layout_mode = 2
-script = ExtResource("1_jr7wk")
-pipeResource = ExtResource("4_kxkx5")
 
 [node name="LevelTransitionPolygon" type="Polygon2D" parent="CanvasLayer"]
 z_index = 6

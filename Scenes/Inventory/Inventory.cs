@@ -51,7 +51,13 @@ public partial class Inventory : Control
 
         GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.RemoveHeldItemFromInventory, Callable.From(this.onRemoveHeldItemFromInventory));
         GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.AddItemToInventory, new Callable(this, Inventory.MethodName.onAddItemToInventory));
+        GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.ConfigurationsMenuToggled, new Callable(this, Inventory.MethodName.onConfigurationsMenuToggled));
         this.updateSlotSprites();
+    }
+
+    public void onConfigurationsMenuToggled(bool toggledOn)
+    {
+        this.Visible = !toggledOn;
     }
 
     private void onInventoryButtonPressed()
@@ -59,6 +65,8 @@ public partial class Inventory : Control
         if(this.pipesJsonData.Count <= 0 && !this.opened){ return; } //maybe add an alert saying that there are no pipes in inventory or somehitng
 
         this.opened = !this.opened;
+        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.InventoryMenuToggled, this.opened);
+        
         this.inventoryBagSprite.Frame = this.opened ? 1 : 0;
 
         if(this.opened){ this.animationNode.Play("OpenInventory"); }

@@ -33,6 +33,7 @@ public partial class Tabuleiro : GridContainer
             this.c_onLevelSelected = new Callable(this, MethodName.onLevelSelected);
 
             GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.LevelSelected, this.c_onLevelSelected);
+            GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.ConfigurationsMenuToggled, new Callable(this, Tabuleiro.MethodName.onConfigurationsButtonToggled));
         }
         
         this.LoadLevel(this.currentLevel);
@@ -211,5 +212,10 @@ public partial class Tabuleiro : GridContainer
 
             visitados[currentNode].Add(outletPos);
         }
+    }
+
+    public void onConfigurationsButtonToggled(bool toggledOn)
+    {
+        this.Visible = !toggledOn;
     }
 }

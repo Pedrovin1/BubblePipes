@@ -1,15 +1,21 @@
 using Godot;
 using System;
+using System.Globalization;
 
 public partial class ConfigsMenu : Control
 {
-    public static double animationSpeedMultiplier = 2;
+    public static double animationSpeedMultiplier = 1;
 
     HSlider animationSpeedNode;
+    Label animationSpeedNumber;
 
     public override void _Ready()
     {
+        GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.InventoryMenuToggled, new Callable(this, ConfigsMenu.MethodName.onInventoryMenuToggled));
+
+        this.GetChild<Node2D>(1).Visible = false;
         this.animationSpeedNode = (HSlider)FindChild("AnimationSpeedHSlider");
+        this.animationSpeedNumber = GetNode<Label>("./Node2D/Labels/AnimationSpeedNumber");
     }
 
     public void onAnimationSpeedSliderValueChanged(float value)
@@ -21,11 +27,31 @@ public partial class ConfigsMenu : Control
 
         var selectedDotPanel = FindChild("SpeedAnimationPanels").GetChild((int)(Mathf.Round(value * 10) / 5) - 1);
         selectedDotPanel.GetChild<Sprite2D>(0).Frame = 1;
+        this.animationSpeedNumber.Text = $"{((decimal)value).ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)}x";
     }
 
     public void onAnimationSpeedSliderDragEnded(bool _)
     {
         ConfigsMenu.animationSpeedMultiplier = this.animationSpeedNode.Value;
+    }
+
+    public void onQuitGameButtonPressed()
+    {
+        GetTree().Quit();
+    }
+
+    public void onConfigurationsButtonToggled(bool toggledOn)
+    {
+        this.FindChild("ConfigurationsButton").GetChild<Sprite2D>(0).Frame = toggledOn ? 1 : 0;
+        this.GetChild<Node2D>(1).Visible = toggledOn;
+
+        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.ConfigurationsMenuToggled, toggledOn);
+    }
+
+    public void onInventoryMenuToggled(bool toggledOn)
+    {
+        this.Visible = !toggledOn;
+        this.ZIndex = toggledOn ? 8 : 0;
     }
 
 

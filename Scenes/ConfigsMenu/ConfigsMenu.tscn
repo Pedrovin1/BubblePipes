@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bygbcga2h7x1l"]
+[gd_scene load_steps=8 format=3 uid="uid://bygbcga2h7x1l"]
 
 [ext_resource type="Texture2D" uid="uid://cg0ew7utlbjtk" path="res://Scenes/MainGameWindow/DefaultFrame.png" id="1_juu10"]
 [ext_resource type="Script" path="res://Scenes/ConfigsMenu/ConfigsMenu.cs" id="1_ohtd4"]
 [ext_resource type="Texture2D" uid="uid://b5bxliuwrlu6s" path="res://Assets/Sprites/dots_buttonIcon.png" id="2_acfpd"]
-[ext_resource type="Texture2D" uid="uid://c3ojv7yq2wunv" path="res://Assets/Sprites/ExitButton.png" id="4_cv0no"]
+[ext_resource type="Texture2D" uid="uid://icyx5kve8mwc" path="res://Assets/Sprites/configurationsButton.png" id="2_i4ol3"]
+[ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="2_nt2sj"]
+[ext_resource type="Texture2D" uid="uid://cvjfm2n0athur" path="res://Assets/Sprites/quitButton.png" id="5_uv66u"]
+[ext_resource type="Texture2D" uid="uid://bj4lvfm2p8j8p" path="res://Assets/Sprites/line.png" id="6_1iwd5"]
 
 [node name="ConfigsMenu" type="Control"]
 custom_minimum_size = Vector2(86, 171)
@@ -20,29 +23,47 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_ohtd4")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-custom_minimum_size = Vector2(86, 171)
+[node name="ConfigurationsButton" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 33.0
+offset_top = 173.0
+offset_right = 53.0
+offset_bottom = 193.0
+toggle_mode = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ConfigurationsButton"]
+texture = ExtResource("2_i4ol3")
+centered = false
+hframes = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="Node2D"]
+custom_minimum_size = Vector2(86, 171)
+offset_right = 86.0
+offset_bottom = 171.0
 mouse_filter = 2
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="Node2D/CenterContainer"]
 layout_mode = 2
+texture = ExtResource("2_nt2sj")
+region_rect = Rect2(3, 3, 12, 12)
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
-custom_minimum_size = Vector2(86, 50)
+[node name="TextureRect" type="TextureRect" parent="Node2D/CenterContainer"]
+custom_minimum_size = Vector2(86, 171)
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("1_juu10")
+expand_mode = 5
+stretch_mode = 6
 
-[node name="AnimationSpeedHSlider" type="HSlider" parent="."]
+[node name="AnimationSpeedHSlider" type="HSlider" parent="Node2D"]
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
 offset_left = 18.0
-offset_top = 76.0
+offset_top = 114.0
 offset_right = 68.0
-offset_bottom = 92.0
+offset_bottom = 130.0
 min_value = 0.5
 max_value = 2.0
 step = 0.5
@@ -50,69 +71,107 @@ value = 1.0
 scrollable = false
 ticks_on_borders = true
 
-[node name="SpeedAnimationPanels" type="HBoxContainer" parent="."]
-layout_mode = 2
+[node name="SpeedAnimationPanels" type="HBoxContainer" parent="Node2D"]
 offset_left = 18.0
-offset_top = 80.0
+offset_top = 118.0
 offset_right = 68.0
-offset_bottom = 88.0
+offset_bottom = 126.0
 mouse_filter = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="Panel" type="Panel" parent="SpeedAnimationPanels"]
+[node name="Panel" type="Panel" parent="Node2D/SpeedAnimationPanels"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="SpeedAnimationPanels/Panel"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/SpeedAnimationPanels/Panel"]
 texture = ExtResource("2_acfpd")
 centered = false
 hframes = 2
 
-[node name="Panel2" type="Panel" parent="SpeedAnimationPanels"]
+[node name="Panel2" type="Panel" parent="Node2D/SpeedAnimationPanels"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="SpeedAnimationPanels/Panel2"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/SpeedAnimationPanels/Panel2"]
 texture = ExtResource("2_acfpd")
 centered = false
 hframes = 2
 frame = 1
 
-[node name="Panel3" type="Panel" parent="SpeedAnimationPanels"]
+[node name="Panel3" type="Panel" parent="Node2D/SpeedAnimationPanels"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="SpeedAnimationPanels/Panel3"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/SpeedAnimationPanels/Panel3"]
 texture = ExtResource("2_acfpd")
 centered = false
 hframes = 2
 
-[node name="Panel4" type="Panel" parent="SpeedAnimationPanels"]
+[node name="Panel4" type="Panel" parent="Node2D/SpeedAnimationPanels"]
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="SpeedAnimationPanels/Panel4"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/SpeedAnimationPanels/Panel4"]
 texture = ExtResource("2_acfpd")
 centered = false
 hframes = 2
 
-[node name="ExitButton" type="Button" parent="."]
-layout_mode = 0
+[node name="QuitButton" type="Button" parent="Node2D"]
+self_modulate = Color(1, 1, 1, 0)
 offset_left = 27.0
-offset_top = 93.0
+offset_top = 141.0
 offset_right = 57.0
-offset_bottom = 105.0
+offset_bottom = 153.0
 
-[node name="Sprite2D" type="Sprite2D" parent="ExitButton"]
-position = Vector2(0, -4)
-texture = ExtResource("4_cv0no")
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/QuitButton"]
+texture = ExtResource("5_uv66u")
 centered = false
 hframes = 2
 
-[connection signal="drag_ended" from="AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderDragEnded"]
-[connection signal="value_changed" from="AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderValueChanged"]
+[node name="DetailSprites" type="Node2D" parent="Node2D"]
+position = Vector2(-59, -5)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D/DetailSprites"]
+position = Vector2(101.5, 127)
+scale = Vector2(0.6875, 1)
+texture = ExtResource("6_1iwd5")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D/DetailSprites"]
+position = Vector2(87.5, 127)
+scale = Vector2(0.6875, 1)
+texture = ExtResource("6_1iwd5")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Node2D/DetailSprites"]
+position = Vector2(115.5, 127)
+scale = Vector2(0.6875, 1)
+texture = ExtResource("6_1iwd5")
+
+[node name="Labels" type="Node2D" parent="Node2D"]
+
+[node name="Label" type="Label" parent="Node2D/Labels"]
+offset_left = 15.0
+offset_top = 108.0
+offset_right = 73.0
+offset_bottom = 127.0
+theme_override_font_sizes/font_size = 6
+text = "Animation Speed"
+horizontal_alignment = 1
+
+[node name="AnimationSpeedNumber" type="Label" parent="Node2D/Labels"]
+offset_left = 36.0
+offset_top = 125.0
+offset_right = 50.0
+offset_bottom = 135.0
+theme_override_font_sizes/font_size = 6
+text = "1.0x"
+horizontal_alignment = 1
+
+[connection signal="toggled" from="ConfigurationsButton" to="." method="onConfigurationsButtonToggled"]
+[connection signal="drag_ended" from="Node2D/AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderDragEnded"]
+[connection signal="value_changed" from="Node2D/AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderValueChanged"]
+[connection signal="pressed" from="Node2D/QuitButton" to="." method="onQuitGameButtonPressed"]

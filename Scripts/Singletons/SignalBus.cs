@@ -21,6 +21,12 @@ public partial class SignalBus : Node
     [Signal]
     public delegate void ItemSelectedEventHandler(string itemJson, Sprite2D texture);
 
+    [Signal]
+    public delegate void ConfigurationsMenuToggledEventHandler(bool toggledOn);
+
+     [Signal]
+    public delegate void InventoryMenuToggledEventHandler(bool toggledOn);
+
 
     public override void _Ready()
     {

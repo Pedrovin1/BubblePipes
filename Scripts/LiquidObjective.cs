@@ -83,6 +83,8 @@ public partial class LiquidObjective : Button, ISlotInteractable
     {
         if(this.bubbleLockedTilesIndexes == null || this.bubbleLockedTilesIndexes.Length == 0){ return; }
 
+        double animationTime = 0.5d / ConfigsMenu.animationSpeedMultiplier;
+
         const int slotSize = 17;
         const int pivotOffset = 9;
 
@@ -98,7 +100,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
                                                 Mathf.Floor(destinySlotIndex / 5f) * slotSize + boardGlobalPos.Y + pivotOffset);
             
             movementTween.TweenCallback(Callable.From(bubble.Show));
-            movementTween.TweenProperty(bubble, "global_position", finalPosition, 0.5f)
+            movementTween.TweenProperty(bubble, "global_position", finalPosition, animationTime)
                 .SetTrans(Tween.TransitionType.Cubic);
             movementTween.Play();
         }
@@ -106,13 +108,14 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
     public void PlayBubbleReleasingAnimation()
     {
-        
+        double animationTime = 0.5d / ConfigsMenu.animationSpeedMultiplier;
+
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
             using Tween floatingTween = this.GetTree().CreateTween();
 
             var bubble = this.extraDetails.GetChild<Sprite2D>(i);
-            floatingTween.TweenProperty(bubble, "global_position:y", -25f, 0.5f)
+            floatingTween.TweenProperty(bubble, "global_position:y", -25f, animationTime)
                 .SetEase(Tween.EaseType.InOut)
                 .SetTrans(Tween.TransitionType.Sine);
 

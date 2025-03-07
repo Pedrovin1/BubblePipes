@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=3 uid="uid://bygbcga2h7x1l"]
+
+[ext_resource type="Texture2D" uid="uid://cg0ew7utlbjtk" path="res://Scenes/MainGameWindow/DefaultFrame.png" id="1_juu10"]
+[ext_resource type="Script" path="res://Scenes/ConfigsMenu/ConfigsMenu.cs" id="1_ohtd4"]
+[ext_resource type="Texture2D" uid="uid://b5bxliuwrlu6s" path="res://Assets/Sprites/dots_buttonIcon.png" id="2_acfpd"]
+[ext_resource type="Texture2D" uid="uid://c3ojv7yq2wunv" path="res://Assets/Sprites/ExitButton.png" id="4_cv0no"]
+
+[node name="ConfigsMenu" type="Control"]
+custom_minimum_size = Vector2(86, 171)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 58.0
+offset_top = 5.0
+offset_right = -6.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ohtd4")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(86, 171)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+custom_minimum_size = Vector2(86, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_juu10")
+
+[node name="AnimationSpeedHSlider" type="HSlider" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_left = 18.0
+offset_top = 76.0
+offset_right = 68.0
+offset_bottom = 92.0
+min_value = 0.5
+max_value = 2.0
+step = 0.5
+value = 1.0
+scrollable = false
+ticks_on_borders = true
+
+[node name="SpeedAnimationPanels" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 18.0
+offset_top = 80.0
+offset_right = 68.0
+offset_bottom = 88.0
+mouse_filter = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Panel" type="Panel" parent="SpeedAnimationPanels"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="SpeedAnimationPanels/Panel"]
+texture = ExtResource("2_acfpd")
+centered = false
+hframes = 2
+
+[node name="Panel2" type="Panel" parent="SpeedAnimationPanels"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="SpeedAnimationPanels/Panel2"]
+texture = ExtResource("2_acfpd")
+centered = false
+hframes = 2
+frame = 1
+
+[node name="Panel3" type="Panel" parent="SpeedAnimationPanels"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="SpeedAnimationPanels/Panel3"]
+texture = ExtResource("2_acfpd")
+centered = false
+hframes = 2
+
+[node name="Panel4" type="Panel" parent="SpeedAnimationPanels"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="SpeedAnimationPanels/Panel4"]
+texture = ExtResource("2_acfpd")
+centered = false
+hframes = 2
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 93.0
+offset_right = 57.0
+offset_bottom = 105.0
+
+[node name="Sprite2D" type="Sprite2D" parent="ExitButton"]
+position = Vector2(0, -4)
+texture = ExtResource("4_cv0no")
+centered = false
+hframes = 2
+
+[connection signal="drag_ended" from="AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderDragEnded"]
+[connection signal="value_changed" from="AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderValueChanged"]

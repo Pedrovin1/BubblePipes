@@ -175,10 +175,12 @@ public partial class BasePipe : Button, ISlotInteractable
                 radiansRotation = Godot.Mathf.DegToRad(360);
             }
 
+            double animationTime = 1d / ConfigsMenu.animationSpeedMultiplier;
+
             using var rotationTween = this.GetTree().CreateTween().SetParallel(true); //memory leak here somehow, ~50kb each time
-            rotationTween.TweenProperty(this.pipeSprite, "rotation", radiansRotation, 1.0f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
-            rotationTween.TweenProperty(this.rootLiquidSprites, "rotation", radiansRotation, 1.0f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
-            rotationTween.TweenProperty(this.extraDetails, "rotation", radiansRotation, 1.0f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+            rotationTween.TweenProperty(this.pipeSprite, "rotation", radiansRotation, animationTime).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+            rotationTween.TweenProperty(this.rootLiquidSprites, "rotation", radiansRotation, animationTime).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
+            rotationTween.TweenProperty(this.extraDetails, "rotation", radiansRotation, animationTime).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Sine);
             rotationTween.Chain().TweenCallback(Callable.From(this.onAnimationFinished));
             
             rotationTween.Play();

@@ -82,10 +82,7 @@ public partial class BaseSource : BasePipe
     public override void UnlockRotation()
     {
         base.LockRotation();
-        foreach(SlotOutlet slotOulet in this.outletStates.Values)
-        {
-            slotOulet.Opened = true;
-        }
+        this.UpdateOutletOpeningStates();
     }
 
     public override void ResetOutletLiquids(LiquidType defaultLiquid = LiquidType.Vazio)

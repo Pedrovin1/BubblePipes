@@ -98,6 +98,9 @@ public partial class Tabuleiro : GridContainer
 
         this.UpdateBoardState();
         this.UpdateBoardState();
+        this.UpdateBoardState();
+        this.UpdateBoardState();
+        this.UpdateBoardState();
 
         foreach(int index in this.LiquidObjectiveIndexes)
         {

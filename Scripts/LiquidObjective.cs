@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 
 
 public partial class LiquidObjective : Button, ISlotInteractable
@@ -15,13 +16,12 @@ public partial class LiquidObjective : Button, ISlotInteractable
     [Export]
     public LiquidType requiredLiquid = LiquidType.Azul;
     public bool correctlyFilled {get; private set;} = false;
-    private bool bubbleLocked = false;
+    public bool bubbleLocked {get; private set;} = false;
     public int[] bubbleLockedTilesIndexes {get; private set;}
 
 
-    AnimationPlayer animationNode;
-    Node2D extraDetails;
-
+    private AnimationPlayer animationNode;
+    private Node2D extraDetails;
     private Sprite2D contentSprite;
 
     public Dictionary<Directions, SlotOutlet> outletStates = new()
@@ -88,7 +88,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         const int slotSize = 17;
         const int pivotOffset = 9;
 
-        Tween movementTween = this.GetTree().CreateTween();
+        using Tween movementTween = this.GetTree().CreateTween();
 
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
@@ -106,7 +106,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         }
     }
 
-    public void PlayBubbleReleasingAnimation()
+    public  void PlayBubbleReleasingAnimation()
     {
         double animationTime = 0.5d / ConfigsMenu.animationSpeedMultiplier;
 
@@ -129,9 +129,10 @@ public partial class LiquidObjective : Button, ISlotInteractable
     public void onClicked(){ return; }
     public void LockRotation()
     { 
-        this.bubbleLocked = true; 
+        this.bubbleLocked = true;
+        bool oldState = this.correctlyFilled;
         this.ResetOutletLiquids();
-        this.UpdateDrawingState();
+        this.UpdateDrawingState(oldState != this.correctlyFilled);
     }
     public void UnlockRotation()
     {  
@@ -161,7 +162,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         {
             animationNode.Play("ContentLoopRotation");
         }
-        else
+        else if(!this.correctlyFilled)
         {
             animationNode.Stop();  
             this.contentSprite.GlobalRotation = 0;
@@ -199,11 +200,6 @@ public partial class LiquidObjective : Button, ISlotInteractable
     {
         this.outletStates[outletPos].CurrentLiquid = liquid;
 
-        foreach(Directions connection in this.outletStates[outletPos].Connections)
-        {
-            this.outletStates[connection].CurrentLiquid = liquid;
-        }
-
         bool oldState = this.correctlyFilled;
         
         this.correctlyFilled = false;
@@ -221,7 +217,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
         if(this.correctlyFilled != oldState)
         {
-            this.EmitSignal(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this, liquid == this.requiredLiquid);
+            this.EmitSignal(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this, this.correctlyFilled);
             this.UpdateDrawingState(stateChanged:true);
         }
     }

@@ -63,13 +63,12 @@ public partial class Tabuleiro : GridContainer
                         slotObjective.Connect(LiquidObjective.SignalName.ObjectiveSlotStateChanged, this.c_onObjectiveSlotStateChanged);
                     }
 
-                    slotObjective.CallDeferred(LiquidObjective.MethodName.PlayBubbleSpreadingAnimation, this.GlobalPosition);
-        
-                    foreach(int lockedIndex in slotObjective.bubbleLockedTilesIndexes)
+                     foreach(int lockedIndex in slotObjective.bubbleLockedTilesIndexes)
                     {
                         this.GetChild<ISlotInteractable>(lockedIndex).LockRotation();
                     }
-                    
+
+                    slotObjective.PlayBubbleSpreadingAnimation(this.GlobalPosition);
                     break;
             }
 
@@ -80,7 +79,7 @@ public partial class Tabuleiro : GridContainer
             }
         }
 
-        this.UpdateBoardState();
+        //this.UpdateBoardState();
     }
 
     public void onLevelSelected(int level)
@@ -119,19 +118,21 @@ public partial class Tabuleiro : GridContainer
     {
         if(correctlyFilled)
         { 
-            objectiveSlot.PlayBubbleReleasingAnimation();
             foreach(int index in objectiveSlot.bubbleLockedTilesIndexes)
             {
                 this.GetChild<ISlotInteractable>(index).UnlockRotation();
             }
+            
+            objectiveSlot.PlayBubbleReleasingAnimation();
         }
         else
-        {                
-            objectiveSlot.PlayBubbleSpreadingAnimation(this.GlobalPosition);
+        {          
             foreach(int index in objectiveSlot.bubbleLockedTilesIndexes)
             {
                 this.GetChild<ISlotInteractable>(index).LockRotation();
-            }
+            }      
+
+            objectiveSlot.PlayBubbleSpreadingAnimation(this.GlobalPosition);
         }
     }
 
@@ -158,12 +159,23 @@ public partial class Tabuleiro : GridContainer
 
         foreach(ISlotInteractable node in this.GetChildren())
         {
+            if(node is LiquidObjective objective)
+            { 
+                if(objective.bubbleLocked)
+                {
+                    node.ResetOutletLiquids(LiquidType.Vazio); 
+                    continue; 
+                }
+            }
+
             if(!visitados.TryGetValue(node, out List<Directions> visitedOutlets)) 
             {
                 node.ResetOutletLiquids(LiquidType.Vazio);
             }
             else
             {
+                
+
                 for(int i = 0; i < 4; i++)
                 {
                     Directions outletPos = (Directions)i;

@@ -44,6 +44,8 @@ public partial class LevelMap : Node2D
     {
         if(this.showedLevelsRange[1] >= this.levelsAmount){ return; }
 
+        this.stopLevelBoxesAnimation();
+
         this.animationNode.Play("MoverAvancarMapaNiveis");
         this.showedLevelsRange[0] += 5;
         this.showedLevelsRange[1] += 5;
@@ -55,6 +57,8 @@ public partial class LevelMap : Node2D
         this.showedLevelsRange[0] -= 5;
         this.showedLevelsRange[1] -= 5;
         this.updateLevelBoxes();
+
+        this.stopLevelBoxesAnimation();
         
         this.animationNode.PlayBackwards("MoverAvancarMapaNiveis");
     }
@@ -72,6 +76,15 @@ public partial class LevelMap : Node2D
             LevelBox lbox = this.rootLevelBoxes.GetChild<LevelBox>(i);
             int levelNumber = this.showedLevelsRange[0] + i;
             lbox.SetLevelNumber(levelNumber, PlayerData.self.lastUnlockedLevel >= levelNumber);
+        }
+    }
+
+    private void stopLevelBoxesAnimation()
+    {
+        for( int i = 0; i < this.rootLevelBoxes.GetChildCount(); i++)
+        {
+            LevelBox lbox = this.rootLevelBoxes.GetChild<LevelBox>(i);
+            lbox.PauseAnimation();
         }
     }
 

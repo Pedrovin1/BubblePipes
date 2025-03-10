@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 
 public partial class LevelBox : Button
@@ -23,7 +24,27 @@ public partial class LevelBox : Button
         if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onPressed)))
         {
             this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onPressed));
+            this.Connect(Button.SignalName.MouseEntered, new Callable(this, MethodName.onMouseEntered));
+            this.Connect(Button.SignalName.MouseExited, new Callable(this, MethodName.onMouseExited));
         }
+    }
+
+    private void onMouseEntered()
+    {
+        if(PlayerData.self.lastUnlockedLevel < this.levelNumber){ return; }
+
+        this.buttonSprite.Frame = 2;
+
+        this.label.AddThemeConstantOverride("outline_size", 2);
+    }
+
+    private void onMouseExited()
+    {
+        if(PlayerData.self.lastUnlockedLevel < this.levelNumber){ return; }
+
+        this.label.RemoveThemeConstantOverride("outline_size");
+
+        this.buttonSprite.Frame = 1;
     }
 
     public void SetLevelNumber(int number, bool unlocked = true)
@@ -32,8 +53,15 @@ public partial class LevelBox : Button
         this.UpdateSprite(unlocked);
     }
 
+    public void PauseAnimation()
+    {
+        this.animationPlayer.Stop();
+    }
+
     private void UpdateSprite(bool unlocked)
     {
+        this.label.RemoveThemeConstantOverride("outline_size");
+
         this.label.Text = this.levelNumber.ToString();
         this.buttonSprite.Frame = 1;
         this.label.Visible = true;

@@ -51,6 +51,8 @@ public partial class BasePipe : Button, ISlotInteractable
         if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked)))
         {
             this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
+            this.Connect(Button.SignalName.MouseEntered, new Callable(this, MethodName.onMouseEntered));
+            this.Connect(Button.SignalName.MouseExited, new Callable(this, MethodName.onMouseExited));
         }
 
         BasePipe.defaultEmptyPipeResource = ResourceLoader.Load<PipeResource>("res://Assets/Resources/Pipe0_empty.tres");
@@ -101,6 +103,9 @@ public partial class BasePipe : Button, ISlotInteractable
         this.UpdateDrawingState();
     }
 
+    protected virtual void onMouseEntered(){ return; }
+    protected virtual void onMouseExited(){ return; }
+
     protected virtual void LoadExtraDetails()
     {
         return;
@@ -134,23 +139,6 @@ public partial class BasePipe : Button, ISlotInteractable
         this.UpdateDrawingState(animate:true);
     }
 
-
-    public void ChangePipeContent(PipeResource newPipe, byte state = 0, bool canRotate = true)
-    {
-        // this.pipeResource = newPipe;
-        // this.stateNumber = (byte) (state % newPipe.statesAmount);
-        // this.canRotate = canRotate;
-
-        // this.pipeSprite.Texture = newPipe.pipeSpriteFile;
-        // this.pipeSprite.Hframes = pipeResource.pipeSpriteHframes;
-        // this.pipeSprite.Frame = newPipe.pipeSpriteFrame;
-
-        // //TODO: atualizar os pipe filling sprites2D
-
-        // this.UpdateOutletOpeningStates();
-        // this.UpdateOutletConnections();
-        // this.UpdateDrawingState();
-    }
     public virtual bool IsPlayingAnimation()
     {
         return this.isPlayingAnimation;

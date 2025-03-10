@@ -37,6 +37,8 @@ public partial class LiquidObjective : Button, ISlotInteractable
         if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked)))
         {
             this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
+            this.Connect(Button.SignalName.MouseEntered, new Callable(this, MethodName.onMouseEntered));
+            this.Connect(Button.SignalName.MouseExited, new Callable(this, MethodName.onMouseExited));
         }
         this.animationNode = (AnimationPlayer)FindChild("AnimationPlayer");
         
@@ -76,6 +78,35 @@ public partial class LiquidObjective : Button, ISlotInteractable
             this.extraDetails.AddChild(bubbleNode);
             bubbleNode.Owner = this;
             bubbleNode.Hide();
+        }
+    }
+
+    private void onMouseEntered()
+    {
+        Color lineColor = GameUtils.LiquidColorsRGB[this.requiredLiquid];
+        lineColor.A8 = 150;
+
+        foreach(int lockedSlotIndex in this.bubbleLockedTilesIndexes)
+        {
+            var lockedSlotPosition = GetParent<Tabuleiro>().GetChild<Control>(lockedSlotIndex).GlobalPosition; //tightly coupled
+            
+            var lineNode = new Line2D()
+            {
+                Points = new Vector2[] {Vector2.Zero,  lockedSlotPosition - this.GlobalPosition},
+                Width = 1,
+                SelfModulate = lineColor,
+                ZIndex = 7
+            };
+            this.extraDetails.AddChild(lineNode);
+            lineNode.Owner = this;
+        }
+    }
+
+    private void onMouseExited()
+    {
+        foreach(Node node in this.extraDetails.GetChildren())
+        {
+            if(node is Line2D){node.QueueFree();}
         }
     }
 

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BubblePipes"
-run/main_scene="res://Scenes/StartMenuScreen/StartMenuScreen.tscn"
+run/main_scene="res://Scenes/MainGameWindow/main_game_window.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

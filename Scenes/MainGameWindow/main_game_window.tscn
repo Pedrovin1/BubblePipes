@@ -190,7 +190,7 @@ columns = 5
 script = ExtResource("1_3cr4x")
 
 [node name="LevelTransitionPolygon" type="Polygon2D" parent="CanvasLayer"]
-z_index = 6
+z_index = 7
 position = Vector2(91, 90)
 scale = Vector2(1.65385, 1)
 color = Color(0.0431373, 0.0431373, 0.0431373, 1)

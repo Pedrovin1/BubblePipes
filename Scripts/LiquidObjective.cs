@@ -63,21 +63,17 @@ public partial class LiquidObjective : Button, ISlotInteractable
         if(this.bubbleLockedTilesIndexes == null || this.bubbleLockedTilesIndexes.Length == 0){ return; }
 
         const int frameOffset = -1;
-        Texture2D texture = ResourceLoader.Load<Texture2D>("res://Assets/Sprites/bubbleLocks.png");
+        var bubbleLockScene = ResourceLoader.Load<PackedScene>("res://Scenes/BubbleLock/BubbleLock.tscn");
         
         foreach(int bubbleIndex in this.bubbleLockedTilesIndexes)
         {
-            Sprite2D bubbleNode = new Sprite2D()
-            {
-                Texture = texture,
-                Hframes = 5,
-                Frame = (int)this.requiredLiquid + frameOffset,
-                ZIndex = 5,
-                Position = new Vector2(0f, 0f)
-            };
-            this.extraDetails.AddChild(bubbleNode);
-            bubbleNode.Owner = this;
-            bubbleNode.Hide();
+            Node2D bubblelockNode = bubbleLockScene.Instantiate<Node2D>();
+            bubblelockNode.GetChild<Sprite2D>(1).Frame = (int)this.requiredLiquid + frameOffset;
+            bubblelockNode.Position = new Vector2(0f, 0f);
+            
+            this.extraDetails.AddChild(bubblelockNode);
+            bubblelockNode.Owner = this;
+            bubblelockNode.Hide();
         }
     }
 
@@ -85,6 +81,11 @@ public partial class LiquidObjective : Button, ISlotInteractable
     {
         Color lineColor = GameUtils.LiquidColorsRGB[this.requiredLiquid];
         lineColor.A8 = 150;
+
+        foreach(Node bubbleLock in this.extraDetails.GetChildren())
+        {
+            bubbleLock.GetChild<AnimationPlayer>(0).Play("WobblingBubble");
+        }
 
         foreach(int lockedSlotIndex in this.bubbleLockedTilesIndexes)
         {
@@ -100,6 +101,8 @@ public partial class LiquidObjective : Button, ISlotInteractable
             this.extraDetails.AddChild(lineNode);
             lineNode.Owner = this;
         }
+
+
     }
 
     private void onMouseExited()
@@ -123,7 +126,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
-            var bubble = this.extraDetails.GetChild<Sprite2D>(i);
+            var bubble = this.extraDetails.GetChild<Node2D>(i);
             bubble.Position = new Vector2(0f, 0f);
 
             int destinySlotIndex = this.bubbleLockedTilesIndexes[i];
@@ -145,7 +148,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         {
             using Tween floatingTween = this.GetTree().CreateTween();
 
-            var bubble = this.extraDetails.GetChild<Sprite2D>(i);
+            var bubble = this.extraDetails.GetChild<Node2D>(i);
             floatingTween.TweenProperty(bubble, "global_position:y", -25f, animationTime)
                 .SetEase(Tween.EaseType.InOut)
                 .SetTrans(Tween.TransitionType.Sine);

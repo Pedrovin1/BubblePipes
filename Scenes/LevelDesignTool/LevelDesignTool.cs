@@ -38,17 +38,17 @@ public partial class LevelDesignTool : Control
             switch(this.samplesRoot.GetChild<ContentSampleSlot>(slot.contentSampleIndex).pipeName)
             {
                 case "gate": 
-                    slot.color = (LiquidType)(((int)slot.color + 1) % 5); //requires offset when exporting
+                    slot.color = (LiquidType)(((int)slot.color + 1) % 5 + 1); //requires offset when exporting
                     slot.SetColor(GameUtils.LiquidColorsRGB[slot.color]);
                     return;
 
                 case "objective": 
-                    slot.color = (LiquidType)(((int)slot.color + 1) % 5); //requires offset when exporting
+                    slot.color = (LiquidType)(((int)slot.color + 1) % 5 + 1); //requires offset when exporting
                     slot.GetChild<Sprite2D>(0).Frame = (int)slot.color; 
                     return;
 
                 case "source": 
-                    slot.color = (LiquidType)(((int)slot.color + 1) % 5); //requires offset when exporting
+                    slot.color = (LiquidType)(((int)slot.color + 1) % 5 + 1); //requires offset when exporting
                     slot.GetChild<Sprite2D>(0).Frame = (int)slot.color; 
                     return;
 

@@ -12,6 +12,8 @@ public partial class SignalBus : Node
 
     [Signal]
     public delegate void LevelSelectedEventHandler(int level);
+    [Signal]
+    public delegate void LevelLoadedEventHandler();
 
     [Signal]
     public delegate void AddItemToInventoryEventHandler(string itemJsonData);

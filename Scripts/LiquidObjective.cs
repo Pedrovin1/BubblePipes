@@ -1,9 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Versioning;
-using System.Threading.Tasks;
 
 
 public partial class LiquidObjective : Button, ISlotInteractable
@@ -70,6 +67,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
             Node2D bubblelockNode = bubbleLockScene.Instantiate<Node2D>();
             bubblelockNode.GetChild<Sprite2D>(1).Frame = (int)this.requiredLiquid + frameOffset;
             bubblelockNode.Position = new Vector2(0f, 0f);
+            bubblelockNode.GlobalRotation = 0;
             
             this.extraDetails.AddChild(bubblelockNode);
             bubblelockNode.Owner = this;
@@ -84,7 +82,10 @@ public partial class LiquidObjective : Button, ISlotInteractable
 
         foreach(Node bubbleLock in this.extraDetails.GetChildren())
         {
-            bubbleLock.GetChild<AnimationPlayer>(0).Play("WobblingBubble");
+            var animationNode = bubbleLock.GetChild<AnimationPlayer>(0);
+            animationNode.ClearQueue();
+            animationNode.Play("WobblingBubble");
+            animationNode.Queue("Idle");
         }
 
         foreach(int lockedSlotIndex in this.bubbleLockedTilesIndexes)
@@ -123,10 +124,12 @@ public partial class LiquidObjective : Button, ISlotInteractable
         const int pivotOffset = 9;
 
         using Tween movementTween = this.GetTree().CreateTween();
+        Random rng = new();
 
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
             var bubble = this.extraDetails.GetChild<Node2D>(i);
+            var animationNode = (AnimationPlayer) bubble.FindChild("AnimationPlayer");
             bubble.Position = new Vector2(0f, 0f);
 
             int destinySlotIndex = this.bubbleLockedTilesIndexes[i];
@@ -136,6 +139,8 @@ public partial class LiquidObjective : Button, ISlotInteractable
             movementTween.TweenCallback(Callable.From(bubble.Show));
             movementTween.TweenProperty(bubble, "global_position", finalPosition, animationTime)
                 .SetTrans(Tween.TransitionType.Cubic);
+            movementTween.TweenProperty(bubble, "global_rotation", 0, 0);
+            movementTween.TweenCallback(Callable.From( () => animationNode.Play("Idle", customSpeed: rng.NextSingle() + 0.5f ) ) );
             movementTween.Play();
         }
     }
@@ -149,12 +154,15 @@ public partial class LiquidObjective : Button, ISlotInteractable
             using Tween floatingTween = this.GetTree().CreateTween();
 
             var bubble = this.extraDetails.GetChild<Node2D>(i);
+            ((AnimationPlayer)bubble.FindChild("AnimationPlayer")).Stop();
+
             floatingTween.TweenProperty(bubble, "global_position:y", -25f, animationTime)
                 .SetEase(Tween.EaseType.InOut)
                 .SetTrans(Tween.TransitionType.Sine);
 
             floatingTween.TweenCallback(Callable.From(bubble.Hide));
             floatingTween.TweenProperty(bubble, "position", Vector2.Zero, 0f);
+            floatingTween.TweenProperty(bubble, "global_rotation", 0, 0);
     
             floatingTween.Play();
         }
@@ -176,6 +184,8 @@ public partial class LiquidObjective : Button, ISlotInteractable
     private void ClearDetailSprites()
     {
         var rootLiquidSprites = this.GetNode<Node2D>("./CenterContainer/Panel/RootLiquids");
+
+        this.extraDetails.GlobalRotation = 0;
         
         foreach(Node node in rootLiquidSprites.GetChildren())
         {

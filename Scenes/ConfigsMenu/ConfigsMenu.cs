@@ -44,13 +44,15 @@ public partial class ConfigsMenu : Control
     {
         this.FindChild("ConfigurationsButton").GetChild<Sprite2D>(0).Frame = toggledOn ? 1 : 0;
         this.GetChild<Node2D>(1).Visible = toggledOn;
+        this.GetChild<Node2D>(1).ZIndex = toggledOn ? 8 : 0;
 
         GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.ConfigurationsMenuToggled, toggledOn);
     }
 
     public void onInventoryMenuToggled(bool toggledOn)
     {
-        this.Visible = !toggledOn;
+
+        this.GetChild<CanvasItem>(0).Visible = !toggledOn;
         this.ZIndex = toggledOn ? 8 : 0;
     }
 

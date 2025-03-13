@@ -23,6 +23,12 @@ public partial class Tabuleiro : GridContainer
 
     public override void _Ready()
     {
+        foreach(var tween in this.GetTree().GetProcessedTweens())
+        {
+            tween.Stop();
+            tween.Kill();
+        }
+
         this.levelCompleted = false;
 
         if(this.c_connect)
@@ -37,6 +43,7 @@ public partial class Tabuleiro : GridContainer
         }
         
         this.LoadLevel(this.currentLevel);
+        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.LevelLoaded);
 
         //DEBUG-CREATOR-MODE:------
         if(this.exportLevelMode)

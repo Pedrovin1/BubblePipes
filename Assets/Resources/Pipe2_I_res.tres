@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=4 format=3 uid="uid://cgr0j2udsdllu"]
 
 [ext_resource type="Script" path="res://Scripts/ResourceScripts/PipeResource.cs" id="1_1o3j5"]
-[ext_resource type="Texture2D" uid="uid://c0qr0pepxl2jw" path="res://Assets/Sprites/LiquidFillings.png" id="1_5rj2a"]
-[ext_resource type="Texture2D" uid="uid://clevgkn542nkf" path="res://Assets/Sprites/BasicPipes.png" id="2_op7bt"]
+[ext_resource type="Texture2D" uid="uid://x5mlx8vtfo2s" path="res://Assets/Sprites/BasicPipesLiquidFillings.png" id="1_86uab"]
+[ext_resource type="Texture2D" uid="uid://bmcpfm7f0f1iu" path="res://Assets/Sprites/BasicPipes_alt.png" id="2_pja3y"]
 
 [resource]
 script = ExtResource("1_1o3j5")
@@ -14,9 +14,9 @@ baseOutletConnections = {
 3: []
 }
 statesAmount = 4
-liquidSegmentsSpriteFile = ExtResource("1_5rj2a")
-LiquidSegmentsHframes = 9
-baseLiquidSegmentLayout = Array[Vector2i]([Vector2i(1, 0)])
-pipeSpriteFile = ExtResource("2_op7bt")
+liquidSegmentsSpriteFile = ExtResource("1_86uab")
+LiquidSegmentsHframes = 4
+baseLiquidSegmentLayout = Array[Vector2i]([Vector2i(3, 0)])
+pipeSpriteFile = ExtResource("2_pja3y")
 pipeSpriteHframes = 5
 pipeSpriteFrame = 3

@@ -27,6 +27,8 @@ public partial class Inventory : Control
     AnimationPlayer animationNode;
     Node inventorySlotsRoot;
 
+    private bool visibilyHiddenLocked = true;
+
 
 
     public override void _Ready()
@@ -52,11 +54,33 @@ public partial class Inventory : Control
         GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.RemoveHeldItemFromInventory, Callable.From(this.onRemoveHeldItemFromInventory));
         GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.AddItemToInventory, new Callable(this, Inventory.MethodName.onAddItemToInventory));
         GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.ConfigurationsMenuToggled, new Callable(this, Inventory.MethodName.onConfigurationsMenuToggled));
+        GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.LevelLoaded, new Callable(this, Inventory.MethodName.onLevelLoaded));
         this.updateSlotSprites();
+    }
+
+    public void onLevelLoaded()
+    {
+        if(this.pipesJsonData is null || this.pipesJsonData.Count <= 0)
+        {
+            this.visibilyHiddenLocked = true;
+            this.Visible = false;
+            this.inventoryBagSprite.Frame = 0;
+            this.opened = false;
+            this.animationNode.PlayBackwards("OpenInventory");
+            GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.InventoryMenuToggled, this.opened);
+        }
+        else
+        {
+            this.visibilyHiddenLocked = false;
+            this.Visible = true;
+        }
+
     }
 
     public void onConfigurationsMenuToggled(bool toggledOn)
     {
+        if(this.visibilyHiddenLocked){ return; }
+
         this.Visible = !toggledOn;
     }
 

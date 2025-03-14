@@ -5,9 +5,12 @@ using System.Globalization;
 public partial class ConfigsMenu : Control
 {
     public static double animationSpeedMultiplier = 1;
+    public static bool ColorblindMode = false;
 
     HSlider animationSpeedNode;
     Label animationSpeedNumber;
+    Button colorblindButton;
+    
 
     public override void _Ready()
     {
@@ -16,6 +19,7 @@ public partial class ConfigsMenu : Control
         this.GetChild<Node2D>(1).Visible = false;
         this.animationSpeedNode = (HSlider)FindChild("AnimationSpeedHSlider");
         this.animationSpeedNumber = GetNode<Label>("./Node2D/Labels/AnimationSpeedNumber");
+        this.colorblindButton = (Button)FindChild("ColorblindButton");
     }
 
     public void onAnimationSpeedSliderValueChanged(float value)
@@ -33,6 +37,14 @@ public partial class ConfigsMenu : Control
     public void onAnimationSpeedSliderDragEnded(bool _)
     {
         ConfigsMenu.animationSpeedMultiplier = this.animationSpeedNode.Value;
+    }
+
+    public void onColorblindButtonToggled(bool toggledOn)
+    {
+        ConfigsMenu.ColorblindMode = toggledOn;
+
+        if(toggledOn){ this.colorblindButton.GetChild<Sprite2D>(0).Frame = 1;}
+        else{          this.colorblindButton.GetChild<Sprite2D>(0).Frame = 0;}
     }
 
     public void onQuitGameButtonPressed()

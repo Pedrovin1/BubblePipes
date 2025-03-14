@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bygbcga2h7x1l"]
+[gd_scene load_steps=9 format=3 uid="uid://bygbcga2h7x1l"]
 
 [ext_resource type="Texture2D" uid="uid://cg0ew7utlbjtk" path="res://Scenes/MainGameWindow/DefaultFrame.png" id="1_juu10"]
 [ext_resource type="Script" path="res://Scenes/ConfigsMenu/ConfigsMenu.cs" id="1_ohtd4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ua67fjqh6h0o" path="res://Assets/Sprites/DefaultFrame.png" id="2_nt2sj"]
 [ext_resource type="Texture2D" uid="uid://cvjfm2n0athur" path="res://Assets/Sprites/quitButton.png" id="5_uv66u"]
 [ext_resource type="Texture2D" uid="uid://bj4lvfm2p8j8p" path="res://Assets/Sprites/line.png" id="6_1iwd5"]
+[ext_resource type="Texture2D" uid="uid://0eky6h3qajq" path="res://Assets/Sprites/on_off_button.png" id="7_emp34"]
 
 [node name="ConfigsMenu" type="Control"]
 custom_minimum_size = Vector2(86, 171)
@@ -133,6 +134,19 @@ texture = ExtResource("5_uv66u")
 centered = false
 hframes = 2
 
+[node name="ColorblindButton" type="Button" parent="Node2D"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 32.0
+offset_top = 87.0
+offset_right = 55.0
+offset_bottom = 102.0
+toggle_mode = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/ColorblindButton"]
+position = Vector2(11, 8)
+texture = ExtResource("7_emp34")
+hframes = 2
+
 [node name="DetailSprites" type="Node2D" parent="Node2D"]
 position = Vector2(-59, -5)
 
@@ -171,7 +185,19 @@ theme_override_font_sizes/font_size = 6
 text = "1.0x"
 horizontal_alignment = 1
 
+[node name="ColorblindLabel" type="Label" parent="Node2D/Labels"]
+offset_left = 13.0
+offset_top = 79.0
+offset_right = 78.0
+offset_bottom = 89.0
+theme_override_font_sizes/font_size = 6
+text = "Colorblind Mode (WIP)"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
 [connection signal="toggled" from="ConfigurationsButton" to="." method="onConfigurationsButtonToggled"]
 [connection signal="drag_ended" from="Node2D/AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderDragEnded"]
 [connection signal="value_changed" from="Node2D/AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderValueChanged"]
 [connection signal="pressed" from="Node2D/QuitButton" to="." method="onQuitGameButtonPressed"]
+[connection signal="toggled" from="Node2D/ColorblindButton" to="." method="onColorblindButtonToggled"]

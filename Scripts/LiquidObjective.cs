@@ -41,7 +41,10 @@ public partial class LiquidObjective : Button, ISlotInteractable
         
         this.contentSprite = (Sprite2D)FindChild("ContentFrame");
         this.contentSprite.Hframes = 5;
-        this.contentSprite.Texture = ResourceLoader.Load<Texture2D>("res://Assets/Sprites/LiquidObjectiveSprites.png");
+    
+        this.contentSprite.Texture = ConfigsMenu.ColorblindMode ? 
+            ResourceLoader.Load<Texture2D>("res://Assets/Sprites/LiquidObjectiveSpritesColorBlindMode.png") :
+            ResourceLoader.Load<Texture2D>("res://Assets/Sprites/LiquidObjectiveSprites.png");
 
         this.extraDetails = this.GetNode<Node2D>("./CenterContainer/Panel/ExtraDetails");
         this.ClearDetailSprites();
@@ -65,7 +68,14 @@ public partial class LiquidObjective : Button, ISlotInteractable
         foreach(int bubbleIndex in this.bubbleLockedTilesIndexes)
         {
             Node2D bubblelockNode = bubbleLockScene.Instantiate<Node2D>();
+            var colorblindIconsNode = (Sprite2D)bubblelockNode.FindChild("ColorblindIcons");
+
             bubblelockNode.GetChild<Sprite2D>(1).Frame = (int)this.requiredLiquid + frameOffset;
+            colorblindIconsNode.Frame = (int)this.requiredLiquid + frameOffset;
+
+            colorblindIconsNode.Hide();
+            if(ConfigsMenu.ColorblindMode){ colorblindIconsNode.Show(); }
+
             bubblelockNode.Position = new Vector2(0f, 0f);
             bubblelockNode.GlobalRotation = 0;
             

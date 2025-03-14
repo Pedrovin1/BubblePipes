@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://qbanecuqge6i"]
+[gd_scene load_steps=7 format=3 uid="uid://qbanecuqge6i"]
 
 [ext_resource type="Texture2D" uid="uid://dcoor80fxujbd" path="res://Assets/Sprites/bubbleLocks.png" id="1_m3wxc"]
+[ext_resource type="Texture2D" uid="uid://o6p7j2h4v332" path="res://Assets/Sprites/ColoblindIcons_bubbleLocks.png" id="2_70que"]
 
 [sub_resource type="Animation" id="Animation_3j7cx"]
 resource_name = "Idle"
@@ -79,4 +80,10 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 5
 texture = ExtResource("1_m3wxc")
+hframes = 5
+
+[node name="ColorblindIcons" type="Sprite2D" parent="Sprite2D"]
+visible = false
+position = Vector2(6, -6)
+texture = ExtResource("2_70que")
 hframes = 5

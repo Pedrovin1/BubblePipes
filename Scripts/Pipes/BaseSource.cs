@@ -23,7 +23,9 @@ public partial class BaseSource : BasePipe
         ((Node2D)FindChild("ContentFrame")).Hide();
 
         AnimatedSprite2D sprite = (AnimatedSprite2D)this.pipeSprite;
-        sprite.SpriteFrames = ResourceLoader.Load<SpriteFrames>("res://Assets/Sprites/LiquidAnimations.tres");
+        sprite.SpriteFrames = ConfigsMenu.ColorblindMode ?
+            ResourceLoader.Load<SpriteFrames>("res://Assets/Sprites/ColorBlindLiquidAnimations.tres") :
+            ResourceLoader.Load<SpriteFrames>("res://Assets/Sprites/LiquidAnimations.tres");
         sprite.Animation = sourceLiquid.ToString();
         sprite.Offset = new Vector2(-8,-7);
         sprite.Position = new Vector2(9, 9);

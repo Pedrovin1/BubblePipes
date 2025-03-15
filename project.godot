@@ -27,7 +27,10 @@ window/size/viewport_height=200
 window/size/resizable=false
 window/size/window_width_override=450
 window/size/window_height_override=600
+window/energy_saving/keep_screen_on=false
+window/stretch/aspect="ignore"
 window/stretch/scale=3.0
+window/handheld/orientation=1
 
 [dotnet]
 

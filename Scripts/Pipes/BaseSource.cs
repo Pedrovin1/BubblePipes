@@ -83,7 +83,8 @@ public partial class BaseSource : BasePipe
 
     public override void UnlockRotation()
     {
-        base.LockRotation();
+        base.UnlockRotation();
+        this.canRotate = false;
         this.UpdateOutletOpeningStates();
     }
 

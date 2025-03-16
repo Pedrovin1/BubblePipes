@@ -159,6 +159,20 @@ public partial class LevelDesignTool : Control
 
         foreach(LevelDesignSlot slot in this.designSlotsRoot.GetChildren())
         {
+            var sample = this.samplesRoot.GetChild<ContentSampleSlot>(slot.contentSampleIndex);
+            if( sample.pipeName == "source")
+            {
+                string temp = sample.DefaultPipeJson.ReplaceN("\"sourceLiquid\":1", $"\"sourceLiquid\":{(int)slot.color+1}");
+                file.StoreLine(temp);
+                continue;
+            }
+            if(sample.pipeName == "objective")
+            {
+                string temp = sample.DefaultPipeJson.ReplaceN("\"requiredLiquid\":1", $"\"requiredLiquid\":{(int)slot.color+1}");
+                file.StoreLine(temp);
+                continue;
+            }
+
             file.StoreLine(this.samplesRoot.GetChild<ContentSampleSlot>(slot.contentSampleIndex).DefaultPipeJson);
         }
 

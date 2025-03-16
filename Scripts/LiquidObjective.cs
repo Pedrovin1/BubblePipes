@@ -151,13 +151,20 @@ public partial class LiquidObjective : Button, ISlotInteractable
                 .SetTrans(Tween.TransitionType.Cubic);
             movementTween.TweenProperty(bubble, "global_rotation", 0, 0);
             movementTween.TweenCallback(Callable.From( () => animationNode.Play("Idle", customSpeed: rng.NextSingle() + 0.5f ) ) );
+            
             movementTween.Play();
         }
+
+        Tabuleiro.animationWaitTime = Mathf.Max(Tabuleiro.animationWaitTime, animationTime * this.extraDetails.GetChildCount());
+        
+        // better approach but idk how to integrate it
+        // GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.ObjectiveBubbleAnimationStarted, 
+        //                                                         animationTime * this.extraDetails.GetChildCount()); 
     }
 
     public  void PlayBubbleReleasingAnimation()
     {
-        double animationTime = 0.5d / ConfigsMenu.animationSpeedMultiplier;
+        double animationTime = 0.4d / ConfigsMenu.animationSpeedMultiplier;
 
         for(int i = 0; i < this.extraDetails.GetChildCount(); i++)
         {
@@ -173,9 +180,14 @@ public partial class LiquidObjective : Button, ISlotInteractable
             floatingTween.TweenCallback(Callable.From(bubble.Hide));
             floatingTween.TweenProperty(bubble, "position", Vector2.Zero, 0f);
             floatingTween.TweenProperty(bubble, "global_rotation", 0, 0);
-    
+
             floatingTween.Play();
         }
+
+        Tabuleiro.animationWaitTime = Mathf.Max(Tabuleiro.animationWaitTime, animationTime * this.extraDetails.GetChildCount());
+
+        // GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.ObjectiveBubbleAnimationStarted, 
+        //                                                         animationTime * this.extraDetails.GetChildCount());
     }
 
     public void onClicked(){ return; }

@@ -152,6 +152,7 @@ visible = false
 position = Vector2(64, 85)
 
 [node name="Polygon2D" type="Polygon2D" parent="Node2D/ColorblindText"]
+z_index = 2
 position = Vector2(0, -2.23076)
 scale = Vector2(1, 0.942308)
 color = Color(0.219608, 0.168627, 0, 1)
@@ -163,6 +164,7 @@ offset_top = -52.0
 offset_right = 29.0
 
 [node name="Label" type="Label" parent="Node2D/ColorblindText/CenterContainer"]
+z_index = 2
 custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
 theme_override_constants/line_spacing = -2
@@ -174,6 +176,51 @@ text = "- Objective  and  source  sprite  changes
 - Hovering  mouse  over  a  liquid  source  makes  all  pipe  outlets  filled  with  the  same  color  start  to  blink
 
 [ Restart the level to apply ] *"
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ChainAnimationButton" type="Button" parent="Node2D"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 32.0
+offset_top = 57.0
+offset_right = 55.0
+offset_bottom = 72.0
+toggle_mode = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/ChainAnimationButton"]
+position = Vector2(11, 8)
+texture = ExtResource("7_emp34")
+hframes = 2
+frame = 1
+
+[node name="ChainAnimatonText" type="Node2D" parent="Node2D"]
+visible = false
+position = Vector2(64, 131)
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D/ChainAnimatonText"]
+z_index = 1
+position = Vector2(0, -2.23076)
+scale = Vector2(1, 0.942308)
+color = Color(0.219608, 0.168627, 0, 1)
+polygon = PackedVector2Array(-63, -56, 21, -56, 21, -4, -63, -4)
+
+[node name="CenterContainer" type="CenterContainer" parent="Node2D/ChainAnimatonText"]
+offset_left = -69.0
+offset_top = -49.0
+offset_right = 31.0
+offset_bottom = 3.0
+
+[node name="Label" type="Label" parent="Node2D/ChainAnimatonText/CenterContainer"]
+z_index = 1
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_constants/line_spacing = -2
+theme_override_font_sizes/font_size = 4
+text = "
+-Pipes  dont  get  \"animation-locked\"  anymore
+
+-But  disabling  this  option  might  leave  you  confused  about  how  the  board  got  to  its  current  state.
+"
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
@@ -216,12 +263,21 @@ text = "1.0x"
 horizontal_alignment = 1
 
 [node name="ColorblindLabel" type="Label" parent="Node2D/Labels"]
-offset_left = 13.0
+offset_left = 12.0
 offset_top = 79.0
-offset_right = 78.0
+offset_right = 77.0
 offset_bottom = 89.0
 theme_override_font_sizes/font_size = 6
 text = "Colorblind Mode (WIP)"
+horizontal_alignment = 1
+
+[node name="ChainAnimationLabel" type="Label" parent="Node2D/Labels"]
+offset_left = 4.0
+offset_top = 49.0
+offset_right = 83.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 6
+text = "Chain Reaction Animations"
 horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -233,3 +289,6 @@ horizontal_alignment = 1
 [connection signal="mouse_entered" from="Node2D/ColorblindButton" to="." method="onColorblindButtonMouseEntered"]
 [connection signal="mouse_exited" from="Node2D/ColorblindButton" to="." method="onColorblindButtonMouseExited"]
 [connection signal="toggled" from="Node2D/ColorblindButton" to="." method="onColorblindButtonToggled"]
+[connection signal="mouse_entered" from="Node2D/ChainAnimationButton" to="." method="onChainReactionAnimationButtonMouseEntered"]
+[connection signal="mouse_exited" from="Node2D/ChainAnimationButton" to="." method="onChainReactionAnimationMouseExited"]
+[connection signal="toggled" from="Node2D/ChainAnimationButton" to="." method="onChainReactionButtonToggled"]

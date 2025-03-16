@@ -134,7 +134,7 @@ public partial class BasePipe : Button, ISlotInteractable
 
     public virtual void onClicked()
     {
-        if(!canRotate || this.IsPlayingAnimation()){ return; }
+        if(!canRotate || this.IsPlayingAnimation() || Tabuleiro.processingBoardState){ return; }
 
         this.stateNumber = (byte) ((stateNumber + 1) % pipeResource.statesAmount);
         this.UpdateOutletOpeningStates();

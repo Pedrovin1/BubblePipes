@@ -7,9 +7,12 @@ public partial class ConfigsMenu : Control
     public static double animationSpeedMultiplier = 1;
     public static bool ColorblindMode = false;
 
+    public static bool chainAnimations = true;
+
     HSlider animationSpeedNode;
     Label animationSpeedNumber;
     Button colorblindButton;
+    Button chainAnimationsButton;
     
 
     public override void _Ready()
@@ -20,6 +23,7 @@ public partial class ConfigsMenu : Control
         this.animationSpeedNode = (HSlider)FindChild("AnimationSpeedHSlider");
         this.animationSpeedNumber = GetNode<Label>("./Node2D/Labels/AnimationSpeedNumber");
         this.colorblindButton = (Button)FindChild("ColorblindButton");
+        this.chainAnimationsButton = (Button)FindChild("ChainAnimationButton");
     }
 
     public void onAnimationSpeedSliderValueChanged(float value)
@@ -45,6 +49,14 @@ public partial class ConfigsMenu : Control
 
         if(toggledOn){ this.colorblindButton.GetChild<Sprite2D>(0).Frame = 1;}
         else{          this.colorblindButton.GetChild<Sprite2D>(0).Frame = 0;}
+    }
+
+    public void onChainReactionButtonToggled(bool toggledOn)
+    {
+        ConfigsMenu.chainAnimations = toggledOn;
+
+        if(toggledOn){ this.chainAnimationsButton.GetChild<Sprite2D>(0).Frame = 1;}
+        else{          this.chainAnimationsButton.GetChild<Sprite2D>(0).Frame = 0;}
     }
 
     public void onQuitGameButtonPressed()
@@ -76,6 +88,16 @@ public partial class ConfigsMenu : Control
     public void onColorblindButtonMouseExited()
     {
         ((Node2D)this.FindChild("ColorblindText")).Hide();
+    }
+
+    public void onChainReactionAnimationButtonMouseEntered()
+    {
+        ((Node2D)this.FindChild("ChainAnimatonText")).Show();
+    }
+
+    public void onChainReactionAnimationMouseExited()
+    {
+        ((Node2D)this.FindChild("ChainAnimatonText")).Hide();
     }
 
 }

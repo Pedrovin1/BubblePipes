@@ -35,6 +35,9 @@ public partial class SignalBus : Node
     [Signal]
     public delegate void StopBlinkPipeFillingsEventHandler(Timer blinkTimer);
 
+    // [Signal]
+    // public delegate void ObjectiveBubbleAnimationStartedEventHandler(double animationTime);
+
 
     public override void _Ready()
     {

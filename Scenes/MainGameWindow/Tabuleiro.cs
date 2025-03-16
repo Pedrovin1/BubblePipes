@@ -21,6 +21,11 @@ public partial class Tabuleiro : GridContainer
     private Callable c_onChildInteraction;
     private Callable c_onLevelSelected;
 
+    int updateBoardStateAmount = 0;
+    public static double animationWaitTime {get; set;} = 0d;
+    public static bool processingBoardState {get; private set;} = false;
+
+
     public override void _Ready()
     {
         foreach(var tween in this.GetTree().GetProcessedTweens())
@@ -99,12 +104,29 @@ public partial class Tabuleiro : GridContainer
         //this._Ready();
     }
 
-    public void onChildInteraction()
+    public async void onChildInteraction()
     {
-        if(this.levelCompleted){ return; }
+        if(this.levelCompleted || this.updateBoardStateAmount > 0){ return; }
 
-        this.UpdateBoardState();
-        this.UpdateBoardState();
+        Tabuleiro.processingBoardState = true;
+
+        this.updateBoardStateAmount = 0;
+        this.updateBoardStateAmount++; 
+
+        while(this.updateBoardStateAmount > 0) //since chain reactions can happen.
+        {
+            Tabuleiro.animationWaitTime = 0;
+
+            this.UpdateBoardState();
+            this.updateBoardStateAmount--;
+
+            if(ConfigsMenu.chainAnimations && this.updateBoardStateAmount > 0)
+            {
+                await ToSignal(GetTree().CreateTimer(Tabuleiro.animationWaitTime), Timer.SignalName.Timeout);
+            }
+        }
+
+        Tabuleiro.processingBoardState = false;
 
         foreach(int index in this.LiquidObjectiveIndexes)
         {
@@ -123,6 +145,8 @@ public partial class Tabuleiro : GridContainer
 
     private void onObjectiveSlotStateChanged(LiquidObjective objectiveSlot, bool correctlyFilled)
     {
+        this.updateBoardStateAmount++;
+
         if(correctlyFilled)
         { 
             foreach(int index in objectiveSlot.bubbleLockedTilesIndexes)
@@ -211,12 +235,14 @@ public partial class Tabuleiro : GridContainer
 
             if(visitados[currentNode].Contains(outletPos) || 
                 !currentNode.IsOpened(outletPos) ||
+                //(currentNode.GetLiquid(outletPos) != LiquidType.Vazio && currentNode.GetLiquid(outletPos) != currentLiquid) || //might break the game
                 currentLiquid == LiquidType.Vazio)
             { 
                 continue; 
             }
 
             currentNode.SetLiquid(outletPos, currentLiquid);
+            visitados[currentNode].Add(outletPos);
 
             foreach(Directions connections in currentNode.GetConnections(outletPos))
             {
@@ -229,7 +255,7 @@ public partial class Tabuleiro : GridContainer
                 }
             }
 
-            visitados[currentNode].Add(outletPos);
+            
         }
     }
 

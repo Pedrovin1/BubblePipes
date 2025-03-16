@@ -91,4 +91,28 @@ public partial class BaseSource : BasePipe
     {
         return;
     }
+
+    protected override void onMouseEntered()
+    {
+        if(ConfigsMenu.ColorblindMode == false){ return; }
+
+        Timer blinkTimer = new Timer()
+        {
+            WaitTime = 0.5f,
+            Autostart = true
+        };
+        this.extraDetails.AddChild(blinkTimer);
+        blinkTimer.Owner = this;
+
+        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.StartBlinkPipeFillings, blinkTimer, (int)this.sourceLiquid);
+    }
+    protected override void onMouseExited()
+    {
+        if(ConfigsMenu.ColorblindMode == false){ return; }
+        
+        var timer = this.extraDetails.GetChild<Timer>(0);
+        GetNode<SignalBus>(SignalBus.SignalBusPath).EmitSignal(SignalBus.SignalName.StopBlinkPipeFillings, timer);
+
+        timer.QueueFree();
+    }
 }

@@ -38,6 +38,8 @@ public partial class BasePipe : Button, ISlotInteractable
     protected Node2D extraDetails;
     protected bool isPlayingAnimation = false;
 
+    private Callable blinkCallable; 
+
     public Dictionary<Directions, SlotOutlet> outletStates = new()
     {
         {Directions.Cima,       new SlotOutlet()},
@@ -53,6 +55,9 @@ public partial class BasePipe : Button, ISlotInteractable
             this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
             this.Connect(Button.SignalName.MouseEntered, new Callable(this, MethodName.onMouseEntered));
             this.Connect(Button.SignalName.MouseExited, new Callable(this, MethodName.onMouseExited));
+
+            GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.StartBlinkPipeFillings, new Callable(this, BasePipe.MethodName.StartBlinkPipeFillings));
+            GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.StopBlinkPipeFillings, new Callable(this, BasePipe.MethodName.StopBlinkPipeFillings));
         }
 
         BasePipe.defaultEmptyPipeResource = ResourceLoader.Load<PipeResource>("res://Assets/Resources/Pipe0_empty.tres");
@@ -300,6 +305,36 @@ public partial class BasePipe : Button, ISlotInteractable
     {
         this.isPlayingAnimation = false;
         this.UpdateDrawingState(animate:false);
+    }
+
+    public void StartBlinkPipeFillings(Timer blinkTimer, int colorToBlinkEnum)
+    {
+        this.blinkCallable = Callable.From( () => this.onColorTimerTimeout(colorToBlinkEnum) );
+        blinkTimer.Connect(Timer.SignalName.Timeout, this.blinkCallable);
+    }
+
+
+    public  void StopBlinkPipeFillings(Timer blinkTimer)
+    {
+        blinkTimer.Disconnect(Timer.SignalName.Timeout, this.blinkCallable);
+
+        foreach(Node2D liquidSegment in this.rootLiquidSprites.GetChildren())
+        {
+             liquidSegment.Visible = true;
+        }
+    }
+
+    private void onColorTimerTimeout(int colorToBlinkEnum)
+    {
+        LiquidType color = (LiquidType)colorToBlinkEnum;
+
+        foreach(Node2D liquidSegment in this.rootLiquidSprites.GetChildren())
+        {
+            if(liquidSegment.SelfModulate.IsEqualApprox(GameUtils.LiquidColorsRGB[color]))
+            {
+                liquidSegment.Visible = !liquidSegment.Visible;
+            }
+        }
     }
 
 }

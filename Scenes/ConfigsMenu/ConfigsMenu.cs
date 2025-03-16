@@ -68,6 +68,14 @@ public partial class ConfigsMenu : Control
         this.ZIndex = toggledOn ? 8 : 0;
     }
 
+    public void onColorblindButtonMouseEntered()
+    {
+        ((Node2D)this.FindChild("ColorblindText")).Show();
+    }
 
+    public void onColorblindButtonMouseExited()
+    {
+        ((Node2D)this.FindChild("ColorblindText")).Hide();
+    }
 
 }

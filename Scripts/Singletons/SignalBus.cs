@@ -29,6 +29,12 @@ public partial class SignalBus : Node
      [Signal]
     public delegate void InventoryMenuToggledEventHandler(bool toggledOn);
 
+    [Signal]
+    public delegate void StartBlinkPipeFillingsEventHandler(Timer blinkTimer, int colorToBlinkEnum);
+
+    [Signal]
+    public delegate void StopBlinkPipeFillingsEventHandler(Timer blinkTimer);
+
 
     public override void _Ready()
     {

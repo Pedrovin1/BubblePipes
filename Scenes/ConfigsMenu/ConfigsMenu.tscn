@@ -147,6 +147,36 @@ position = Vector2(11, 8)
 texture = ExtResource("7_emp34")
 hframes = 2
 
+[node name="ColorblindText" type="Node2D" parent="Node2D"]
+visible = false
+position = Vector2(64, 85)
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D/ColorblindText"]
+position = Vector2(0, -2.23076)
+scale = Vector2(1, 0.942308)
+color = Color(0.219608, 0.168627, 0, 1)
+polygon = PackedVector2Array(-63, -56, 21, -56, 21, -4, -63, -4)
+
+[node name="CenterContainer" type="CenterContainer" parent="Node2D/ColorblindText"]
+offset_left = -71.0
+offset_top = -52.0
+offset_right = 29.0
+
+[node name="Label" type="Label" parent="Node2D/ColorblindText/CenterContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_constants/line_spacing = -2
+theme_override_font_sizes/font_size = 4
+text = "- Objective  and  source  sprite  changes
+
+- Bubble  Locks  now  have  an  icon  to  differentiate  their  color
+
+- Hovering  mouse  over  a  liquid  source  makes  all  pipe  outlets  filled  with  the  same  color  start  to  blink
+
+[ Restart the level to apply ] *"
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
 [node name="DetailSprites" type="Node2D" parent="Node2D"]
 position = Vector2(-59, -5)
 
@@ -200,4 +230,6 @@ horizontal_alignment = 1
 [connection signal="drag_ended" from="Node2D/AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderDragEnded"]
 [connection signal="value_changed" from="Node2D/AnimationSpeedHSlider" to="." method="onAnimationSpeedSliderValueChanged"]
 [connection signal="pressed" from="Node2D/QuitButton" to="." method="onQuitGameButtonPressed"]
+[connection signal="mouse_entered" from="Node2D/ColorblindButton" to="." method="onColorblindButtonMouseEntered"]
+[connection signal="mouse_exited" from="Node2D/ColorblindButton" to="." method="onColorblindButtonMouseExited"]
 [connection signal="toggled" from="Node2D/ColorblindButton" to="." method="onColorblindButtonToggled"]

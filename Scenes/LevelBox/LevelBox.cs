@@ -26,8 +26,17 @@ public partial class LevelBox : Button
             this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onPressed));
             this.Connect(Button.SignalName.MouseEntered, new Callable(this, MethodName.onMouseEntered));
             this.Connect(Button.SignalName.MouseExited, new Callable(this, MethodName.onMouseExited));
+            GetNode<SignalBus>(SignalBus.SignalBusPath).Connect(SignalBus.SignalName.LevelCompleted, new Callable(this, MethodName.onLevelCompleted));
         }
     }
+
+    public void onLevelCompleted(int level)
+    {
+        if(level == this.levelNumber)
+        {
+            this.FindChild("Checkmark").GetChild<CpuParticles2D>(2).Emitting = true;
+        }
+    }   
 
     private void onMouseEntered()
     {
@@ -62,6 +71,7 @@ public partial class LevelBox : Button
     {
         this.label.RemoveThemeConstantOverride("outline_size");
 
+        ((Node2D)this.FindChild("Checkmark")).Show();
         this.label.Text = this.levelNumber.ToString();
         this.buttonSprite.Frame = 1;
         this.label.Visible = true;
@@ -72,8 +82,14 @@ public partial class LevelBox : Button
             this.animationPlayer.Play("Idle", customSpeed: rng.NextSingle() + 0.7f);
         }
 
+        if(this.levelNumber >= PlayerData.self.lastUnlockedLevel)
+        {
+            ((Node2D)this.FindChild("Checkmark")).Hide();
+        }
+
         if(!unlocked)
         {
+            ((Node2D)this.FindChild("Checkmark")).Hide();
             this.buttonSprite.Frame = 0;
             this.label.Visible = false;
             this.animationPlayer.Stop();

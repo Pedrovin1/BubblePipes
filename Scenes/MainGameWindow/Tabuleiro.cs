@@ -98,6 +98,14 @@ public partial class Tabuleiro : GridContainer
     {
         foreach(Node node in this.GetChildren()){ node.GetChild<AnimationPlayer>(0).Play("RESET"); }
 
+        if(level == 27) //placeholder for the version 1.0
+        { 
+            this.Hide();
+            ((Sprite2D)this.GetOwner<Node>().FindChild("LevelCompleteSprite")).Frame = 1;
+            this.GetOwner<Node>().GetChild<AnimationPlayer>(0).Play("LevelComplete");
+            return;
+        }
+
         this.currentLevel = level;
         ((Node2D)this.GetOwner<Node>().FindChild("LevelCompleteSprite")).Hide();
         this.GetOwner<Node>().GetChild<AnimationPlayer>(0).Play("levelTransition"); //it calls _Ready during animation!

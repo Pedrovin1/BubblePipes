@@ -202,5 +202,6 @@ z_index = 7
 position = Vector2(102, 92)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("13_vagg7")
+hframes = 2
 
 [node name="LevelsMap" parent="CanvasLayer" instance=ExtResource("14_ckgum")]

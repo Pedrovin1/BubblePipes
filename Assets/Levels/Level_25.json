@@ -1,48 +1,48 @@
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":1,"stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":1}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[13, 14, 32],"requiredLiquid":1}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":1}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[28, 10],"requiredLiquid":1}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":2}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe4_Cross.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":3,"stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":3}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[23, 34, 19],"requiredLiquid":3}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe4_double_L.tres","stateNumber":1}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe4_plus.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":2}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":3}
-{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":1,"stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":2}
-{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":1,"stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[43],"requiredLiquid":2}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe4_Cross.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[0],"requiredLiquid":2}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[32, 35, 18],"requiredLiquid":2}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":2,"stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[19, 31, 13],"requiredLiquid":2}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[21, 26, 34],"requiredLiquid":2}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":2,"stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BaseSource.cs","canRotate":false,"pipeResourcePath":"res://Assets/Resources/LiquidResources/DefaultLiquid.tres","sourceLiquid":2,"stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":3}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[17, 30, 10, 40],"requiredLiquid":2}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":1}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe3__L.tres","stateNumber":2}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe4_double_L.tres","stateNumber":1}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":2}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[31],"requiredLiquid":1}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[11, 20],"requiredLiquid":1}
-{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[29, 5],"requiredLiquid":3}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
-{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe4_Cross.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_I_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[16, 41, 5],"requiredLiquid":2}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":0}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":1}
+{"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe2_L_res.tres","stateNumber":3}
+{"PipeScriptPath":"res://Scripts/LiquidObjective.cs","bubbleLockedTilesIndexes":[9],"requiredLiquid":2}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}
 {"PipeScriptPath":"res://Scripts/Pipes/BasePipe.cs","canRotate":true,"pipeResourcePath":"res://Assets/Resources/Pipe0_empty.tres","stateNumber":0}

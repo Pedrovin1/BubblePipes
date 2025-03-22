@@ -50,6 +50,8 @@ public partial class BasePipe : Button, ISlotInteractable
 
     public override void _Ready()
     {
+        this.isPlayingAnimation = false;
+
         if(!this.IsConnected(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked)))
         {
             this.Connect(Button.SignalName.Pressed, new Callable(this, MethodName.onClicked));
@@ -151,6 +153,7 @@ public partial class BasePipe : Button, ISlotInteractable
 
     public virtual void ResetTweens()
     {
+        this.isPlayingAnimation = false;
         return;
     }
     public virtual void UpdateDrawingState(bool animate = false)

@@ -144,7 +144,7 @@ begin_cap_mode = 1
 end_cap_mode = 1
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Node2D/Checkmark"]
-position = Vector2(5.25, -7.85714)
+position = Vector2(4.50222, -7.80495)
 scale = Vector2(0.75, 0.714286)
 emitting = false
 amount = 25
@@ -153,7 +153,7 @@ one_shot = true
 explosiveness = 1.0
 randomness = 0.2
 emission_shape = 3
-emission_rect_extents = Vector2(2, 2)
+emission_rect_extents = Vector2(4, 2)
 particle_flag_align_y = true
 direction = Vector2(0, 1)
 spread = 20.59

@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Security.Principal;
 
 public partial class LevelDesignSlot : Button
 {

@@ -114,7 +114,6 @@ z_index = 1
 position = Vector2(9, 9)
 centered = false
 offset = Vector2(-8, -8)
-hframes = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CenterContainer/Panel"]
 

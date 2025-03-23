@@ -90,7 +90,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
         Color lineColor = GameUtils.LiquidColorsRGB[this.requiredLiquid];
         lineColor.A8 = 150;
 
-        foreach(Node bubbleLock in this.extraDetails.GetChildren())
+        foreach(Node2D bubbleLock in this.extraDetails.GetChildren())
         {
             var animationNode = bubbleLock.GetChild<AnimationPlayer>(0);
             animationNode.ClearQueue();
@@ -101,7 +101,23 @@ public partial class LiquidObjective : Button, ISlotInteractable
         foreach(int lockedSlotIndex in this.bubbleLockedTilesIndexes)
         {
             var lockedSlotPosition = GetParent<Tabuleiro>().GetChild<Control>(lockedSlotIndex).GlobalPosition; //tightly coupled
-            
+
+            if(this.correctlyFilled)
+            {
+                var circleIcon = new Sprite2D()
+                {
+                    SelfModulate = new Color(1f, 1f, 1f, 0.5f),
+                    Texture = ResourceLoader.Load<Texture2D>("res://Assets/Sprites/circles.png"),
+                    Hframes = 5,
+                    Frame = 1,
+                    //Offset = new Vector2(-8f, -8f),
+                    GlobalPosition = lockedSlotPosition - this.GlobalPosition,
+                    ZIndex = 7
+                };
+                this.extraDetails.AddChild(circleIcon);
+                circleIcon.Owner = this;
+            }
+
             var lineNode = new Line2D()
             {
                 Points = new Vector2[] {Vector2.Zero,  lockedSlotPosition - this.GlobalPosition},
@@ -120,7 +136,7 @@ public partial class LiquidObjective : Button, ISlotInteractable
     {
         foreach(Node node in this.extraDetails.GetChildren())
         {
-            if(node is Line2D){node.QueueFree();}
+            if(node is Line2D || node is Sprite2D){node.QueueFree();}
         }
     }
 

@@ -1,0 +1,1 @@
+Project [Prototype] made to learn more about Godot, C#/.NET, git and gamedev-programming in general. There are a lot of known anti-patterns and bad practices, but nonetheless it was a great learning experience.
